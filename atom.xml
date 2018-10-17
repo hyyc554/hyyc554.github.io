@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-17T13:14:04.387Z</updated>
+  <updated>2018-10-17T15:19:06.122Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,29 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>浅析Python日志重复输出问题</title>
+    <link href="http://yoursite.com/2018/10/17/logging/"/>
+    <id>http://yoursite.com/2018/10/17/logging/</id>
+    <published>2018-10-17T15:19:34.046Z</published>
+    <updated>2018-10-17T15:19:06.122Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&amp;amp;dl=adventure-backpack-blue-mountains-868097.jpg&amp;amp;fm=jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ES基础学习</title>
     <link href="http://yoursite.com/2018/10/17/ES6/"/>
     <id>http://yoursite.com/2018/10/17/ES6/</id>
     <published>2018-10-17T12:21:04.073Z</published>
-    <updated>2018-10-17T13:14:04.387Z</updated>
+    <updated>2018-10-17T15:20:43.243Z</updated>
     
     <summary type="html">
     

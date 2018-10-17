@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-17T12:21:04.328Z</updated>
+  <updated>2018-10-17T13:14:04.387Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,17 +21,12 @@
     <link href="http://yoursite.com/2018/10/17/ES6/"/>
     <id>http://yoursite.com/2018/10/17/ES6/</id>
     <published>2018-10-17T12:21:04.073Z</published>
-    <updated>2018-10-17T12:21:04.328Z</updated>
+    <updated>2018-10-17T13:14:04.387Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;1-什么是ECMAScript&quot;&gt;&lt;a href=&quot;#1-什么是ECMAScript&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是ECMAScript&quot;&gt;&lt;/a&gt;1.
-        
-      
+      &lt;h2 id=&quot;1-什么是ECMAScript&quot;&gt;&lt;a href=&quot;#1-什么是ECMAScript&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是ECMAScript&quot;&gt;&lt;/a&gt;1. 什么是ECMAScript&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;ECMAScript是一种由&lt;a href=&quot;https://baike.baidu.com/item/Ecma%E5%9B%BD%E9%99%85&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Ecma国际&lt;/a&gt;（前身为&lt;a href=&quot;https://baike.baidu.com/item/%E6%AC%A7%E6%B4%B2%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%88%B6%E9%80%A0%E5%95%86%E5%8D%8F%E4%BC%9A/2052072&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;欧洲计算机制造商协会&lt;/a&gt;,英文名称是European Computer Manufacturers Association）通过ECMA-262标准化的脚本&lt;a href=&quot;https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;程序设计语言&lt;/a&gt;。这种语言在&lt;a href=&quot;https://baike.baidu.com/item/%E4%B8%87%E7%BB%B4%E7%BD%91&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;万维网&lt;/a&gt;上应用广泛，它往往被称为&lt;a href=&quot;https://baike.baidu.com/item/JavaScript&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;JavaScript&lt;/a&gt;或&lt;a href=&quot;https://baike.baidu.com/item/JScript&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;JScript&lt;/a&gt;，所以它可以理解为是javascript的一个标准,但实际上后两者是ECMA-262标准的实现和扩展。&lt;br&gt;
     
     </summary>
     

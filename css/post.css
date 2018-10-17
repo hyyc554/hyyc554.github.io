@@ -85,7 +85,7 @@
   top: 0;
 }
 .post .post-main a.headerlink::before {
-  content: "";
+  content: " ";
   margin-right: 0.3em;
 }
 .post .post-footer {

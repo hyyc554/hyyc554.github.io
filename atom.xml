@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-25T15:58:38.398Z</updated>
+  <updated>2018-10-25T17:20:01.763Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python虚拟环境--virtualenv</title>
+    <link href="http://yoursite.com/2018/10/26/pythonenv/"/>
+    <id>http://yoursite.com/2018/10/26/pythonenv/</id>
+    <published>2018-10-25T17:20:01.540Z</published>
+    <updated>2018-10-25T17:20:01.763Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-virtualenv&quot;&gt;&lt;a href=&quot;#1-virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1. virtualenv&quot;&gt;&lt;/a&gt;1. virtualenv&lt;/h2&gt;&lt;p&gt;　　virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>浅析Python日志重复输出问题</title>
@@ -39,7 +57,7 @@
     <link href="http://yoursite.com/2018/10/17/ES6/"/>
     <id>http://yoursite.com/2018/10/17/ES6/</id>
     <published>2018-10-17T12:21:04.073Z</published>
-    <updated>2018-10-17T15:20:43.243Z</updated>
+    <updated>2018-10-25T17:17:59.885Z</updated>
     
     <summary type="html">
     

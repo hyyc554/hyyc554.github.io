@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>浅析跨域请求 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。 造成跨域的原因浏览器的同源策略会导致跨域，这里同源策略又分为以下两种  DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。 XmlHttpRequest同源策略：禁止使用XHR对象">
+  <meta name="description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
 <meta name="keywords" content="HTTP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析跨域请求">
 <meta property="og:url" content="http://yoursite.com/2018/10/26/跨域/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。 造成跨域的原因浏览器的同源策略会导致跨域，这里同源策略又分为以下两种  DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。 XmlHttpRequest同源策略：禁止使用XHR对象">
+<meta property="og:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2018-10-26T11:46:54.550Z">
+<meta property="og:updated_time" content="2018-10-26T11:50:12.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析跨域请求">
-<meta name="twitter:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。 造成跨域的原因浏览器的同源策略会导致跨域，这里同源策略又分为以下两种  DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。 XmlHttpRequest同源策略：禁止使用XHR对象">
+<meta name="twitter:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -164,6 +164,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。</p>
+<a id="more"></a>
 <h3 id="造成跨域的原因"><a href="#造成跨域的原因" class="headerlink" title="造成跨域的原因"></a>造成跨域的原因</h3><p>浏览器的同源策略会导致跨域，这里同源策略又分为以下两种</p>
 <ul>
 <li>DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。</li>

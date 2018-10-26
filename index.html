@@ -143,6 +143,266 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-跨域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/26/跨域/">浅析跨域请求</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/26/跨域/" class="archive-article-date">
+  	<time datetime="2018-10-26T11:38:51.840Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。</p>
+<h3 id="造成跨域的原因"><a href="#造成跨域的原因" class="headerlink" title="造成跨域的原因"></a>造成跨域的原因</h3><p>浏览器的同源策略会导致跨域，这里同源策略又分为以下两种</p>
+<ul>
+<li>DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。</li>
+<li>XmlHttpRequest同源策略：禁止使用XHR对象向不同源的服务器地址发起HTTP请求。</li>
+</ul>
+<blockquote>
+<p>只要协议、域名、端口有任何一个不同，都被当作是不同的域，之间的请求就是跨域操作。</p>
+</blockquote>
+<h3 id="为什么要有跨域限制"><a href="#为什么要有跨域限制" class="headerlink" title="为什么要有跨域限制"></a>为什么要有跨域限制</h3><p>了解完跨域之后，想必大家都会有这么一个思考，为什么要有跨域的限制，浏览器这么做是出于何种原因呢。其实仔细想一想就会明白，跨域限制主要是为了安全考虑。</p>
+<p>AJAX同源策略主要用来防止CSRF攻击。如果没有AJAX同源策略，相当危险，我们发起的每一次HTTP请求都会带上请求地址对应的cookie，那么可以做如下攻击：</p>
+<ol>
+<li>用户登录了自己的银行页面 <code>http://mybank.com</code>，<code>http://mybank.com</code>向用户的cookie中添加用户标识。</li>
+<li>用户浏览了恶意页面 <code>http://evil.com</code>。执行了页面中的恶意AJAX请求代码。</li>
+<li><code>http://evil.com</code>向<code>http://mybank.com</code>发起AJAX HTTP请求，请求会默认把<code>http://mybank.com</code>对应cookie也同时发送过去。</li>
+<li>银行页面从发送的cookie中提取用户标识，验证用户无误，response中返回请求数据。此时数据就泄露了。</li>
+<li>而且由于Ajax在后台执行，用户无法感知这一过程。</li>
+</ol>
+<p>DOM同源策略也一样，如果iframe之间可以跨域访问，可以这样攻击：</p>
+<ol>
+<li>做一个假网站，里面用iframe嵌套一个银行网站 <code>http://mybank.com</code>。</li>
+<li>把iframe宽高啥的调整到页面全部，这样用户进来除了域名，别的部分和银行的网站没有任何差别。</li>
+<li>这时如果用户输入账号密码，我们的主网站可以跨域访问到<code>http://mybank.com</code>的dom节点，就可以拿到用户的输入了，那么就完成了一次攻击。</li>
+</ol>
+<p>所以说有了跨域跨域限制之后，我们才能更安全的上网了。</p>
+<h3 id="跨域的解决方式"><a href="#跨域的解决方式" class="headerlink" title="跨域的解决方式"></a>跨域的解决方式</h3><h4 id="跨域资源共享（CORS"><a href="#跨域资源共享（CORS" class="headerlink" title="跨域资源共享（CORS)"></a>跨域资源共享（CORS)</h4><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<br>对于这个方式，阮一峰老师总结的文章特别好，希望深入了解的可以看一下<code>http://www.ruanyifeng.com/blog/2016/04/cors.html</code>。</p>
+<p>通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。</p>
+<p>实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。</p>
+<p>服务器端在HTTP的响应头中加入（页面层次的控制模式）：</p>
+<p><strong><em>Access-Control-Allow-Origin: example.com</em></strong><br><strong><em>Access-Control-Request-Method: GET, POST</em></strong><br><strong><em>Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin</em></strong></p>
+<p><strong><em>Access-Control-Expose-Headers: Content-Range</em></strong></p>
+<p><strong><em>Access-Control-Max-Age: 3600</em></strong></p>
+<p>多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。”*”表示允许所有域名的跨域访问。</p>
+<p><strong>客户端可以有两种行为：</strong></p>
+<ol>
+<li><p>发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。</p>
+</li>
+<li><p>直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。</p>
+</li>
+</ol>
+<p>本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。</p>
+<p>这里我就简单的说一说大体流程。</p>
+<ol>
+<li>对于客户端，我们还是正常使用xhr对象发送ajax请求。<br>唯一需要注意的是，我们需要设置我们的xhr属性<code>withCredentials</code>为true，不然的话，cookie是带不过去的哦，设置： <code>xhr.withCredentials = true</code>;</li>
+<li>对于服务器端，需要在 response header中设置如下两个字段:<br><code>Access-Control-Allow-Origin: http://www.yourhost.com</code><br><code>Access-Control-Allow-Credentials:true</code><br>这样，我们就可以跨域请求接口了。</li>
+</ol>
+<p>在django的实际项目中,跨域用CORS技术构建一个中间件，来解决跨域问题：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">CORSMiddleware</span><span class="token punctuation">(</span>MiddlewareMixin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">process_response</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        解决跨域问题
+        :param request:
+        :param response:
+        :return:
+        """</span>
+        <span class="token comment" spellcheck="true"># 添加响应头</span>
+
+        <span class="token comment" spellcheck="true"># 允许你的域名来获取我的数据</span>
+        response<span class="token punctuation">[</span><span class="token string">'Access-Control-Allow-Origin'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"*"</span>
+
+        <span class="token comment" spellcheck="true"># 允许你携带Content-Type请求头</span>
+        <span class="token comment" spellcheck="true"># response['Access-Control-Allow-Headers'] = "Content-Type"</span>
+
+        <span class="token comment" spellcheck="true"># 允许你发送DELETE,PUT</span>
+        <span class="token comment" spellcheck="true"># response['Access-Control-Allow-Methods'] = "DELETE,PUT"</span>
+
+        <span class="token keyword">return</span> response
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="jsonp实现跨域"><a href="#jsonp实现跨域" class="headerlink" title="jsonp实现跨域"></a>jsonp实现跨域</h4><p>基本原理就是通过动态创建script标签,然后利用src属性进行跨域。<br>这么说比较模糊，我们来看个例子:</p>
+<pre><code>&lt;script&gt;
+//定义一个fun函数
+function fun(data) { 
+    console.log(data); 
+} 
+
+// 创建一个脚本，并且告诉后端回调函数名叫fun 
+var body= document.getElementsByTagName(&#39;body&#39;)[0]; 
+var script= document.createElement(&#39;script&#39;); 
+script.type= &#39;text/javascript&#39;; 
+script.src= &#39;demo.js?callback=fun&#39;; 
+body.appendChild(script); 
+&lt;/script&gt;
+</code></pre><p>返回的js脚本，直接会执行。所以就执行了事先定义好的fun函数了，并且把数据传入了进来。</p>
+<pre><code>fun({&quot;name&quot;:&quot;name&quot;})
+</code></pre><p>当然，这个只是一个原理演示，实际情况下，我们需要动态创建这个fun函数，并且在数据返回的时候销毁它。</p>
+<p>因为在实际使用的时候，我们用的各种ajax库，基本都包含了jsonp的封装，不过我们还是要知道一下原理，不然就不知道为什么jsonp不能发post请求了~</p>
+<h4 id="服务器代理"><a href="#服务器代理" class="headerlink" title="服务器代理"></a>服务器代理</h4><p>浏览器有跨域限制，但是服务器不存在跨域问题，所以可以由服务器请求所要域的资源再返回给客户端。</p>
+<blockquote>
+<p>服务器代理是万能的。</p>
+</blockquote>
+<h4 id="document-domain来跨子域"><a href="#document-domain来跨子域" class="headerlink" title="document.domain来跨子域"></a>document.domain来跨子域</h4><p>对于主域名相同，而子域名不同的情况，可以使用document.domain来跨域<br>这种方式非常适用于iframe跨域的情况，直接看例子吧<br>比如a页面地址为 <code>a.yourhost.com</code> b页面为 <code>b.yourhost.com</code>。<br>这样就可以通过分别给两个页面设置 <code>document.domain = yourhost.com</code> 来实现跨域。<br>之后，就可以通过 parent 或者 window[‘iframename’]等方式去拿到iframe的window对象了。</p>
+<h4 id="使用window-name进行跨域"><a href="#使用window-name进行跨域" class="headerlink" title="使用window.name进行跨域"></a>使用window.name进行跨域</h4><p>window.name跨域同样是受到同源策略限制，父框架和子框架的src必须指向统一域名。window.name的优势在于，name的值在不同的页面(或者不同的域名)，加载后仍然存在，除非你显示的更改。并且支持的长度达到2M.</p>
+<p>代码如下：</p>
+<pre><code>//a页面的代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+    iframe = document.createElement(&#39;iframe&#39;);
+    iframe.style.display = &#39;none&#39;;
+    var state = 0;
+
+    iframe.onload = function() {
+      if(state === 1) {
+          var data = iframe.contentWindow.name;
+          console.log(data);
+          iframe.contentWindow.document.write(&#39;&#39;);
+          iframe.contentWindow.close();
+          document.body.removeChild(iframe);
+      } else if(state === 0) {
+          state = 1;
+          iframe.contentWindow.location = 
+          &#39;http://m.zhuanzhuan.58.com:8887/b.html&#39;;
+      }
+    };
+    document.body.appendChild(iframe);
+&lt;/script&gt;
+</code></pre><pre><code>//b页面代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+    window.name = &quot;hello&quot;;
+&lt;/script&gt;
+</code></pre><h4 id="window-location-hash跨域"><a href="#window-location-hash跨域" class="headerlink" title="window.location.hash跨域"></a>window.location.hash跨域</h4><p>location.hash方式跨域，是子框架具有修改父框架src的hash值，通过这个属性进行传递数据，且更改hash值，页面不会刷新。但是传递的数据的字节数是有限的。</p>
+<blockquote>
+<p>注意：父子框架受同源策略的限制</p>
+</blockquote>
+<p>代码如下:</p>
+<pre><code>//a页面的代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+    iframe = document.createElement(&#39;iframe&#39;);
+    iframe.style.display = &#39;none&#39;;
+    var state = 0;
+
+    iframe.onload = function() {
+      if(state === 1) {
+          var data = window.location.hash;
+          console.log(data);
+          iframe.contentWindow.document.write(&#39;&#39;);
+          iframe.contentWindow.close();
+          document.body.removeChild(iframe);
+      } else if(state === 0) {
+          state = 1;
+          iframe.contentWindow.location = 
+          &#39;http://m.zhuanzhuan.58.com:8887/b.html&#39;;
+      }
+    };
+    document.body.appendChild(iframe);
+&lt;/script&gt;
+//b页面代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+    parent.location.hash = &quot;world&quot;;
+&lt;/script&gt;
+</code></pre><h4 id="window-top"><a href="#window-top" class="headerlink" title="window.top"></a>window.top</h4><p>window.top方法可以访问最顶层的window对象，可以取到最顶层window对象的属性和方法。这样子框架就可以操作父页面的交互了。window.parent可以得到父框架的window对象。</p>
+<p>代码如下：</p>
+<pre><code>//a页面代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+    function funa(){
+        console.log(&quot;a页面的方法&quot;);
+    }
+    iframe = document.createElement(&#39;iframe&#39;);
+    iframe.style.display = &#39;none&#39;;
+    iframe.src = &#39;http://m.zhuanzhuan.58.com:8887/b.html&#39;;
+    document.body.appendChild(iframe);
+&lt;/script&gt;
+//b页面的代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+console.log(window.top.funa());
+function funb(){
+  console.log(&quot;b页面的方法&quot;);
+}
+iframe = document.createElement(&#39;iframe&#39;);
+iframe.style.display = &#39;none&#39;;
+iframe.src = &#39;http://m.zhuanzhuan.58.com:8887/c.html&#39;;
+document.body.appendChild(iframe);
+&lt;/script&gt;
+//c页面的代码
+&lt;script type=&quot;text/javascript&quot;&gt;
+  console.log(window.parent.funb());
+&lt;/script&gt;
+</code></pre><h4 id="使用postMessage实现页面之间通信"><a href="#使用postMessage实现页面之间通信" class="headerlink" title="使用postMessage实现页面之间通信"></a>使用postMessage实现页面之间通信</h4><p>信息传递除了客户端与服务器之前的传递，还存在以下几个问题：</p>
+<ul>
+<li>页面和新开的窗口的数据交互。</li>
+<li>多窗口之间的数据交互。</li>
+<li>页面与所嵌套的iframe之间的信息传递。</li>
+</ul>
+<p>window.postMessage是一个HTML5的api，允许两个窗口之间进行跨域发送消息。这个应该就是以后解决dom跨域通用方法了，具体可以参照MDN。</p>
+<blockquote>
+<p>补充： 其实还有一些方法，比如window.name和location.hash。就很适用于iframe的跨域，不过iframe用的比较少了，所以这些方法也就有点过时了。</p>
+</blockquote>
+<p>这些就是我对跨域的了解了，实际情况下，一般用cors，jsonp等常见方法就可以了。不过遇到了一些非常规情况，我们还是需要知道有更多的方法可以选择的</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/26/跨域/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-pythonenv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -540,6 +800,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
             
             <div class="clearfix"></div>

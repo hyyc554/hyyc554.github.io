@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>python基础算法实现 | YoungCe的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。 概述十种常见排序算法可以分为两大类：  非线性时间比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此称为非线性时间比较类排序。 线性时间非比较类排序：不通过比较来决定元素间的相对次序，它可以突">
+  <meta name="description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python基础算法实现">
 <meta property="og:url" content="http://yoursite.com/2018/10/29/python基础算法实现/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。 概述十种常见排序算法可以分为两大类：  非线性时间比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此称为非线性时间比较类排序。 线性时间非比较类排序：不通过比较来决定元素间的相对次序，它可以突">
+<meta property="og:description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014194820700-1435466222.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014185452443-1800879816.gif">
@@ -25,10 +25,10 @@
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014190611263-753990372.gif">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014190700059-194955464.gif">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014190748857-1567575212.gif">
-<meta property="og:updated_time" content="2018-10-28T16:20:02.898Z">
+<meta property="og:updated_time" content="2018-10-28T16:24:21.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python基础算法实现">
-<meta name="twitter:description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。 概述十种常见排序算法可以分为两大类：  非线性时间比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此称为非线性时间比较类排序。 线性时间非比较类排序：不通过比较来决定元素间的相对次序，它可以突">
+<meta name="twitter:description" content="本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。">
 <meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1356841/201810/1356841-20181014194820700-1435466222.png">
   
     <link rel="alternative" href="/atom.xml" title="YoungCe的笔记" type="application/atom+xml">
@@ -172,6 +172,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。</p>
+<a id="more"></a>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>十种常见排序算法可以分为两大类：</p>
 <ol>
 <li>非线性时间比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此称为非线性时间比较类排序。</li>

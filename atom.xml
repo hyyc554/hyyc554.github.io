@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-02T17:09:29.901Z</updated>
+  <updated>2018-11-03T02:31:18.463Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="http://yoursite.com/2018/11/02/%E6%88%91%E7%9A%84%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2018/11/02/我的面试笔记/</id>
     <published>2018-11-02T15:52:36.577Z</published>
-    <updated>2018-11-02T17:09:29.901Z</updated>
+    <updated>2018-11-03T02:31:18.463Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;一、WEB框架&quot;&gt;&lt;a href=&quot;#一、WEB框架&quot; class=&quot;headerlink&quot; title=&quot;一、WEB框架&quot;&gt;&lt;/a&gt;一、WEB框架&lt;/h1&gt;
+      &lt;h1 id=&quot;一、WEB框架&quot;&gt;&lt;a href=&quot;#一、WEB框架&quot; class=&quot;headerlink&quot; title=&quot;一、WEB框架&quot;&gt;&lt;/a&gt;一、WEB框架&lt;/h1&gt;&lt;h2 id=&quot;1-请简述django请求生命周期&quot;&gt;&lt;a href=&quot;#1-请简述django请求生命周期&quot; class=&quot;headerlink&quot; title=&quot;1. 请简述django请求生命周期&quot;&gt;&lt;/a&gt;1. 请简述django请求生命周期&lt;/h2&gt;
     
     </summary>
     
     
-      <category term="-python" scheme="http://yoursite.com/tags/python/"/>
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
   </entry>
   

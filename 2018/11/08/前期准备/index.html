@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Django——支付宝支付功能 | YoungCe的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限  创建应用  沙箱测试环境  appID：我的身份 支付宝网关：测试环境 获得相关的测试账号  商户账号、客户账号后面可以通过这两个账号来进行测试 沙箱钱包（也可以不下载，直接在网页上">
+  <meta name="description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限">
 <meta name="keywords" content="Django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django——支付宝支付功能">
 <meta property="og:url" content="http://yoursite.com/2018/11/08/前期准备/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限  创建应用  沙箱测试环境  appID：我的身份 支付宝网关：测试环境 获得相关的测试账号  商户账号、客户账号后面可以通过这两个账号来进行测试 沙箱钱包（也可以不下载，直接在网页上">
+<meta property="og:description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHMqr4.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHMIP0.png">
@@ -34,10 +34,10 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHMvI1.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHQSG6.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHQ9xO.png">
-<meta property="og:updated_time" content="2018-11-08T10:39:54.769Z">
+<meta property="og:updated_time" content="2018-11-08T10:51:26.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django——支付宝支付功能">
-<meta name="twitter:description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限  创建应用  沙箱测试环境  appID：我的身份 支付宝网关：测试环境 获得相关的测试账号  商户账号、客户账号后面可以通过这两个账号来进行测试 沙箱钱包（也可以不下载，直接在网页上">
+<meta name="twitter:description" content="前期准备首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：https://openhome.alipay.com/platform/appDaily.htm?tab=info 申请支付宝账户权限">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/11/08/iHMqr4.png">
   
     <link rel="alternative" href="/atom.xml" title="YoungCe的笔记" type="application/atom+xml">
@@ -181,9 +181,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：<a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="noopener">https://openhome.alipay.com/platform/appDaily.htm?tab=info</a></p>
-<p>申请支付宝账户权限</p>
+        <h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：<a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="noopener">https://openhome.alipay.com/platform/appDaily.htm?tab=info</a></p>
+<p>申请支付宝账户权限<br><a id="more"></a></p>
 <p><img src="https://s1.ax1x.com/2018/11/08/iHMqr4.png" alt="iHMqr4.png"></p>
 <p>创建应用</p>
 <p><img src="https://s1.ax1x.com/2018/11/08/iHMIP0.png" alt="iHMIP0.png"></p>
@@ -432,8 +431,8 @@ PUB_KEY_PATH <span class="token operator">=</span> <span class="token string">"k
 <nav id="article-nav">
   
   
-    <a href="/2018/11/07/在线教育平台——支付实现/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2018/11/07/项目简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在线教育平台项目总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -572,11 +571,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">

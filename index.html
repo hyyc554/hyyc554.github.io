@@ -142,6 +142,780 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前期准备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/08/前期准备/">Django——支付宝支付功能</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/08/前期准备/" class="archive-article-date">
+  	<time datetime="2018-11-08T09:58:10.589Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：<a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info" target="_blank" rel="noopener">https://openhome.alipay.com/platform/appDaily.htm?tab=info</a></p>
+<p>申请支付宝账户权限</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMqr4.png" alt="iHMqr4.png"></p>
+<p>创建应用</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMIP0.png" alt="iHMIP0.png"></p>
+<p>沙箱测试环境</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHM45q.png" alt="iHM45q.png"></p>
+<p>appID：我的身份</p>
+<p>支付宝网关：测试环境</p>
+<p>获得相关的测试账号</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHQise.png" alt="iHQise.png"></p>
+<p>商户账号、客户账号后面可以通过这两个账号来进行测试</p>
+<p>沙箱钱包（也可以不下载，直接在网页上登陆测试账号进行支付测试）</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMoGV.png" alt="iHMoGV.png"></p>
+<p>在安卓手机上进行安装</p>
+<h2 id="获得SDK（pay-py）"><a href="#获得SDK（pay-py）" class="headerlink" title="获得SDK（pay.py）"></a>获得SDK（pay.py）</h2><p>就是加密算法</p>
+<p>SDK（加密算法，阿里没有提供python版本，从github山获得）</p>
+<p>官方</p>
+<p>GIHUB（请注意浏览源码）——pay.py(依赖:pip install pycryptodome)</p>
+<p>公钥私钥</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHM7xU.png" alt="iHM7xU.png"></p>
+<p>在这里下载<br><img src="https://s1.ax1x.com/2018/11/08/iHMXZ9.png" alt="iHMXZ9.png"></p>
+<p>运行<br><img src="https://s1.ax1x.com/2018/11/08/iHMbMF.png" alt="iHMbMF.png"></p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMLqJ.png" alt="iHMLqJ.png"></p>
+<p>生成公钥私钥<br><img src="https://s1.ax1x.com/2018/11/08/iHMjaR.png" alt="iHMjaR.png"></p>
+<p>完成上传</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMzPx.png" alt="iHMzPx.png"></p>
+<p>应用公钥上传后自动生成支付宝公钥</p>
+<p>在django文件中进行替换成自己的key</p>
+<p><img src="C:\Users\Administrator.000\AppData\Roaming\Typora\typora-user-images\1541664121222.png" alt="1541664121222"></p>
+<p>django程序</p>
+<p>演示</p>
+<p>1.运行</p>
+<p>2.访问去支付</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMhan.png" alt="iHMhan.png"></p>
+<p>3.支付页面</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMT2T.png" alt="iHMT2T.png"></p>
+<p>4.登陆测试用户，完成支付</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHQpRK.png" alt="iHQpRK.png"></p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHMvI1.png" alt="iHMvI1.png"></p>
+<p>最终跳转到</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHQSG6.png" alt="iHQSG6.png"></p>
+<p>说明功能正常</p>
+<h2 id="Django实现"><a href="#Django实现" class="headerlink" title="Django实现"></a>Django实现</h2><p>代码结构</p>
+<p><img src="https://s1.ax1x.com/2018/11/08/iHQ9xO.png" alt="iHQ9xO.png"></p>
+<p>views.py</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render<span class="token punctuation">,</span>redirect<span class="token punctuation">,</span>HttpResponse
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>views<span class="token punctuation">.</span>decorators<span class="token punctuation">.</span>csrf <span class="token keyword">import</span> csrf_exempt
+<span class="token keyword">from</span> utils<span class="token punctuation">.</span>pay <span class="token keyword">import</span> AliPay
+<span class="token keyword">import</span> time
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>conf <span class="token keyword">import</span> settings
+
+<span class="token keyword">def</span> <span class="token function">aliPay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    obj <span class="token operator">=</span> AliPay<span class="token punctuation">(</span>
+        appid<span class="token operator">=</span>settings<span class="token punctuation">.</span>APPID<span class="token punctuation">,</span>
+        app_notify_url<span class="token operator">=</span>settings<span class="token punctuation">.</span>NOTIFY_URL<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 如果支付成功，支付宝会向这个地址发送POST请求（校验是否支付已经完成）</span>
+        return_url<span class="token operator">=</span>settings<span class="token punctuation">.</span>RETURN_URL<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 如果支付成功，重定向回到你的网站的地址。</span>
+        alipay_public_key_path<span class="token operator">=</span>settings<span class="token punctuation">.</span>PUB_KEY_PATH<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 支付宝公钥</span>
+        app_private_key_path<span class="token operator">=</span>settings<span class="token punctuation">.</span>PRI_KEY_PATH<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 应用私钥</span>
+        debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 默认False,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> obj
+
+<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'GET'</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span><span class="token string">'index.html'</span><span class="token punctuation">)</span>
+
+
+
+    alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 对购买的数据进行加密</span>
+    money <span class="token operator">=</span> float<span class="token punctuation">(</span>request<span class="token punctuation">.</span>POST<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'price'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    out_trade_no <span class="token operator">=</span> <span class="token string">"x2"</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 1. 在数据库创建一条数据：状态（待支付）</span>
+
+    query_params <span class="token operator">=</span> alipay<span class="token punctuation">.</span>direct_pay<span class="token punctuation">(</span>
+        subject<span class="token operator">=</span><span class="token string">"充气式韩红"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 商品简单描述</span>
+        out_trade_no<span class="token operator">=</span> out_trade_no<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 商户订单号</span>
+        total_amount<span class="token operator">=</span>money<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 交易金额(单位: 元 保留俩位小数)</span>
+    <span class="token punctuation">)</span>
+
+    pay_url <span class="token operator">=</span> <span class="token string">"https://openapi.alipaydev.com/gateway.do?{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>query_params<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> redirect<span class="token punctuation">(</span>pay_url<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">pay_result</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    支付完成后，跳转回的地址
+    :param request:
+    :return:
+    """</span>
+    params <span class="token operator">=</span> request<span class="token punctuation">.</span>GET<span class="token punctuation">.</span>dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    sign <span class="token operator">=</span> params<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'sign'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
+
+    alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    status <span class="token operator">=</span> alipay<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>params<span class="token punctuation">,</span> sign<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> status<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付成功'</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付失败'</span><span class="token punctuation">)</span>
+
+
+
+@csrf_exempt
+<span class="token keyword">def</span> <span class="token function">update_order</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    支付成功后，支付宝向该地址发送的POST请求（用于修改订单状态）
+    :param request:
+    :return:
+    """</span>
+    <span class="token keyword">if</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'POST'</span><span class="token punctuation">:</span>
+        <span class="token keyword">from</span> urllib<span class="token punctuation">.</span>parse <span class="token keyword">import</span> parse_qs
+
+        body_str <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+        post_data <span class="token operator">=</span> parse_qs<span class="token punctuation">(</span>body_str<span class="token punctuation">)</span>
+
+        post_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> post_data<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            post_dict<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        sign <span class="token operator">=</span> post_dict<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'sign'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
+        status <span class="token operator">=</span> alipay<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>post_dict<span class="token punctuation">,</span> sign<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> status<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 修改订单状态</span>
+            out_trade_no <span class="token operator">=</span> post_dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'out_trade_no'</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>out_trade_no<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 2. 根据订单号将数据库中的数据进行更新</span>
+            <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付成功'</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付失败'</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>settings.py</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 支付相关配置</span>
+APPID <span class="token operator">=</span> <span class="token string">"2016082500309412"</span>
+NOTIFY_URL <span class="token operator">=</span> <span class="token string">"http://47.106.237.76:80/update_order/"</span>
+RETURN_URL <span class="token operator">=</span> <span class="token string">"http://47.106.237.76:80/pay_result/"</span>
+PRI_KEY_PATH <span class="token operator">=</span> <span class="token string">"keys/app_private_2048.txt"</span>
+PUB_KEY_PATH <span class="token operator">=</span> <span class="token string">"keys/alipay_public_2048.txt"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/08/前期准备/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-在线教育平台——支付实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/07/在线教育平台——支付实现/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-项目简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/07/项目简介/">在线教育平台项目总结</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/07/项目简介/" class="archive-article-date">
+  	<time datetime="2018-11-07T08:31:48.752Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>在线教育平台</p>
+<p>软件依赖：</p>
+<ul>
+<li>WEB框架：Django（1.11.7）、Django REST framework</li>
+<li>前端框架：Vue（2.5.16）</li>
+<li>数据库: MySql、redis</li>
+<li>支付平台：支付宝</li>
+<li>消息推送平台：微信服务号，电子邮件</li>
+</ul>
+<p>主要功能如下：</p>
+<ul>
+<li>允许学生注册、登陆</li>
+<li>浏览本在线教育平台所提供的课程列表、课程介绍（课程大纲，）</li>
+<li>学生将课程加入购物车</li>
+<li>完成购物后，进入结算中心，通过支付宝支付购买课程</li>
+<li>完成课程购买后，分配导师</li>
+<li>开始学习，观看本站提供的教学视频</li>
+<li>通过答疑系统，提交学习中遇到的问题，与同学讨论或者导师答疑</li>
+<li>完成章节学习后，提交作业</li>
+<li>导师批改作业并打分</li>
+<li>模块学习完成后进行考核</li>
+</ul>
+<h2 id="项目意义"><a href="#项目意义" class="headerlink" title="项目意义"></a>项目意义</h2><p><strong>目标：</strong></p>
+<p>​    通过互联技术，变革传统教育方式，依赖强大的导师服务系统，提高在线教育的效率与成功率。</p>
+<p><strong>项目策略:</strong></p>
+<ul>
+<li>提供具有时间限制的教学服务</li>
+<li>安排合理的模块化学习</li>
+<li>聘用高素质的导师，提供优质服务</li>
+<li>导师对学员一对一在线考核</li>
+<li>学习周期中全程导师监督（跟进记录）</li>
+<li>提供高效的答疑解惑服务（12小时）</li>
+<li>建立完善的奖学金制度<ul>
+<li>是否按学习计划完成学业</li>
+<li>每章节作业完成情况</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目开发团队与进度"><a href="#项目开发团队与进度" class="headerlink" title="项目开发团队与进度"></a>项目开发团队与进度</h2><p><strong>团队构成：</strong></p>
+<ul>
+<li><p>开发 </p>
+<ul>
+<li>导师后台，stark组件+rbac ： 1人</li>
+<li>管理后台，stark组件+rbac ： 1人</li>
+<li>主站<ul>
+<li>vue.js  1人 </li>
+<li>api     村长+1/2文州+1/2Alex+其他 + 村长</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>运维(1人)</p>
+</li>
+<li><p>测试(1人)</p>
+</li>
+<li><p>产品经理(1人)</p>
+</li>
+<li><p>UI设计(1人)</p>
+</li>
+<li><p>运营(1人)</p>
+</li>
+<li><p>销售(4人)</p>
+</li>
+<li><p>全职导师(2人)</p>
+</li>
+<li><p>签约讲师（…）</p>
+</li>
+</ul>
+<p><strong>周期：</strong></p>
+<ul>
+<li>7月份项目开始</li>
+<li>11月份上线 </li>
+<li>11月份~次年5月份： 修Bug，活动支持，广告。。。</li>
+<li>6月份：开发题库系统</li>
+</ul>
+<p>to be continued….</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/07/项目简介/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-在线教育平台——购物车功能实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在线教育平台——购物车功能实现</p>
+<p>依赖软件：Django\redis</p>
+<p>测试工具：postman</p>
+<h2 id="redis中购物车数据存储结构"><a href="#redis中购物车数据存储结构" class="headerlink" title="redis中购物车数据存储结构"></a>redis中购物车数据存储结构</h2><ul>
+<li>redis最外层的key的实际意义是”luffy_shopping_car_userid_courseid”，也就是最后的两个数字分别代表的用户ID与需要加入购物车的课程ID</li>
+<li>每个单独的课程中，包含课程名称，课程图片，课程价格策略，当前选中策略。</li>
+</ul>
+<pre class="line-numbers language-json"><code class="language-json">redis<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"luffy_shopping_car_1_1"</span><span class="token operator">:</span>
+    <span class="token punctuation">{</span>
+        <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"Linux基础"</span><span class="token punctuation">,</span>
+        <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"2.png"</span><span class="token punctuation">,</span>
+        <span class="token property">"policy"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"2"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"period"</span><span class="token operator">:</span> <span class="token number">60</span><span class="token punctuation">,</span>
+                <span class="token property">"period_display"</span><span class="token operator">:</span> <span class="token string">"2个月"</span><span class="token punctuation">,</span>
+                <span class="token property">"price"</span><span class="token operator">:</span> <span class="token number">1500</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"default_policy"</span><span class="token operator">:</span> <span class="token string">"2"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"luffy_shopping_car_1_3"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        ...
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p><img src="E:\chromedown\条件结构流程图.png" alt="条件结构流程图"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>在setting中设置redis配置：</p>
+<pre><code>CACHES = {
+    &quot;default&quot;: {
+        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,
+        &quot;LOCATION&quot;: &quot;redis://yourip:6379&quot;,
+        &quot;OPTIONS&quot;: {
+            &quot;CLIENT_CLASS&quot;: &quot;django_redis.client.DefaultClient&quot;,
+            &quot;CONNECTION_POOL_KWARGS&quot;: {&quot;max_connections&quot;: 100},
+            &quot;PASSWORD&quot;: &quot;yourpassword&quot;,
+        }
+    }
+}
+</code></pre><p>路由设置urls.py:</p>
+<pre class="line-numbers language-python"><code class="language-python">url<span class="token punctuation">(</span>r<span class="token string">'^shopping_cart/$'</span><span class="token punctuation">,</span> shopping_cart<span class="token punctuation">.</span>ShoppingCart<span class="token punctuation">.</span>as_view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>基于restframework的视图：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python</span>
+<span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+<span class="token triple-quoted-string string">"""
+@Author    : Young
+@Email     : hyc554@outlook.com
+@site      : http://www.cnblogs.com/huang-yc/
+@File      : shopping_cart.py
+@version   : 1.0
+@Time      : 2018/11/4 20:51
+Description about this file: 
+
+"""</span>
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>views <span class="token keyword">import</span> APIView
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>response <span class="token keyword">import</span> Response
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>viewsets <span class="token keyword">import</span> GenericViewSet<span class="token punctuation">,</span> ViewSetMixin
+<span class="token keyword">from</span> django_redis <span class="token keyword">import</span> get_redis_connection
+<span class="token keyword">from</span> utils<span class="token punctuation">.</span>response_dict <span class="token keyword">import</span> BaseResponse
+<span class="token keyword">from</span> api<span class="token punctuation">.</span>views<span class="token punctuation">.</span>auth <span class="token keyword">import</span> YcAuth
+<span class="token keyword">from</span> api <span class="token keyword">import</span> models
+<span class="token keyword">from</span> utils<span class="token punctuation">.</span>error <span class="token keyword">import</span> PricePolicyInvalid
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>core<span class="token punctuation">.</span>exceptions <span class="token keyword">import</span> ObjectDoesNotExist
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>conf <span class="token keyword">import</span> settings
+<span class="token keyword">import</span> json
+
+
+<span class="token keyword">class</span> <span class="token class-name">ShoppingCart</span><span class="token punctuation">(</span>APIView<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    authentication_classes <span class="token operator">=</span> <span class="token punctuation">[</span>YcAuth<span class="token punctuation">]</span>
+    conn <span class="token operator">=</span> get_redis_connection<span class="token punctuation">(</span><span class="token string">'default'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">post</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        向购物车中添加商品
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """</span>
+        ret <span class="token operator">=</span> BaseResponse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 在这里获得用户的课程ID与价格策略ID</span>
+            course_id <span class="token operator">=</span> int<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'course_id'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            policy_id <span class="token operator">=</span> int<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'policy_id'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+            <span class="token comment" spellcheck="true"># 2. 获取专题课信息</span>
+            course <span class="token operator">=</span> models<span class="token punctuation">.</span>Course<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>id<span class="token operator">=</span>course_id<span class="token punctuation">)</span>
+
+            <span class="token comment" spellcheck="true"># 3.获取课程相关的所有价格策略</span>
+            price_policy_list <span class="token operator">=</span> course<span class="token punctuation">.</span>price_policy<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            price_policy_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+            <span class="token keyword">for</span> item <span class="token keyword">in</span> price_policy_list<span class="token punctuation">:</span>
+                price_policy_dict<span class="token punctuation">[</span>item<span class="token punctuation">.</span>id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    <span class="token string">"period"</span><span class="token punctuation">:</span> item<span class="token punctuation">.</span>valid_period<span class="token punctuation">,</span>
+                    <span class="token string">"period_display"</span><span class="token punctuation">:</span> item<span class="token punctuation">.</span>get_valid_period_display<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token string">"price"</span><span class="token punctuation">:</span> item<span class="token punctuation">.</span>price
+                <span class="token punctuation">}</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>price_policy_dict<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> policy_id <span class="token operator">not</span> <span class="token keyword">in</span> price_policy_dict<span class="token punctuation">:</span>
+                <span class="token keyword">raise</span> PricePolicyInvalid<span class="token punctuation">(</span><span class="token string">'价格策略不合法'</span><span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 5. 将购物信息添加到redis中</span>
+            <span class="token comment" spellcheck="true"># self.conn</span>
+            <span class="token comment" spellcheck="true"># car_key = "luffy_shopping_car_%s_%s"</span>
+            car_key <span class="token operator">=</span> settings<span class="token punctuation">.</span>SHOPPING_CART_KEY <span class="token operator">%</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>user_id<span class="token punctuation">,</span> course_id<span class="token punctuation">,</span><span class="token punctuation">)</span>
+            car_dict <span class="token operator">=</span> <span class="token punctuation">{</span>
+                <span class="token string">'title'</span><span class="token punctuation">:</span> course<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                <span class="token string">'img'</span><span class="token punctuation">:</span> course<span class="token punctuation">.</span>course_img<span class="token punctuation">,</span>
+                <span class="token string">'default_policy'</span><span class="token punctuation">:</span> policy_id<span class="token punctuation">,</span>
+                <span class="token string">'policy'</span><span class="token punctuation">:</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>price_policy_dict<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true"># conn = get_redis_connection("default")</span>
+            self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hmset<span class="token punctuation">(</span>car_key<span class="token punctuation">,</span> car_dict<span class="token punctuation">)</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">'添加成功'</span>
+
+
+        <span class="token keyword">except</span> PricePolicyInvalid <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token number">2001</span>
+            ret<span class="token punctuation">.</span>error <span class="token operator">=</span> e<span class="token punctuation">.</span>msg
+        <span class="token keyword">except</span> ObjectDoesNotExist <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token number">2002</span>
+            ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">'课程不存在'</span>
+
+
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">1001</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">'获取购物车数据失败'</span>
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">delete</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        ret <span class="token operator">=</span> BaseResponse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            course_id_list <span class="token operator">=</span> request<span class="token punctuation">.</span>data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'courseids'</span><span class="token punctuation">)</span>
+            key_list <span class="token operator">=</span> <span class="token punctuation">[</span>settings<span class="token punctuation">.</span>SHOPPING_CART_KEY <span class="token operator">%</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>user_id<span class="token punctuation">,</span> course_id<span class="token punctuation">,</span><span class="token punctuation">)</span> <span class="token keyword">for</span> course_id <span class="token keyword">in</span> course_id_list<span class="token punctuation">]</span>
+            self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token operator">*</span>key_list<span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">1002</span>
+            ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">"删除失败"</span>
+
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">patch</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        ret <span class="token operator">=</span> BaseResponse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            course_id <span class="token operator">=</span> int<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'course_id'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            policy_id <span class="token operator">=</span> str<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'policy_id'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+            key <span class="token operator">=</span> settings<span class="token punctuation">.</span>SHOPPING_CART_KEY <span class="token operator">%</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>user_id<span class="token punctuation">,</span> course_id<span class="token punctuation">)</span>
+
+            <span class="token keyword">if</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">1002</span>
+                ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">"购物车中不存在此课程"</span>
+                <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 3. redis中获取所有的价格策略</span>
+            <span class="token comment" spellcheck="true"># 请注意这里对redis里的数据进行读取的操作</span>
+            policy_dict <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>str<span class="token punctuation">(</span>self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hget<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'policy'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> policy_id <span class="token operator">not</span> <span class="token keyword">in</span> policy_dict<span class="token punctuation">:</span>
+                ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">1003</span>
+                ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">"价格策略不合法"</span>
+                <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+
+            self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hset<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'default_policy'</span><span class="token punctuation">,</span> policy_id<span class="token punctuation">)</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">"修改成功"</span>
+
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">2003</span>
+            ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">'修改数据失败'</span>
+
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        查看购物车中所有的商品
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """</span>
+        ret <span class="token operator">=</span> BaseResponse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            key_match <span class="token operator">=</span> settings<span class="token punctuation">.</span>SHOPPING_CART_KEY <span class="token operator">%</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>user_id<span class="token punctuation">,</span> <span class="token string">"*"</span><span class="token punctuation">)</span>
+
+            course_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+            <span class="token keyword">for</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>scan_iter<span class="token punctuation">(</span>key_match<span class="token punctuation">,</span> count<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                info <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    <span class="token string">"title"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hget<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'title'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token string">"img"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hget<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token string">"policy"</span><span class="token punctuation">:</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hget<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'policy'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token string">"default_policy"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>hget<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">'default_policy'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+                course_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>info<span class="token punctuation">)</span>
+            ret<span class="token punctuation">.</span>data <span class="token operator">=</span> course_list
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            ret<span class="token punctuation">.</span>code <span class="token operator">=</span> <span class="token number">1002</span>
+            ret<span class="token punctuation">.</span>error <span class="token operator">=</span> <span class="token string">"获取失败"</span>
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span>ret<span class="token punctuation">.</span>dict<span class="token punctuation">)</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/07/在线教育平台——购物车功能实现/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-在线教育——结算中心的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/07/在线教育——结算中心的实现/">在线教育——结算中心的实现</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/07/在线教育——结算中心的实现/" class="archive-article-date">
+  	<time datetime="2018-11-07T08:31:48.721Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<p>依赖软件：Django、redis</p>
+<p>redis数据库中的数据结构：</p>
+<ul>
+<li>以字典形式进行存储</li>
+<li>“shopping_car_用户ID_课程ID”作为标识key</li>
+<li>“payment_global_coupon_用户ID”用来保存用户所持有的全场券</li>
+</ul>
+<pre class="line-numbers language-json"><code class="language-json">redis = <span class="token punctuation">{</span>
+    payment_1_2<span class="token operator">:</span><span class="token punctuation">{</span>
+        course_id<span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">,</span>
+        'title'<span class="token operator">:</span> 'CRM客户关系管理系统实战开发-专题'<span class="token punctuation">,</span> 
+        'img'<span class="token operator">:</span> 'CRM.jpg'<span class="token punctuation">,</span> 'policy_id'<span class="token operator">:</span> '<span class="token number">4</span>'<span class="token punctuation">,</span> 
+        'coupon'<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        'default_coupon'<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+        'period'<span class="token operator">:</span> <span class="token number">210</span><span class="token punctuation">,</span> 'period_display'<span class="token operator">:</span> '<span class="token number">12</span>个月'<span class="token punctuation">,</span> 'price'<span class="token operator">:</span> <span class="token number">122.0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    payment_1_1<span class="token operator">:</span><span class="token punctuation">{</span>
+        course_id<span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+        'title'<span class="token operator">:</span> '爬虫开发-专题'<span class="token punctuation">,</span> 
+        'img'<span class="token operator">:</span> '爬虫开发-专题.jpg'<span class="token punctuation">,</span> 
+        'policy_id'<span class="token operator">:</span> '<span class="token number">2</span>'<span class="token punctuation">,</span> 
+        'coupon'<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token number">4</span><span class="token operator">:</span> <span class="token punctuation">{</span>'coupon_type'<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 'coupon_display'<span class="token operator">:</span> '立减券'<span class="token punctuation">,</span> 'money_equivalent_value'<span class="token operator">:</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+            <span class="token number">6</span><span class="token operator">:</span> <span class="token punctuation">{</span>'coupon_type'<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 'coupon_display'<span class="token operator">:</span> '满减券'<span class="token punctuation">,</span> 'money_equivalent_value'<span class="token operator">:</span> <span class="token number">60</span><span class="token punctuation">,</span> 'minimum_consume'<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        'default_coupon'<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+        'period'<span class="token operator">:</span> <span class="token number">60</span><span class="token punctuation">,</span> 
+        'period_display'<span class="token operator">:</span> '<span class="token number">2</span>个月'<span class="token punctuation">,</span> 
+        'price'<span class="token operator">:</span> <span class="token number">599.0</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    payment_global_coupon_1<span class="token operator">:</span><span class="token punctuation">{</span>
+        'coupon'<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token number">2</span><span class="token operator">:</span> <span class="token punctuation">{</span>'coupon_type'<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 'coupon_display'<span class="token operator">:</span> '满减券'<span class="token punctuation">,</span> 'money_equivalent_value'<span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> 'minimum_consume'<span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        'default_coupon'<span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/07/在线教育——结算中心的实现/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我的面试笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -162,10 +936,218 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="一、WEB框架"><a href="#一、WEB框架" class="headerlink" title="一、WEB框架"></a>一、WEB框架</h1><h2 id="1-请简述django请求生命周期"><a href="#1-请简述django请求生命周期" class="headerlink" title="1. 请简述django请求生命周期"></a>1. 请简述django请求生命周期</h2>
-        
-          <a class="article-more-a" href="/2018/11/02/我的面试笔记/#more">more >></a>
-        
+        <a id="more"></a>
+<h1 id="一、WEB框架"><a href="#一、WEB框架" class="headerlink" title="一、WEB框架"></a>一、WEB框架</h1><h2 id="1-请简述django请求生命周期"><a href="#1-请简述django请求生命周期" class="headerlink" title="1. 请简述django请求生命周期"></a>1. 请简述django请求生命周期</h2><ul>
+<li>当用户在浏览器中输入url时,浏览器会生成请求头和请求体发给服务端</li>
+<li>服务端的wsgiref模块接收用户请求并将请求进行初次封装</li>
+<li>将请求交给Django的中间件</li>
+<li>通过中间件之后将请求交给url,根据浏览器发送的不同url去匹配不同的视图函数</li>
+<li>视图函数根据业务逻辑调用数据库获取相应的数据，然或根据模板渲染页面</li>
+<li>视图函数将响应的页面依次通过中间件</li>
+<li>到达wsgi，封装数据后反馈给客户端<br><img src="https://i.loli.net/2018/11/03/5bdc849e1d6d5.png" alt="wsgi.png"></li>
+</ul>
+<h2 id="2-什么wsgi"><a href="#2-什么wsgi" class="headerlink" title="2. 什么wsgi"></a>2. 什么wsgi</h2><p><strong>Web服务器网关接口</strong>（<strong>Python Web Server Gateway Interface</strong>，缩写为WSGI）是为<a href="https://zh.wikipedia.org/wiki/Python" target="_blank" rel="noopener">Python</a>语言定义的<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E9%A0%81%E4%BC%BA%E6%9C%8D%E5%99%A8" target="_blank" rel="noopener">Web服务器</a>和<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">Web应用程序</a>或<a href="https://zh.wikipedia.org/wiki/Web%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6" target="_blank" rel="noopener">框架</a>之间的一种简单而通用的<a href="https://zh.wikipedia.org/wiki/%E4%BB%8B%E9%9D%A2_(%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88" target="_blank" rel="noopener">接口</a>)。自从WSGI被开发出来以后，许多其它语言中也出现了类似接口。</p>
+<p>WSGI区分为两个部分：一为“<a href="https://zh.wikipedia.org/wiki/%E4%BC%BA%E6%9C%8D%E5%99%A8" target="_blank" rel="noopener">服务器</a>”或“网关”，另一为“应用程序”或“应用框架”。在处理一个WSGI请求时，服务器会为应用程序提供环境信息及一个回调函数（Callback Function）。当应用程序完成处理请求后，透过前述的回调函数，将结果回传给服务器。</p>
+<p>所谓的 <em>WSGI 中间件</em>同时实现了API的两方，因此可以在WSGI服务器和WSGI应用之间起调解作用：从Web服务器的角度来说，中间件扮演应用程序，而从应用程序的角度来说，中间件扮演服务器。“中间件”组件可以执行以下功能：</p>
+<ul>
+<li>重写<a href="https://zh.wikipedia.org/wiki/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F" target="_blank" rel="noopener">环境变量</a>后，根据目标<a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6" target="_blank" rel="noopener">URL</a>，将请求消息路由到不同的应用对象。</li>
+<li>允许在一个<a href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E7%A8%8B" target="_blank" rel="noopener">进程</a>中同时运行多个应用程序或应用框架。</li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1" target="_blank" rel="noopener">负载均衡</a>和远程处理，通过在<a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">网络</a>上转发请求和响应消息。</li>
+<li>进行内容后处理，例如应用<a href="https://zh.wikipedia.org/wiki/XSLT" target="_blank" rel="noopener">XSLT</a>样式表。</li>
+</ul>
+<p><strong>实现该协议的模块：</strong></p>
+<ul>
+<li>wsgiref</li>
+<li>werkzurg</li>
+<li>uwsig</li>
+</ul>
+<h2 id="3-视图的玩法"><a href="#3-视图的玩法" class="headerlink" title="3.视图的玩法"></a>3.视图的玩法</h2><p>FBV——url —— 函数</p>
+<p>CBV——url —— view</p>
+<h2 id="4-RESTful规范"><a href="#4-RESTful规范" class="headerlink" title="4.RESTful规范"></a>4.RESTful规范</h2><blockquote>
+<p>什么是RESTful架构：</p>
+<p>　　（1）每一个URI代表一种资源；</p>
+<p>　　（2）客户端和服务器之间，传递这种资源的某种表现层；</p>
+<p>　　（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现”表现层状态转化”。</p>
+</blockquote>
+<h2 id="5-django-rest-framework框架"><a href="#5-django-rest-framework框架" class="headerlink" title="5.django rest framework框架"></a>5.django rest framework框架</h2><p><strong>1. 路由</strong></p>
+<ul>
+<li>可以通过as_view传参数，根据请求方式不同执行相应的方法</li>
+<li>可以在url中设置一个结尾，类似于： .json </li>
+</ul>
+<p><strong>2. 视图</strong></p>
+<ul>
+<li>帮助开发者提供了一些类，并在类中提供了多个方法以供我们使用</li>
+</ul>
+<p><strong>3. 版本</strong></p>
+<ul>
+<li>在url中设置version参数，用户请求时候传入参数。在request.version中获取版本，根据版本不同做不同处理</li>
+</ul>
+<p><strong>4. 认证</strong><br>写一个类并注册到认证类，在类的的authticate方法中编写认证逻辑。</p>
+<ul>
+<li>认证成功（user,auth）</li>
+<li>raise AuthticateFaild(….)</li>
+<li>None </li>
+</ul>
+<p><strong>5. 权限</strong><br>写一个类并注册到权限类，在类的的has_permission方法中编写认证逻辑。</p>
+<ul>
+<li>True </li>
+<li>False </li>
+</ul>
+<p><strong>6. 频率限制</strong><br>写一个类并注册到频率类，在类的的 allow_request/wait 方法中编写认证逻辑。</p>
+<pre class="line-numbers language-python"><code class="language-python">    allow_request
+         <span class="token boolean">True</span> 
+         <span class="token boolean">False</span>  如果返回<span class="token boolean">False</span>，那么就要执行wait
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>7. 解析器</strong></p>
+<ul>
+<li><p>根据ContentType请求头，选择不同解析器对 请求体中的数据进行解析。</p>
+</li>
+<li><p>POST /index/ http1.1.\r\nhost:11.11.11.11\r\nContent-Type:url-formendo…. \r\n\r\nuser=alex&amp;age=123</p>
+</li>
+<li>POST /index/ http1.1.\r\nhost:11.11.11.11\r\nContent-Type:application/json\r\n\r\n{….}</li>
+</ul>
+<p><strong>8. 分页</strong> </p>
+<ul>
+<li>对从数据库中获取到的数据进行分页处理: SQL -&gt; limit offset <ul>
+<li>根据页码：<a href="http://www.luffycity.com/api/v1/student/?page=1&amp;size=10" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?page=1&amp;size=10</a></li>
+<li>根据索引：<a href="http://www.luffycity.com/api/v1/student/?offset=60&amp;limit=10" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?offset=60&amp;limit=10</a></li>
+<li>根据加密：<a href="http://www.luffycity.com/api/v1/student/?page=erd8" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?page=erd8</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="6-页码越大速度越慢，为什么以及如何解决？"><a href="#6-页码越大速度越慢，为什么以及如何解决？" class="headerlink" title="6. 页码越大速度越慢，为什么以及如何解决？"></a>6. 页码越大速度越慢，为什么以及如何解决？</h2><p>原因：页码越大向后需要扫描的行数越多，因为每次都是从0开始扫描。<br>解决：</p>
+<pre><code>- 限制显示的页数
+- 记录当前页数据ID最大值和最小值，再次分页时，根据ID现行筛选，然后再分页。
+</code></pre><h2 id="7-三次握手与四次挥手"><a href="#7-三次握手与四次挥手" class="headerlink" title="7. 三次握手与四次挥手"></a>7. 三次握手与四次挥手</h2><p>答案详解：<a href="https://www.cnblogs.com/huang-yc/p/9859216.html" target="_blank" rel="noopener">TCP握手与挥手</a></p>
+<h1 id="二、-项目相关："><a href="#二、-项目相关：" class="headerlink" title="二、 项目相关："></a>二、 项目相关：</h1><h2 id="1-请讲一下你做的在线商城的表结构"><a href="#1-请讲一下你做的在线商城的表结构" class="headerlink" title="1. 请讲一下你做的在线商城的表结构"></a>1. 请讲一下你做的在线商城的表结构</h2><ul>
+<li>课程（13表）<ul>
+<li>课程大类</li>
+<li>课程子类</li>
+<li>学位课<ul>
+<li>讲师</li>
+<li>奖学金</li>
+</ul>
+</li>
+<li>专题课（学位课模块表）</li>
+<li>价格策略(contenttype)</li>
+<li>课程详细(o2o -&gt; 水平分表)</li>
+<li>常见问题</li>
+<li>课程大纲</li>
+<li>章节</li>
+<li>课时</li>
+<li>作业 </li>
+</ul>
+</li>
+<li>深科技（4+2）<ul>
+<li>用户表</li>
+<li>用户token</li>
+<li>文章来源</li>
+<li>文章表</li>
+<li>通用评论表</li>
+<li>通用收藏表</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-支付宝功能"><a href="#2-支付宝功能" class="headerlink" title="2. 支付宝功能"></a>2. 支付宝功能</h2><ul>
+<li>加密方式：rsa</li>
+<li>公钥私钥：<ul>
+<li>商户私钥<ul>
+<li>支付宝公钥</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>支付成功后，断电宕机<ul>
+<li>成功：return HttpResponse(‘success’)</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-数据库页数越大速度越慢，如何解决"><a href="#3-数据库页数越大速度越慢，如何解决" class="headerlink" title="3. 数据库页数越大速度越慢，如何解决"></a>3. 数据库页数越大速度越慢，如何解决</h2><ul>
+<li>限制页数</li>
+<li>记录当前页最大ID、最小ID</li>
+<li>错误答案：<ul>
+<li>扫描索引表</li>
+<li>再去数据库表中获取数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-redis是什么？"><a href="#4-redis是什么？" class="headerlink" title="4. redis是什么？"></a>4. redis是什么？</h2><p>用于操作内存的软件。</p>
+<ul>
+<li>可以做持久化：<ul>
+<li>AOF</li>
+<li>RDB</li>
+</ul>
+</li>
+<li><p>相当于是大字典</p>
+</li>
+<li><p>单进程单线程</p>
+</li>
+</ul>
+<h1 id="三、-Django"><a href="#三、-Django" class="headerlink" title="三、 Django"></a>三、 Django</h1><h2 id="1-讲述一些ORM操作"><a href="#1-讲述一些ORM操作" class="headerlink" title="1. 讲述一些ORM操作"></a>1. 讲述一些ORM操作</h2><ul>
+<li><p>select_related,连表操作，相当于主动做join</p>
+</li>
+<li><p>prefeth_related,多次单表操作，先查询想要的数据，然后构造条件,如：id=[1,2,3]，再次查询其他表根据id做条件。</p>
+</li>
+<li><p>only</p>
+</li>
+<li><p>defer</p>
+</li>
+<li><p>F </p>
+</li>
+<li><p>Q </p>
+</li>
+<li><p>通过ORM写偏原生SQL：</p>
+</li>
+</ul>
+<ol>
+<li>extra</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>select<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'new_id'</span><span class="token punctuation">:</span> <span class="token string">"select col from sometable where othercol > %s"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> select_params<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>where<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'headline=%s'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> params<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Lennon'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>where<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"foo='a' OR bar = 'a'"</span><span class="token punctuation">,</span> <span class="token string">"baz = 'a'"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>select<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'new_id'</span><span class="token punctuation">:</span> <span class="token string">"select id from tb where id > %s"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>select_params<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> order_by<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'-nid'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>raw</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 执行原生SQL</span>
+models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select * from userinfo'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 如果SQL是其他表时，必须将名字设置为当前UserInfo对象的主键列名</span>
+models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select id as nid from 其他表'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 为原生SQL设置参数</span>
+models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select id as nid from userinfo where nid>%s'</span><span class="token punctuation">,</span> params<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+name_map <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'first'</span><span class="token punctuation">:</span> <span class="token string">'first_name'</span><span class="token punctuation">,</span> <span class="token string">'last'</span><span class="token punctuation">:</span> <span class="token string">'last_name'</span><span class="token punctuation">,</span> <span class="token string">'bd'</span><span class="token punctuation">:</span> <span class="token string">'birth_date'</span><span class="token punctuation">,</span> <span class="token string">'pk'</span><span class="token punctuation">:</span> <span class="token string">'id'</span><span class="token punctuation">}</span>
+Person<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'SELECT * FROM some_other_table'</span><span class="token punctuation">,</span> translations<span class="token operator">=</span>name_map<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>原生SQL</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> connection<span class="token punctuation">,</span> connections
+cursor <span class="token operator">=</span> connection<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># cursor = connections['default'].cursor()</span>
+cursor<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token triple-quoted-string string">"""SELECT * from auth_user where id = %s"""</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+row <span class="token operator">=</span> cursor<span class="token punctuation">.</span>fetchone<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># fetchall()/fetchmany(..)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>选择数据库</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">queryset <span class="token operator">=</span> models<span class="token punctuation">.</span>Course<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>using<span class="token punctuation">(</span><span class="token string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="？、其他"><a href="#？、其他" class="headerlink" title="？、其他"></a>？、其他</h1><h2 id="1-git的作用是什么"><a href="#1-git的作用是什么" class="headerlink" title="1. git的作用是什么"></a>1. git的作用是什么</h2><p>进行版本控制，实现协同开发</p>
+<h2 id="2-git命令与意义"><a href="#2-git命令与意义" class="headerlink" title="2. git命令与意义"></a>2. git命令与意义</h2><ul>
+<li>git init </li>
+<li>git add </li>
+<li>git status </li>
+<li>git commit </li>
+<li>git log </li>
+<li>git reflog </li>
+<li>git reset –hard</li>
+<li>git checkout </li>
+</ul>
+
       
 
       
@@ -522,153 +1504,10 @@
 
 
   
-    <article id="post-ES6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/17/ES6/">ES基础学习</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/17/ES6/" class="archive-article-date">
-  	<time datetime="2018-10-17T12:21:04.073Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-什么是ECMAScript"><a href="#1-什么是ECMAScript" class="headerlink" title="1. 什么是ECMAScript"></a>1. 什么是ECMAScript</h2><blockquote>
-<p>ECMAScript是一种由<a href="https://baike.baidu.com/item/Ecma%E5%9B%BD%E9%99%85" target="_blank" rel="noopener">Ecma国际</a>（前身为<a href="https://baike.baidu.com/item/%E6%AC%A7%E6%B4%B2%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%88%B6%E9%80%A0%E5%95%86%E5%8D%8F%E4%BC%9A/2052072" target="_blank" rel="noopener">欧洲计算机制造商协会</a>,英文名称是European Computer Manufacturers Association）通过ECMA-262标准化的脚本<a href="https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">程序设计语言</a>。这种语言在<a href="https://baike.baidu.com/item/%E4%B8%87%E7%BB%B4%E7%BD%91" target="_blank" rel="noopener">万维网</a>上应用广泛，它往往被称为<a href="https://baike.baidu.com/item/JavaScript" target="_blank" rel="noopener">JavaScript</a>或<a href="https://baike.baidu.com/item/JScript" target="_blank" rel="noopener">JScript</a>，所以它可以理解为是javascript的一个标准,但实际上后两者是ECMA-262标准的实现和扩展。<br>
-        
-          <a class="article-more-a" href="/2018/10/17/ES6/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/17/ES6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/17/hello-world/" class="archive-article-date">
-  	<time datetime="2018-10-17T10:27:32.147Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-        
-          <a class="article-more-a" href="/2018/10/17/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/17/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -762,15 +1601,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
             
             <div class="clearfix"></div>

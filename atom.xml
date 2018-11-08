@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-03T02:31:18.463Z</updated>
+  <updated>2018-11-08T10:39:54.769Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,15 +17,135 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Django——支付宝支付功能</title>
+    <link href="http://yoursite.com/2018/11/08/%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"/>
+    <id>http://yoursite.com/2018/11/08/前期准备/</id>
+    <published>2018-11-08T09:58:10.589Z</published>
+    <updated>2018-11-08T10:39:54.769Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;前期准备&quot;&gt;&lt;a href=&quot;#前期准备&quot; class=&quot;headerlink&quot; title=&quot;前期准备&quot;&gt;&lt;/a&gt;前期准备&lt;/h1&gt;&lt;p&gt;首先我们需要获得支付宝提供的权限与接口，在蚂蚁开放平台进行相关申请：&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94%E6%94%AF%E4%BB%98%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://yoursite.com/2018/11/07/在线教育平台——支付实现/</id>
+    <published>2018-11-07T08:32:00.472Z</published>
+    <updated>2018-11-07T08:32:00.472Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在线教育平台项目总结</title>
+    <link href="http://yoursite.com/2018/11/07/%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2018/11/07/项目简介/</id>
+    <published>2018-11-07T08:31:48.752Z</published>
+    <updated>2018-11-08T10:41:24.038Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;项目简介&quot;&gt;&lt;a href=&quot;#项目简介&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94%E8%B4%AD%E7%89%A9%E8%BD%A6%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://yoursite.com/2018/11/07/在线教育平台——购物车功能实现/</id>
+    <published>2018-11-07T08:31:48.748Z</published>
+    <updated>2018-11-05T17:16:19.969Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在线教育平台——购物车功能实现&lt;/p&gt;
+&lt;p&gt;依赖软件：Django\redis&lt;/p&gt;
+&lt;p&gt;测试工具：postman&lt;/p&gt;
+&lt;h2 id=&quot;redis中购物车数据存储结构&quot;&gt;&lt;a href=&quot;#redis中购物车数据存储结构&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在线教育——结算中心的实现</title>
+    <link href="http://yoursite.com/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E2%80%94%E2%80%94%E7%BB%93%E7%AE%97%E4%B8%AD%E5%BF%83%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://yoursite.com/2018/11/07/在线教育——结算中心的实现/</id>
+    <published>2018-11-07T08:31:48.721Z</published>
+    <updated>2018-11-08T10:40:24.534Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
     <title>我的面试笔记</title>
     <link href="http://yoursite.com/2018/11/02/%E6%88%91%E7%9A%84%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2018/11/02/我的面试笔记/</id>
     <published>2018-11-02T15:52:36.577Z</published>
-    <updated>2018-11-03T02:31:18.463Z</updated>
+    <updated>2018-11-08T10:38:33.261Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;一、WEB框架&quot;&gt;&lt;a href=&quot;#一、WEB框架&quot; class=&quot;headerlink&quot; title=&quot;一、WEB框架&quot;&gt;&lt;/a&gt;一、WEB框架&lt;/h1&gt;&lt;h2 id=&quot;1-请简述django请求生命周期&quot;&gt;&lt;a href=&quot;#1-请简述django请求生命周期&quot; class=&quot;headerlink&quot; title=&quot;1. 请简述django请求生命周期&quot;&gt;&lt;/a&gt;1. 请简述django请求生命周期&lt;/h2&gt;
+      
+      
+        
+        
+          &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;一、WEB框架&quot;&gt;&lt;a href=&quot;#一、WEB框架&quot; class=&quot;headerlink&quot; title=&quot;一、WEB框架&quot;&gt;&lt;/a&gt;一、WEB框架&lt;/h1&gt;&lt;h2 id=&quot;1-请简述django请求生命周期&quot;&gt;&lt;a
+        
+      
     
     </summary>
     
@@ -39,7 +159,7 @@
     <link href="http://yoursite.com/2018/10/29/python%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2018/10/29/python基础算法实现/</id>
     <published>2018-10-28T16:20:02.709Z</published>
-    <updated>2018-10-28T16:24:21.138Z</updated>
+    <updated>2018-11-05T18:00:03.131Z</updated>
     
     <summary type="html">
     

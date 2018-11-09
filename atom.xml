@@ -40,18 +40,12 @@
     <link href="http://yoursite.com/2018/11/08/%E5%BE%AE%E4%BF%A1%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"/>
     <id>http://yoursite.com/2018/11/08/微信消息推送/</id>
     <published>2018-11-08T14:48:57.019Z</published>
-    <updated>2018-11-08T14:48:57.243Z</updated>
+    <updated>2018-11-09T11:43:41.446Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;Django——微信消息推送&lt;/p&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;p&gt;Django——微信消息推送&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;微信公众号的分类&lt;/p&gt;
     
     </summary>
     
@@ -137,17 +131,11 @@
     <link href="http://yoursite.com/2018/11/02/%E6%88%91%E7%9A%84%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2018/11/02/我的面试笔记/</id>
     <published>2018-11-02T15:52:36.577Z</published>
-    <updated>2018-11-08T17:06:14.351Z</updated>
+    <updated>2018-11-09T11:48:00.038Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;python基础&quot;&gt;&lt;a href=&quot;#python基础&quot; class=&quot;headerlink&quot; title=&quot;python基础&quot;&gt;&lt;/a&gt;python基础&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;为什么学习Python？&lt;/p&gt;
-&lt;p&gt;在&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&quot;一、WEB框架&quot;&gt;&lt;a href=&quot;#一、WEB框架&quot; class=&quot;headerlink&quot; title=&quot;一、WEB框架&quot;&gt;&lt;/a&gt;一、WEB框架&lt;/h1&gt;&lt;h2 id=&quot;1-请简述django请求生命周期&quot;&gt;&lt;a href=&quot;#1-请简述django请求生命周期&quot; class=&quot;headerlink&quot; title=&quot;1. 请简述django请求生命周期&quot;&gt;&lt;/a&gt;1. 请简述django请求生命周期&lt;/h2&gt;
+      &lt;p&gt;每天写一点，直到找到工作&lt;/p&gt;
     
     </summary>
     

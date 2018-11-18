@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Centos7环境 Mongodb 的安装及远程连接 | YoungCe的笔记</title>
+  <title>MySQL分页limit速度太慢的优化方法 | YoungCe的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
-<meta name="keywords" content="数据库">
+  <meta name="description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7环境 Mongodb 的安装及远程连接">
-<meta property="og:url" content="http://yoursite.com/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/index.html">
+<meta property="og:title" content="MySQL分页limit速度太慢的优化方法">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/MySQL分页limit速度太慢的优化方法/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
+<meta property="og:description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/13/iXEZcD.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/13/iXArOH.png">
-<meta property="og:updated_time" content="2018-11-13T12:35:38.529Z">
+<meta property="og:updated_time" content="2018-11-18T16:26:45.666Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7环境 Mongodb 的安装及远程连接">
-<meta name="twitter:description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/13/iXEZcD.png">
+<meta name="twitter:title" content="MySQL分页limit速度太慢的优化方法">
+<meta name="twitter:description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
   
     <link rel="alternative" href="/atom.xml" title="YoungCe的笔记" type="application/atom+xml">
   
@@ -145,87 +142,57 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Centos7环境-Mongodb-的安装及远程连接" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL分页limit速度太慢的优化方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Centos7环境 Mongodb 的安装及远程连接
+      MySQL分页limit速度太慢的优化方法
     </h1>
   
 
         
-        <a href="/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/" class="archive-article-date">
-  	<time datetime="2018-11-13T12:35:38.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
+        <a href="/2018/11/19/MySQL分页limit速度太慢的优化方法/" class="archive-article-date">
+  	<time datetime="2018-11-18T16:12:58.276Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。</p>
+        <h2 id="limit用法"><a href="#limit用法" class="headerlink" title="limit用法"></a>limit用法</h2><p>在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。</p>
 <a id="more"></a>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>① 把Mongo的安装配置添加的yum中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/yum.repos.d/mongodb-org-4.0.repo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>把下面配置复制到文件中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>mongodb-org-4.0<span class="token punctuation">]</span>
-name<span class="token operator">=</span>MongoDB Repository
-baseurl<span class="token operator">=</span>https://repo.mongodb.org/yum/redhat/<span class="token variable">$releasever</span>/mongodb-org/4.0/x86_64/
-gpgcheck<span class="token operator">=</span>1
-enabled<span class="token operator">=</span>1
-gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/server-4.0.asc
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>② 运行安装命令</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> -y mongodb-org
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>③ 设置数据储存路径<br>默认下mongo的储存路径是 /data/db ，如果此时系统中没有这个文件，是不会启动成功的。所以要手动穿件这个文件夹</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /data/db
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>④ 启动Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> mongod start
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>⑤ 连接本地的Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash">mongo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>此时Mongo的安装已经完成，上面日志中有警告啥的可以通过配置解决，但不影响使用。</p>
-<p>参考资料：<a href="https://docs.mongodb.com/master/mongo/" target="_blank" rel="noopener">https://docs.mongodb.com/master/mongo/</a></p>
-<h2 id="二、Mongo的远程连接"><a href="#二、Mongo的远程连接" class="headerlink" title="二、Mongo的远程连接"></a>二、Mongo的远程连接</h2><p>注意：Mongo的远程连接需要打开权限控制<br>本教程是不过多涉及权限问题，权限详情可参考：<br><a href="http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html" target="_blank" rel="noopener">http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html</a></p>
-<p>① 添加新的用户<br>首先添加个管理员账号（root权限）：</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript"> db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    user<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>
-    pwd<span class="token punctuation">:</span><span class="token string">"password"</span><span class="token punctuation">,</span>
-    roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"admin"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>添加个普通账号（读写权限）： (需要先用root登陆)<br>（命令中的db 代表用户所分配的数据库）</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                　　user<span class="token punctuation">:</span><span class="token string">"hyc"</span><span class="token punctuation">,</span>                                   
-                　　pwd<span class="token punctuation">:</span><span class="token string">"123456"</span><span class="token punctuation">,</span>
-                　　roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"readWrite"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"test"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-           　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>② 修改配置文件</p>
-<pre><code>vi /etc/mongod.conf
-</code></pre><p>注释掉：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.</span>
+<pre><code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset 
+</code></pre><p>LIMIT 子句可以被用于强制 SELECT 语句返回指定的记录数。LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。如果给定两个参数，第一个参数指定第一个返回记录行的<code>偏移量</code>，第二个参数指定返回记录行的最大数目。<code>初始记录行的偏移量是 0(而不是 1)</code>： 为了与 PostgreSQL 兼容，MySQL 也支持句法： LIMIT # OFFSET #。</p>
+<pre><code>mysql&gt; SELECT * FROM table LIMIT 5,10; // 检索记录行 6-15 
+</code></pre><p>为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1：</p>
+<pre><code>mysql&gt; SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last. 
+</code></pre><p>如果只给定一个参数，它表示返回最大的记录行数目： </p>
+<pre><code>mysql&gt; SELECT * FROM table LIMIT 5; //检索前 5 个记录行 
+</code></pre><p>换句话说，<code>LIMIT n</code> 等价于<code>LIMIT 0,n</code>。</p>
+<h2 id="Mysql的分页查询语句的性能分析"><a href="#Mysql的分页查询语句的性能分析" class="headerlink" title="Mysql的分页查询语句的性能分析"></a><strong>Mysql的分页查询语句的性能分析</strong></h2><p>MySql分页sql语句，如果和MSSQL的TOP语法相比，那么MySQL的LIMIT语法要显得优雅了许多。使用它来分页是再自然不过的事情了。</p>
+<h3 id="最基本的分页方式："><a href="#最基本的分页方式：" class="headerlink" title="最基本的分页方式："></a><strong>最基本的分页方式：</strong></h3><pre><code>SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT ... 
+</code></pre><p>在中小数据量的情况下，这样的SQL足够用了，唯一需要注意的问题就是确保使用了索引：举例来说，如果实际SQL类似下面语句，那么在category_id, id两列上建立复合索引比较好：</p>
+<pre><code>SELECT * FROM articles WHERE category_id = 123 ORDER BY id LIMIT 50, 10 
+</code></pre><h3 id="子查询的分页方式："><a href="#子查询的分页方式：" class="headerlink" title="子查询的分页方式："></a><strong>子查询的分页方式：</strong></h3><p>随着数据量的增加，页数会越来越多，查看后几页的SQL就可能类似：</p>
+<pre><code>SELECT * FROM articles WHERE category_id = 123 ORDER BY id LIMIT 10000, 10 
+</code></pre><p>一言以蔽之，就是越往后分页，<code>LIMIT语句的偏移量就会越大，速度也会明显变慢</code>。</p>
+<p>此时，我们可以通过子查询的方式来提高分页效率，大致如下：</p>
+<pre><code>SELECT * FROM articles WHERE id &gt;= 
+(SELECT id FROM articles WHERE category_id = 123 ORDER BY id LIMIT 10000, 1) LIMIT 10 
+</code></pre><h3 id="JOIN分页方式"><a href="#JOIN分页方式" class="headerlink" title="JOIN分页方式"></a>JOIN分页方式</h3><pre><code>SELECT * FROM `content` AS t1 
+JOIN (SELECT id FROM `content` ORDER BY id desc LIMIT &quot;.($page-1)*$pagesize.&quot;, 1) AS t2 
+WHERE t1.id &lt;= t2.id ORDER BY t1.id desc LIMIT $pagesize; 
+</code></pre><p>经过我的测试，join分页和子查询分页的效率基本在一个等级上，消耗的时间也基本一致。 explain SQL语句：</p>
+<pre><code>id select_type table type possible_keys key key_len ref rows Extra
+1 PRIMARY &lt;derived2&gt; system NULL NULL NULL NULL 1 
+1 PRIMARY t1 range PRIMARY PRIMARY 4 NULL 6264 Using where
+2 DERIVED content index NULL PRIMARY 4 NULL 27085 Using index
+</code></pre><p>为什么会这样呢？因为子查询是在索引上完成的，而普通的查询时在数据文件上完成的，通常来说，索引文件要比数据文件小得多，所以操作起来也会更有效率。</p>
+<p>实际可以利用类似策略模式的方式去处理分页，比如判断如果是一百页以内，就使用最基本的分页方式，大于一百页，则使用子查询的分页方式。</p>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>添加：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">security:
-    authorization: enabled
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>③ 重启Mongo 远程连接</p>
-<pre><code>service mongod restart
-</code></pre><p>④ 开启端口访问</p>
-<pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd --zone<span class="token operator">=</span>public --permanent --add-port<span class="token operator">=</span>27017/tcp<span class="token punctuation">;</span> firewall-cmd --reload
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>打开ROBO（mongo 可视化工具）：</p>
-<p><a href="https://imgchr.com/i/iXEZcD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/13/iXEZcD.png" alt="iXEZcD.png"></a></p>
-<p><img src="https://s1.ax1x.com/2018/11/13/iXArOH.png" alt="iXArOH.png"></p>
-<h2 id="最后点击Save就可以愉快的使用啦"><a href="#最后点击Save就可以愉快的使用啦" class="headerlink" title="最后点击Save就可以愉快的使用啦"></a>最后点击Save就可以愉快的使用啦</h2>
       
 
       
@@ -259,7 +226,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -315,7 +282,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/19/MySQL分页limit速度太慢的优化方法/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +296,18 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
   
 <nav id="article-nav">
   
-    <a href="/2018/11/16/Python——回顾常用的库/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/11/19/源码剖析Django REST framework的认证方式/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python——回顾常用的库
+          源码剖析Django REST framework的认证方式
         
       </div>
     </a>
   
   
-    <a href="/2018/11/09/无题1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">无题1</div>
+    <a href="/2018/11/16/Python——回顾常用的库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python——回顾常用的库</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -367,7 +334,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安装"><span class="toc-number">1.</span> <span class="toc-text">一、安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Mongo的远程连接"><span class="toc-number">2.</span> <span class="toc-text">二、Mongo的远程连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后点击Save就可以愉快的使用啦"><span class="toc-number">3.</span> <span class="toc-text">最后点击Save就可以愉快的使用啦</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#limit用法"><span class="toc-number">1.</span> <span class="toc-text">limit用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql的分页查询语句的性能分析"><span class="toc-number">2.</span> <span class="toc-text">Mysql的分页查询语句的性能分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最基本的分页方式："><span class="toc-number">2.1.</span> <span class="toc-text">最基本的分页方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子查询的分页方式："><span class="toc-number">2.2.</span> <span class="toc-text">子查询的分页方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JOIN分页方式"><span class="toc-number">2.3.</span> <span class="toc-text">JOIN分页方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

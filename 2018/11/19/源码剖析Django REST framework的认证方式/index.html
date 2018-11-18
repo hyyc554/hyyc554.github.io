@@ -6,23 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Centos7环境 Mongodb 的安装及远程连接 | YoungCe的笔记</title>
+  <title>源码剖析Django REST framework的认证方式 | YoungCe的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
-<meta name="keywords" content="数据库">
+  <meta name="description" content="由Django的CBV模式流程，可以知道在url匹配完成后，会执行自定义的类中的as_view方法。 如果自定义的类中没有定义as_view方法，根据面向对象中类的继承可以知道，则会执行其父类View中的as_view方法 在Django的View的as_view方法中，又会调用dispatch方法。 现在来看看Django rest framework的认证流程">
+<meta name="keywords" content="Django">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7环境 Mongodb 的安装及远程连接">
-<meta property="og:url" content="http://yoursite.com/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/index.html">
+<meta property="og:title" content="源码剖析Django REST framework的认证方式">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/源码剖析Django REST framework的认证方式/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
+<meta property="og:description" content="由Django的CBV模式流程，可以知道在url匹配完成后，会执行自定义的类中的as_view方法。 如果自定义的类中没有定义as_view方法，根据面向对象中类的继承可以知道，则会执行其父类View中的as_view方法 在Django的View的as_view方法中，又会调用dispatch方法。 现在来看看Django rest framework的认证流程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/13/iXEZcD.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/13/iXArOH.png">
-<meta property="og:updated_time" content="2018-11-13T12:35:38.529Z">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825183747075-1935268768.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825184058007-932847314.jpg">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201711/1133627-20171126000140781-1551141195.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225750139-1198840701.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225755562-137171019.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225715170-517425689.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225720650-323643037.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225705126-1550086890.png">
+<meta property="og:updated_time" content="2018-11-18T16:26:25.559Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7环境 Mongodb 的安装及远程连接">
-<meta name="twitter:description" content="此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/13/iXEZcD.png">
+<meta name="twitter:title" content="源码剖析Django REST framework的认证方式">
+<meta name="twitter:description" content="由Django的CBV模式流程，可以知道在url匹配完成后，会执行自定义的类中的as_view方法。 如果自定义的类中没有定义as_view方法，根据面向对象中类的继承可以知道，则会执行其父类View中的as_view方法 在Django的View的as_view方法中，又会调用dispatch方法。 现在来看看Django rest framework的认证流程">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825183747075-1935268768.png">
   
     <link rel="alternative" href="/atom.xml" title="YoungCe的笔记" type="application/atom+xml">
   
@@ -145,87 +151,561 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Centos7环境-Mongodb-的安装及远程连接" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-源码剖析Django REST framework的认证方式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Centos7环境 Mongodb 的安装及远程连接
+      源码剖析Django REST framework的认证方式
     </h1>
   
 
         
-        <a href="/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/" class="archive-article-date">
-  	<time datetime="2018-11-13T12:35:38.335Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
+        <a href="/2018/11/19/源码剖析Django REST framework的认证方式/" class="archive-article-date">
+  	<time datetime="2018-11-18T16:18:09.681Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。</p>
+        <p>由Django的CBV模式流程，可以知道在<code>url匹配完成后，会执行自定义的类中的as_view方法</code>。</p>
+<p>如果自定义的类中没有定义<code>as_view方法</code>，根据面向对象中类的继承可以知道，则<code>会执行其父类View中的as_view方法</code></p>
+<p><code>在Django的View的as_view方法中，又会调用dispatch方法</code>。</p>
+<p>现在来看看Django rest framework的认证流程</p>
 <a id="more"></a>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>① 把Mongo的安装配置添加的yum中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/yum.repos.d/mongodb-org-4.0.repo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>把下面配置复制到文件中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>mongodb-org-4.0<span class="token punctuation">]</span>
-name<span class="token operator">=</span>MongoDB Repository
-baseurl<span class="token operator">=</span>https://repo.mongodb.org/yum/redhat/<span class="token variable">$releasever</span>/mongodb-org/4.0/x86_64/
-gpgcheck<span class="token operator">=</span>1
-enabled<span class="token operator">=</span>1
-gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/server-4.0.asc
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>② 运行安装命令</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> -y mongodb-org
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>③ 设置数据储存路径<br>默认下mongo的储存路径是 /data/db ，如果此时系统中没有这个文件，是不会启动成功的。所以要手动穿件这个文件夹</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /data/db
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>④ 启动Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> mongod start
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>⑤ 连接本地的Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash">mongo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>此时Mongo的安装已经完成，上面日志中有警告啥的可以通过配置解决，但不影响使用。</p>
-<p>参考资料：<a href="https://docs.mongodb.com/master/mongo/" target="_blank" rel="noopener">https://docs.mongodb.com/master/mongo/</a></p>
-<h2 id="二、Mongo的远程连接"><a href="#二、Mongo的远程连接" class="headerlink" title="二、Mongo的远程连接"></a>二、Mongo的远程连接</h2><p>注意：Mongo的远程连接需要打开权限控制<br>本教程是不过多涉及权限问题，权限详情可参考：<br><a href="http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html" target="_blank" rel="noopener">http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html</a></p>
-<p>① 添加新的用户<br>首先添加个管理员账号（root权限）：</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript"> db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    user<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>
-    pwd<span class="token punctuation">:</span><span class="token string">"password"</span><span class="token punctuation">,</span>
-    roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"admin"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>添加个普通账号（读写权限）： (需要先用root登陆)<br>（命令中的db 代表用户所分配的数据库）</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                　　user<span class="token punctuation">:</span><span class="token string">"hyc"</span><span class="token punctuation">,</span>                                   
-                　　pwd<span class="token punctuation">:</span><span class="token string">"123456"</span><span class="token punctuation">,</span>
-                　　roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"readWrite"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"test"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-           　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>② 修改配置文件</p>
-<pre><code>vi /etc/mongod.conf
-</code></pre><p>注释掉：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.</span>
+<blockquote>
+<p>Django restframework是基于Django的框架，所以基于CBV的模式也会执行自定义的类中的as_view方法</p>
+</blockquote>
+<p>先新建一个项目，配置url</p>
+<pre><code>from django.conf.urls import url
+from django.contrib import admin
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>添加：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">security:
-    authorization: enabled
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>③ 重启Mongo 远程连接</p>
-<pre><code>service mongod restart
-</code></pre><p>④ 开启端口访问</p>
-<pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd --zone<span class="token operator">=</span>public --permanent --add-port<span class="token operator">=</span>27017/tcp<span class="token punctuation">;</span> firewall-cmd --reload
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>打开ROBO（mongo 可视化工具）：</p>
-<p><a href="https://imgchr.com/i/iXEZcD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/13/iXEZcD.png" alt="iXEZcD.png"></a></p>
-<p><img src="https://s1.ax1x.com/2018/11/13/iXArOH.png" alt="iXArOH.png"></p>
-<h2 id="最后点击Save就可以愉快的使用啦"><a href="#最后点击Save就可以愉快的使用啦" class="headerlink" title="最后点击Save就可以愉快的使用啦"></a>最后点击Save就可以愉快的使用啦</h2>
+from app01 import views
+
+urlpatterns = [
+    url(r&#39;^user/&#39;, views.UserView.as_view()),
+]
+</code></pre><p>views.py文件内容</p>
+<pre><code>from django.shortcuts import render,HttpResponse
+from rest_framework.views import APIView
+
+class UserView(APIView):
+
+    def get(self,request,*args,**kwargs):
+        print(request.__dict__)
+        print(request.user)
+        return HttpResponse(&quot;UserView GET&quot;)
+
+    def post(self,request,*args,**kwargs):
+        return HttpResponse(&quot;UserView POST&quot;)
+</code></pre><p>启动项目，用浏览器向<code>http://127.0.0.1:8000/user/</code>发送get请求</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825183747075-1935268768.png" alt="img"></p>
+<p>可以知道请求发送成功。现在来看看源码流程，由于UserView继承APIView，查看APIView中的as_view方法</p>
+<pre><code>class APIView(View):
+    ...
+    @classmethod
+    def as_view(cls, **initkwargs):
+        if isinstance(getattr(cls, &#39;queryset&#39;, None), models.query.QuerySet):
+            def force_evaluation():
+                raise RuntimeError(
+                    &#39;Do not evaluate the `.queryset` attribute directly, &#39;
+                    &#39;as the result will be cached and reused between requests. &#39;
+                    &#39;Use `.all()` or call `.get_queryset()` instead.&#39;
+                )
+            cls.queryset._fetch_all = force_evaluation
+
+        view = super(APIView, cls).as_view(**initkwargs)
+        view.cls = cls
+        view.initkwargs = initkwargs
+        return csrf_exempt(view)
+</code></pre><p><code>通过super来执行APIView的父类Django的View中的as_view方法</code>。上一篇文章<a href="https://www.cnblogs.com/renpingsheng/p/9531649.html" target="_blank" rel="noopener">源码解析Django CBV的本质</a>中已经知道，View类的as_view方法会调用dispatch方法。</p>
+<p>View类的as_view方法源码如下所示</p>
+<pre><code>class View(object):
+    ...
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        ...
+        def view(request, *args, **kwargs):
+            self = cls(**initkwargs)
+            if hasattr(self, &#39;get&#39;) and not hasattr(self, &#39;head&#39;):
+                self.head = self.get
+            self.request = request
+            self.args = args
+            self.kwargs = kwargs
+            return self.dispatch(request, *args, **kwargs)
+        ...
+</code></pre><p><code>as_view方法中的self实际上指的是自定义的UserView这个类</code>，上面的代码会执行UserView类中dispatch方法。</p>
+<p>由于UserView类中并没有定义dispatch方法，而UserView类继承自Django restframework的APIView类，所以会执行APIView类中的dispatch方法</p>
+<pre><code>def dispatch(self, request, *args, **kwargs):
+    self.args = args
+    self.kwargs = kwargs
+    request = self.initialize_request(request, *args, **kwargs)
+    self.request = request
+    self.headers = self.default_response_headers  # deprecate?
+
+    try:
+        self.initial(request, *args, **kwargs)
+        if request.method.lower() in self.http_method_names:
+            handler = getattr(self, request.method.lower(),
+                              self.http_method_not_allowed)
+        else:
+            handler = self.http_method_not_allowed
+
+        response = handler(request, *args, **kwargs)
+
+    except Exception as exc:
+        response = self.handle_exception(exc)
+
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+    return self.response
+</code></pre><p>可以看到，<code>先执行initialize_request方法处理浏览器发送的request请求</code>。</p>
+<p>来看看initialize_request方法的源码</p>
+<pre><code>def initialize_request(self, request, *args, **kwargs):
+    &quot;&quot;&quot;
+    Returns the initial request object.
+    &quot;&quot;&quot;
+    parser_context = self.get_parser_context(request)
+
+    return Request(
+        request,
+        parsers=self.get_parsers(),
+        authenticators=self.get_authenticators(),
+        negotiator=self.get_content_negotiator(),
+        parser_context=parser_context
+    )
+</code></pre><p>在initialize_request方法里，把浏览器发送的request和restframework的处理器，认证，选择器等对象列表作为参数实例化Request类中得到新的request对象并返回，其中跟认证相关的对象就是authenticators。</p>
+<pre><code>def get_authenticators(self):
+    &quot;&quot;&quot;
+    Instantiates and returns the list of authenticators that this view can use.
+    &quot;&quot;&quot;
+    return [auth() for auth in self.authentication_classes]
+get_authenticators方法通过列表生成式得到一个列表，列表中包含认证类实例化后的对象
+</code></pre><p>在这里，<code>authentication_classes来自于api_settings的配置</code></p>
+<pre><code>authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES
+</code></pre><p>通过查看api_settings的源码可以知道，可以在项目的settings.py文件中进行认证相关的配置</p>
+<pre><code>api_settings = APISettings(None, DEFAULTS, IMPORT_STRINGS)
+
+def reload_api_settings(*args, **kwargs):
+    setting = kwargs[&#39;setting&#39;]
+    if setting == &#39;REST_FRAMEWORK&#39;:
+        api_settings.reload()
+</code></pre><p>Django restframework通过initialize_request方法对原始的request进行一些封装后实例化得到新的request对象</p>
+<p>然后执行initial方法来处理新得到的request对象，再来看看initial方法中又执行了哪些操作</p>
+<pre><code>def initial(self, request, *args, **kwargs):
+    self.format_kwarg = self.get_format_suffix(**kwargs)
+    neg = self.perform_content_negotiation(request)
+    request.accepted_renderer, request.accepted_media_type = neg
+
+    version, scheme = self.determine_version(request, *args, **kwargs)
+    request.version, request.versioning_scheme = version, scheme
+
+    self.perform_authentication(request)
+    self.check_permissions(request)
+    self.check_throttles(request)
+</code></pre><p>由上面的源码可以知道，在initial方法中，<code>执行perform_authentication来对request对象进行认证操作</code></p>
+<pre><code>def perform_authentication(self, request):
+    request.user
+perform_authentication方法中调用执行request中的user方法`，`这里的request是封装了原始request,认证对象列表，处理器列表等之后的request对象
+class Request(object):
+    ...
+    @property
+    def user(self):
+        &quot;&quot;&quot;
+        Returns the user associated with the current request, as authenticated
+        by the authentication classes provided to the request.
+        &quot;&quot;&quot;
+        if not hasattr(self, &#39;_user&#39;):
+            with wrap_attributeerrors():
+                self._authenticate()
+        return self._user
+</code></pre><p>从request中获取<code>_user</code>的值，如果获取到则执行<code>_authenticate方法</code>，否则返回<code>_user</code></p>
+<pre><code>def _authenticate(self):
+    &quot;&quot;&quot;
+    Attempt to authenticate the request using each authentication instance
+    in turn.
+    &quot;&quot;&quot;
+    for authenticator in self.authenticators:
+        try:
+            user_auth_tuple = authenticator.authenticate(self)
+        except exceptions.APIException:
+            self._not_authenticated()
+            raise
+
+        if user_auth_tuple is not None:
+            self._authenticator = authenticator
+            self.user, self.auth = user_auth_tuple
+            return
+</code></pre><p>在这里<code>self.authenticators</code>实际上是<code>get_authenticators</code>方法执行完成后返回的对象列表</p>
+<pre><code>class Request(object):
+
+    def __init__(self, request, parsers=None, authenticators=None,
+                 negotiator=None, parser_context=None):
+        assert isinstance(request, HttpRequest), (
+            &#39;The `request` argument must be an instance of &#39;
+            &#39;`django.http.HttpRequest`, not `{}.{}`.&#39;
+            .format(request.__class__.__module__, request.__class__.__name__)
+        )
+
+        self._request = request
+        self.parsers = parsers or ()
+        self.authenticators = authenticators or ()
+        ...
+</code></pre><p>循环认证的对象列表,<code>执行每一个认证方法的类中的authenticate方法</code>，得到通过认证的用户及用户的口令的元组，并返回元组完成认证的流程</p>
+<p>在<code>_authenticate</code>方法中使用了try/except方法来捕获authenticate方法可能出现的异常</p>
+<p>如果出现异常,就调用<code>_not_authenticated</code>方法来设置返回元组中的用户及口令并终止程序继续运行</p>
+<p>总结，Django restframework的认证流程如下图</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825184058007-932847314.jpg" alt="img"></p>
+<h2 id="Django-restframework内置的认证类"><a href="#Django-restframework内置的认证类" class="headerlink" title="Django restframework内置的认证类"></a>Django restframework内置的认证类</h2><p>在上面的项目例子中，在UsersView的get方法中，打印<code>authentication_classes</code>和<code>request._user</code>的值</p>
+<pre><code>class UserView(APIView):
+    # authentication_classes = [MyAuthentication,]
+
+    def get(self,request,*args,**kwargs):
+        print(&#39;authentication_classes:&#39;, self.authentication_classes)
+        print(request._user)
+        return HttpResponse(&quot;UserView GET&quot;)
+</code></pre><p>打印结果为</p>
+<pre><code>authentication_classes: [&lt;class &#39;rest_framework.authentication.SessionAuthentication&#39;&gt;, &lt;class &#39;rest_framework.authentication.BasicAuthentication&#39;&gt;]
+AnonymousUser
+</code></pre><p>由此可以知道,<code>authentication_classes</code>默认是Django restframework内置的认证类，而request._user为AnonymousUser,因为发送GET请求，用户没有进行登录认证，所以为匿名用户</p>
+<p>在视图函数中导入这两个类,再查看这两个类的源码,可以知道</p>
+<pre><code>class BasicAuthentication(BaseAuthentication):
+
+    www_authenticate_realm = &#39;api&#39; 
+
+    def authenticate(self, request):
+
+        ...
+
+    def authenticate_credentials(self, userid, password):
+
+        ...
+
+class SessionAuthentication(BaseAuthentication):
+
+    def authenticate(self, request):
+
+        ...
+
+    def enforce_csrf(self, request):
+
+        ...
+
+class TokenAuthentication(BaseAuthentication):
+    ...
+</code></pre><p>从上面的源码可以发现,这个文件中不仅定义了<code>SessionAuthentication</code>和<code>BasicAuthentication</code>这两个类,</p>
+<p>相关的类还有<code>TokenAuthentication</code>,而且这三个认证相关的类都是继承自<code>BaseAuthentication</code>类</p>
+<p>从上面的源码可以大概知道,这三个继承自<code>BaseAuthentication</code>的类是Django restframework内置的认证方式.</p>
+<h2 id="自定义认证功能"><a href="#自定义认证功能" class="headerlink" title="自定义认证功能"></a>自定义认证功能</h2><p>在上面我们知道,Request会调用认证相关的类及方法,<code>APIView</code>会设置认证相关的类及方法</p>
+<p>所以如果想自定义认证功能,只需要重写<code>authenticate</code>方法及<code>authentication_classes</code>的对象列表即可</p>
+<p>修改上面的例子的views.py文件</p>
+<pre><code>from django.shortcuts import render, HttpResponse
+from rest_framework.views import APIView
+from rest_framework.authentication import BaseAuthentication
+from rest_framework import exceptions
+
+TOKEN_LIST = [  # 定义token_list
+    &#39;aabbcc&#39;,
+    &#39;ddeeff&#39;,
+]
+
+class UserAuthView(BaseAuthentication):
+    def authenticate(self, request):
+        tk = request._request.GET.get(&quot;tk&quot;)  # request._request为原生的request
+
+        if tk in TOKEN_LIST:
+            return (tk, None)  # 返回一个元组
+        raise exceptions.AuthenticationFailed(&quot;用户认证失败&quot;)
+
+    def authenticate_header(self, request):
+        # 如果不定义authenticate_header方法会抛出异常
+        pass
+
+class UserView(APIView):
+    authentication_classes = [UserAuthView, ]
+
+    def get(self, request, *args, **kwargs):
+        print(request.user)
+
+        return HttpResponse(&quot;UserView GET&quot;)
+</code></pre><p>启动项目,在浏览器中输入<code>http://127.0.0.1:8000/users/?tk=aabbcc</code>,然后回车,在服务端后台会打印</p>
+<pre><code>aabbcc
+</code></pre><p>把浏览器中的url换为<code>http://127.0.0.1:8000/users/?tk=ddeeff</code>,后台打印信息则变为</p>
+<pre><code>ddeeff
+</code></pre><p>这样就实现REST framework的自定义认证功能</p>
+<h2 id="Django-restframework认证的扩展"><a href="#Django-restframework认证的扩展" class="headerlink" title="Django restframework认证的扩展"></a>Django restframework认证的扩展</h2><h3 id="基于Token进行用户认证"><a href="#基于Token进行用户认证" class="headerlink" title="基于Token进行用户认证"></a>基于Token进行用户认证</h3><p>修改上面的项目，在urls.py文件中添加一条路由记录</p>
+<pre><code>from django.conf.urls import url
+from django.contrib import admin
+from app01 import views
+
+urlpatterns = [
+    url(r&#39;^admin/&#39;, admin.site.urls),
+    url(r&#39;^users/&#39;,views.UsersView.as_view()),
+    url(r&#39;^auth/&#39;,views.AuthView.as_view()),
+]
+</code></pre><p>修改视图函数</p>
+<pre><code>from django.shortcuts import render,HttpResponse
+from rest_framework.views import APIView
+from rest_framework.authentication import BaseAuthentication
+from rest_framework import exceptions
+from django.http import JsonResponse
+
+def gen_token(username):
+    &quot;&quot;&quot;
+    利用时间和用户名生成用户token
+    :param username: 
+    :return: 
+    &quot;&quot;&quot;
+    import time
+    import hashlib
+    ctime=str(time.time())
+    hash=hashlib.md5(username.encode(&quot;utf-8&quot;))
+    hash.update(ctime.encode(&quot;utf-8&quot;))
+    return hash.hexdigest()
+
+class AuthView(APIView):
+    def post(self, request, *args, **kwargs):
+        &quot;&quot;&quot;
+        获取用户提交的用户名和密码，如果用户名和密码正确，则生成token，并返回给用户
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        &quot;&quot;&quot;
+        res = {&#39;code&#39;: 1000, &#39;msg&#39;: None}
+        user = request.data.get(&quot;user&quot;)
+        pwd = request.data.get(&quot;pwd&quot;)
+
+        from app01 import models
+        user_obj = models.UserInfo.objects.filter(user=user, pwd=pwd).first()
+
+        if user_obj:
+            token = gen_token(user) # 生成用户口令
+
+            # 如果数据库中存在口令则更新,如果数据库中不存在口令则创建用户口令
+            models.Token.objects.update_or_create(user=user_obj, defaults={&#39;token&#39;: token})
+            print(&quot;user_token:&quot;, token)
+            res[&#39;code&#39;] = 1001
+            res[&#39;token&#39;] = token
+        else:
+            res[&#39;msg&#39;] = &quot;用户名或密码错误&quot;
+
+        return JsonResponse(res)
+
+class UserAuthView(BaseAuthentication):
+    def authenticate(self,request):
+        tk=request.query_params.GET.get(&quot;tk&quot;)   # 获取请求头中的用户token
+
+        from app01 import models
+
+        token_obj=models.Token.objects.filter(token=tk).first()
+
+        if token_obj:   # 用户数据库中已经存在用户口令返回认证元组
+            return (token_obj.user,token_obj)
+
+        raise exceptions.AuthenticationFailed(&quot;认证失败&quot;)
+
+    def authenticate_header(self,request):
+        pass
+
+class UsersView(APIView):
+    authentication_classes = [UserAuthView,]
+
+    def get(self,request,*args,**kwargs):
+
+        return HttpResponse(&quot;.....&quot;)
+</code></pre><p>创建用户数据库的类</p>
+<pre><code>from django.db import models
+
+class UserInfo(models.Model):
+    user=models.CharField(max_length=32)
+    pwd=models.CharField(max_length=64)
+    email=models.CharField(max_length=64)
+
+class Token(models.Model):
+    user=models.OneToOneField(UserInfo)
+    token=models.CharField(max_length=64)
+</code></pre><p>创建数据库,并添加两条用户记录</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201711/1133627-20171126000140781-1551141195.png" alt="img"></p>
+<p>再创建一个test_client.py文件,来发送post请求</p>
+<pre><code>import requests
+
+response=requests.post(
+    url=&quot;http://127.0.0.1:8000/auth/&quot;,
+    data={&#39;user&#39;:&#39;user1&#39;,&#39;pwd&#39;:&#39;user123&#39;},
+)
+
+print(&quot;response_text:&quot;,response.text)
+</code></pre><p>启动Django项目,运行test_client.py文件,则项目的响应信息为</p>
+<pre><code>response_text: {&quot;code&quot;: 1001, &quot;msg&quot;: null, &quot;token&quot;: &quot;eccd2d256f44cb25b58ba602fe7eb42d&quot;}
+</code></pre><p>由此,就完成了自定义的基于token的用户认证</p>
+<p>如果想在项目中使用自定义的认证方式时,可以在<code>authentication_classes</code>继承刚才的认证的类即可</p>
+<pre><code>authentication_classes = [UserAuthView,]
+</code></pre><h2 id="全局自定义认证"><a href="#全局自定义认证" class="headerlink" title="全局自定义认证"></a>全局自定义认证</h2><p>在正常的项目中，一个用户登录成功之后，进入自己的主页，可以看到很多内容，比如用户的订单，用户的收藏，用户的主页等</p>
+<p>此时，难倒要在每个视图类中都定义authentication_classes，然后在authentication_classes中追加自定义的认证类吗？</p>
+<p>通过对Django restframework认证的源码分析知道，可以直接在项目的settings.py配置文件中引入自定义的认证类，即可以对所有的url进行用户认证流程</p>
+<p>在应用app01目录下创建utils包，在utils包下创建auth.py文件，内容为自定义的认证类</p>
+<pre><code>from rest_framework import exceptions
+from api import models
+
+class Authtication(object):
+    def authenticate(self,request):
+        token = request._request.GET.get(&quot;token&quot;)       # 获取浏览器传递的token
+        token_obj = models.UserToken.objects.filter(token=token).first()    # 到数据库中进行token查询，判断用户是否通过认证
+        if not token_obj:
+            raise exceptions.AuthenticationFailed(&quot;用户认证失败&quot;)
+
+        # restframework会将元组赋值给request,以供后面使用
+        return (token_obj.user,token_obj)
+
+    # 必须创建authenticate_header方法，否则会抛出异常
+    def authenticate_header(self,request):
+        pass
+</code></pre><p>在settings.py文件中添加内容</p>
+<pre><code>REST_FRAMEWORK = {
+    &#39;DEFAULT_AUTHENTICATION_CLASSES&#39;:[&#39;app01.utils.auth.Authtication&#39;,]
+}
+</code></pre><p>修改views.py文件</p>
+<pre><code>from django.shortcuts import render, HttpResponse
+from rest_framework.views import APIView
+from rest_framework.authentication import BaseAuthentication
+from rest_framework import exceptions
+from django.http import JsonResponse
+
+def gen_token(username):
+    &quot;&quot;&quot;
+    利用时间和用户名生成用户token
+    :param username:
+    :return:
+    &quot;&quot;&quot;
+    import time
+    import hashlib
+    ctime = str(time.time())
+    hash = hashlib.md5(username.encode(&quot;utf-8&quot;))
+    hash.update(ctime.encode(&quot;utf-8&quot;))
+    return hash.hexdigest()
+
+class AuthView(APIView):
+    authentication_classes = []     # 在这里定义authentication_classes后，用户访问auth页面不需要进行认证
+    def post(self, request, *args, **kwargs):
+        &quot;&quot;&quot;
+        获取用户提交的用户名和密码，如果用户名和密码正确，则生成token，并返回给用户
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        &quot;&quot;&quot;
+        res = {&#39;code&#39;: 1000, &#39;msg&#39;: None}
+        user = request.data.get(&quot;user&quot;)
+        pwd = request.data.get(&quot;pwd&quot;)
+
+        from app01 import models
+        user_obj = models.UserInfo.objects.filter(user=user, pwd=pwd).first()
+
+        if user_obj:
+            token = gen_token(user)  # 生成用户口令
+
+            # 如果数据库中存在口令则更新,如果数据库中不存在口令则创建用户口令
+            models.Token.objects.update_or_create(user=user_obj, defaults={&#39;token&#39;: token})
+            print(&quot;user_token:&quot;, token)
+            res[&#39;code&#39;] = 1001
+            res[&#39;token&#39;] = token
+        else:
+            res[&#39;msg&#39;] = &quot;用户名或密码错误&quot;
+
+        return JsonResponse(res)
+
+class UserView(APIView):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(&quot;UserView GET&quot;)
+
+class OrderView(APIView):
+    def get(self,request,*args,**kwargs):
+        return HttpResponse(&quot;OrderView GET&quot;)
+</code></pre><p>启动项目，使用POSTMAN向<code>http://127.0.0.1:8000/order/?token=eccd2d256f44cb25b58ba602fe7eb42d</code>和<code>http://127.0.0.1:8000/user/?token=eccd2d256f44cb25b58ba602fe7eb42d</code>发送GET请求，响应结果如下</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225750139-1198840701.png" alt="img"></p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225755562-137171019.png" alt="img"></p>
+<p>在url中不带token,使用POSTMAN向<code>http://127.0.0.1:8000/order/</code>和<code>http://127.0.0.1:8000/user/</code>发送GET请求，则会出现<code>&quot;认证失败&quot;</code>的提示</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225715170-517425689.png" alt="img"></p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225720650-323643037.png" alt="img"></p>
+<p>由此可以知道，在settings.py配置文件中配置自定义的认证类也可以实现用户认证功能</p>
+<h2 id="配置匿名用户"><a href="#配置匿名用户" class="headerlink" title="配置匿名用户"></a>配置匿名用户</h2><p>修改settings.py文件</p>
+<pre><code>REST_FRAMEWORK = {
+    &#39;DEFAULT_AUTHENTICATION_CLASSES&#39;: [&#39;app01.utils.auth.Authtication&#39;, ],
+    &#39;UNAUTHENTICATED_USER&#39;: lambda :&quot;匿名用户&quot;,     # 用户未登录时显示的名称
+    &#39;UNAUTHENTICATED_TOKEN&#39;: lambda :&quot;无效token&quot;, # 用户未登录时打印的token名
+}
+</code></pre><p>修改views.py文件中的OrderView类</p>
+<pre><code>class OrderView(APIView):
+    authentication_classes = []         # authentication_classes为空列表表示视图类不进行认证
+    def get(self,request,*args,**kwargs):
+        print(request.user)
+        print(request.auth)
+        return HttpResponse(&quot;OrderView GET&quot;)
+</code></pre><p>使用浏览器向<code>http://127.0.0.1:8000/order/</code>发送GET请求，后台打印</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225705126-1550086890.png" alt="img"></p>
+<p>这说明在settings.py文件中配置的匿名用户和匿名用户的token起到作用</p>
+<blockquote>
+<p>建议把匿名用户及匿名用户的token都设置为:None</p>
+</blockquote>
+<h2 id="Django-restframework内置的认证类-1"><a href="#Django-restframework内置的认证类-1" class="headerlink" title="Django restframework内置的认证类"></a>Django restframework内置的认证类</h2><p>从rest_framework中导入authentication</p>
+<pre><code>from rest_framework import authentication
+</code></pre><p>可以看到Django restframework内置的认证类</p>
+<pre><code>class BaseAuthentication(object):
+    def authenticate(self, request):
+        ...
+
+    def authenticate_header(self, request):
+        pass
+
+
+class BasicAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        ...
+
+    def authenticate_credentials(self, userid, password, request=None):
+        ...
+
+    def authenticate_header(self, request):
+        ...
+
+
+class SessionAuthentication(BaseAuthentication):
+
+    def authenticate(self, request):
+        ...
+
+    def enforce_csrf(self, request):
+        ...
+
+
+class TokenAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        ...
+
+    def authenticate_credentials(self, key):
+        ...
+
+    def authenticate_header(self, request):
+        ...
+
+
+class RemoteUserAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        ...
+</code></pre><p>可以看到，Django restframework内置的认证包含下面的四种：</p>
+<pre><code>BasicAuthentication
+SessionAuthentication
+TokenAuthentication
+RemoteUserAuthentication
+</code></pre><p>而这四种认证类都继承自<code>BaseAuthentication</code>，<code>在BaseAuthentication中定义了两个方法：authenticate和authenticate_header</code></p>
+<p>总结：</p>
+<pre><code>为了让认证更规范，自定义的认证类要继承 BaseAuthentication类
+自定义认证类必须要实现authenticate和authenticate_header方法
+authenticate_header方法的作用：在认证失败的时候，给浏览器返回的响应头，可以直接pass，不实现authenticate_header程序会抛出异常
+</code></pre>
       
 
       
@@ -259,7 +739,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
         		</li>
       		
 		</ul>
@@ -315,7 +795,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/19/源码剖析Django REST framework的认证方式/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +809,9 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
   
 <nav id="article-nav">
   
-    <a href="/2018/11/16/Python——回顾常用的库/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Python——回顾常用的库
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/09/无题1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">无题1</div>
+    <a href="/2018/11/19/MySQL分页limit速度太慢的优化方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL分页limit速度太慢的优化方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -367,7 +838,7 @@ gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/se
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安装"><span class="toc-number">1.</span> <span class="toc-text">一、安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Mongo的远程连接"><span class="toc-number">2.</span> <span class="toc-text">二、Mongo的远程连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后点击Save就可以愉快的使用啦"><span class="toc-number">3.</span> <span class="toc-text">最后点击Save就可以愉快的使用啦</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-restframework内置的认证类"><span class="toc-number">1.</span> <span class="toc-text">Django restframework内置的认证类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义认证功能"><span class="toc-number">2.</span> <span class="toc-text">自定义认证功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-restframework认证的扩展"><span class="toc-number">3.</span> <span class="toc-text">Django restframework认证的扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于Token进行用户认证"><span class="toc-number">3.1.</span> <span class="toc-text">基于Token进行用户认证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局自定义认证"><span class="toc-number">4.</span> <span class="toc-text">全局自定义认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置匿名用户"><span class="toc-number">5.</span> <span class="toc-text">配置匿名用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-restframework内置的认证类-1"><span class="toc-number">6.</span> <span class="toc-text">Django restframework内置的认证类</span></a></li></ol>
                     </div>
                 </span>
             </div>

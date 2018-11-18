@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-16T01:15:49.996Z</updated>
+  <updated>2018-11-18T16:26:25.559Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>源码剖析Django REST framework的认证方式</title>
+    <link href="http://yoursite.com/2018/11/19/%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90Django%20REST%20framework%E7%9A%84%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/11/19/源码剖析Django REST framework的认证方式/</id>
+    <published>2018-11-18T16:18:09.681Z</published>
+    <updated>2018-11-18T16:26:25.559Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由Django的CBV模式流程，可以知道在&lt;code&gt;url匹配完成后，会执行自定义的类中的as_view方法&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果自定义的类中没有定义&lt;code&gt;as_view方法&lt;/code&gt;，根据面向对象中类的继承可以知道，则&lt;code&gt;会执行其父类View中的as_view方法&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;在Django的View的as_view方法中，又会调用dispatch方法&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;现在来看看Django rest framework的认证流程&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL分页limit速度太慢的优化方法</title>
+    <link href="http://yoursite.com/2018/11/19/MySQL%E5%88%86%E9%A1%B5limit%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/11/19/MySQL分页limit速度太慢的优化方法/</id>
+    <published>2018-11-18T16:12:58.276Z</published>
+    <updated>2018-11-18T16:26:45.666Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;limit用法&quot;&gt;&lt;a href=&quot;#limit用法&quot; class=&quot;headerlink&quot; title=&quot;limit用法&quot;&gt;&lt;/a&gt;limit用法&lt;/h2&gt;&lt;p&gt;在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="MySQL" scheme="http://yoursite.com/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Python——回顾常用的库</title>

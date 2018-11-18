@@ -141,8 +141,7 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-atom-dark.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN">
 
@@ -329,60 +328,34 @@
         <p>此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。</p>
 <a id="more"></a>
 <h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>① 把Mongo的安装配置添加的yum中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/yum.repos.d/mongodb-org-4.0.repo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/yum.repos.d/mongodb-org-4.0.repo</span><br></pre></td></tr></table></figure>
 <p>把下面配置复制到文件中</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>mongodb-org-4.0<span class="token punctuation">]</span>
-name<span class="token operator">=</span>MongoDB Repository
-baseurl<span class="token operator">=</span>https://repo.mongodb.org/yum/redhat/<span class="token variable">$releasever</span>/mongodb-org/4.0/x86_64/
-gpgcheck<span class="token operator">=</span>1
-enabled<span class="token operator">=</span>1
-gpgkey<span class="token operator">=</span>https://www.mongodb.org/static/pgp/server-4.0.asc
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[mongodb-org-4.0]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/4.0/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span><br></pre></td></tr></table></figure>
 <p>② 运行安装命令</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> -y mongodb-org
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
 <p>③ 设置数据储存路径<br>默认下mongo的储存路径是 /data/db ，如果此时系统中没有这个文件，是不会启动成功的。所以要手动穿件这个文件夹</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /data/db
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /data/db</span><br></pre></td></tr></table></figure>
 <p>④ 启动Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> mongod start
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure>
 <p>⑤ 连接本地的Mongo</p>
-<pre class="line-numbers language-bash"><code class="language-bash">mongo
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure>
 <p>此时Mongo的安装已经完成，上面日志中有警告啥的可以通过配置解决，但不影响使用。</p>
 <p>参考资料：<a href="https://docs.mongodb.com/master/mongo/" target="_blank" rel="noopener">https://docs.mongodb.com/master/mongo/</a></p>
 <h2 id="二、Mongo的远程连接"><a href="#二、Mongo的远程连接" class="headerlink" title="二、Mongo的远程连接"></a>二、Mongo的远程连接</h2><p>注意：Mongo的远程连接需要打开权限控制<br>本教程是不过多涉及权限问题，权限详情可参考：<br><a href="http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html" target="_blank" rel="noopener">http://www.cnblogs.com/hanyinglong/archive/2016/07/25/5704320.html</a></p>
 <p>① 添加新的用户<br>首先添加个管理员账号（root权限）：</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript"> db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    user<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>
-    pwd<span class="token punctuation">:</span><span class="token string">"password"</span><span class="token punctuation">,</span>
-    roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"root"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"admin"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">db.createUser(&#123;</span><br><span class="line">   user:<span class="string">"root"</span>,</span><br><span class="line">   pwd:<span class="string">"password"</span>,</span><br><span class="line">   roles:[&#123;<span class="attr">role</span>:<span class="string">"root"</span>,<span class="attr">db</span>:<span class="string">"admin"</span>&#125;]</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
 <p>添加个普通账号（读写权限）： (需要先用root登陆)<br>（命令中的db 代表用户所分配的数据库）</p>
-<pre class="line-numbers language-javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                　　user<span class="token punctuation">:</span><span class="token string">"hyc"</span><span class="token punctuation">,</span>                                   
-                　　pwd<span class="token punctuation">:</span><span class="token string">"123456"</span><span class="token punctuation">,</span>
-                　　roles<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>role<span class="token punctuation">:</span><span class="token string">"readWrite"</span><span class="token punctuation">,</span>db<span class="token punctuation">:</span><span class="token string">"test"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
-           　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">db.createUser(&#123;</span><br><span class="line">                　　user:<span class="string">"hyc"</span>,                                   </span><br><span class="line">                　　pwd:<span class="string">"123456"</span>,</span><br><span class="line">                　　roles:[&#123;<span class="attr">role</span>:<span class="string">"readWrite"</span>,<span class="attr">db</span>:<span class="string">"test"</span>&#125;]</span><br><span class="line">           　　&#125;);</span><br></pre></td></tr></table></figure>
 <p>② 修改配置文件</p>
-<pre><code>vi /etc/mongod.conf
-</code></pre><p>注释掉：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/mongod.conf</span><br></pre></td></tr></table></figure>
+<p>注释掉：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.</span></span><br></pre></td></tr></table></figure>
 <p>添加：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">security:
-    authorization: enabled
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">security:</span><br><span class="line">    authorization: enabled</span><br></pre></td></tr></table></figure>
 <p>③ 重启Mongo 远程连接</p>
-<pre><code>service mongod restart
-</code></pre><p>④ 开启端口访问</p>
-<pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd --zone<span class="token operator">=</span>public --permanent --add-port<span class="token operator">=</span>27017/tcp<span class="token punctuation">;</span> firewall-cmd --reload
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service mongod restart</span><br></pre></td></tr></table></figure>
+<p>④ 开启端口访问</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone=public --permanent --add-port=27017/tcp; firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <p>打开ROBO（mongo 可视化工具）：</p>
 <p><a href="https://imgchr.com/i/iXEZcD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/13/iXEZcD.png" alt="iXEZcD.png"></a></p>
 <p><img src="https://s1.ax1x.com/2018/11/13/iXArOH.png" alt="iXArOH.png"></p>

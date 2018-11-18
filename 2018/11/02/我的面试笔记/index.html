@@ -140,8 +140,7 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-atom-dark.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN">
 
@@ -386,11 +385,7 @@
 <li>True </li>
 <li>False </li>
 </ul>
-<p><strong>6. 频率限制</strong><br>写一个类并注册到频率类，在类的的 allow_request/wait 方法中编写认证逻辑。</p>
-<pre class="line-numbers language-python"><code class="language-python">    allow_request
-         <span class="token boolean">True</span> 
-         <span class="token boolean">False</span>  如果返回<span class="token boolean">False</span>，那么就要执行wait
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>6. 频率限制</strong><br>写一个类并注册到频率类，在类的的 allow_request/wait 方法中编写认证逻辑。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">allow_request</span><br><span class="line">	 <span class="keyword">True</span> </span><br><span class="line">	 <span class="keyword">False</span>  如果返回<span class="keyword">False</span>，那么就要执行wait</span><br></pre></td></tr></table></figure></p>
 <p><strong>7. 解析器</strong></p>
 <ul>
 <li><p>根据ContentType请求头，选择不同解析器对 请求体中的数据进行解析。</p>
@@ -417,9 +412,8 @@
 <p>其实没有本质的区别</p>
 <p>Python是一个面向对象的编程语言，如果只用函数来开发，有很多面向对象的优点就错失了（继承、封装、多态）。所以Django在后来加入了Class-Based-View。可以让我们用类写View。这样做的优点主要下面两种：</p>
 <p>提高了代码的复用性，可以使用面向对象的技术，比如Mixin（多继承）<br>可以用不同的函数针对不同的HTTP方法处理，而不是通过很多if判断，提高代码可读性</p>
-<h2 id="9-谈一谈你对ORM的理解"><a href="#9-谈一谈你对ORM的理解" class="headerlink" title="9.谈一谈你对ORM的理解"></a>9.谈一谈你对ORM的理解</h2><pre><code>ORM是“对象-关系-映射”的简称。
-MVC或者MVC框架中包括一个重要的部分，就是ORM，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动
-</code></pre><h1 id="二、-项目相关："><a href="#二、-项目相关：" class="headerlink" title="二、 项目相关："></a>二、 项目相关：</h1><h2 id="1-请讲一下你做的在线商城的表结构"><a href="#1-请讲一下你做的在线商城的表结构" class="headerlink" title="1. 请讲一下你做的在线商城的表结构"></a>1. 请讲一下你做的在线商城的表结构</h2><ul>
+<h2 id="9-谈一谈你对ORM的理解"><a href="#9-谈一谈你对ORM的理解" class="headerlink" title="9.谈一谈你对ORM的理解"></a>9.谈一谈你对ORM的理解</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORM是“对象-关系-映射”的简称。</span><br><span class="line">MVC或者MVC框架中包括一个重要的部分，就是ORM，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库，通过简单的配置就可以轻松更换数据库，这极大的减轻了开发人员的工作量，不需要面对因数据库变更而导致的无效劳动</span><br></pre></td></tr></table></figure>
+<h1 id="二、-项目相关："><a href="#二、-项目相关：" class="headerlink" title="二、 项目相关："></a>二、 项目相关：</h1><h2 id="1-请讲一下你做的在线商城的表结构"><a href="#1-请讲一下你做的在线商城的表结构" class="headerlink" title="1. 请讲一下你做的在线商城的表结构"></a>1. 请讲一下你做的在线商城的表结构</h2><ul>
 <li>课程（13表）<ul>
 <li>课程大类</li>
 <li>课程子类</li>
@@ -502,39 +496,19 @@ MVC或者MVC框架中包括一个重要的部分，就是ORM，它实现了数�
 <ol>
 <li>extra</li>
 </ol>
-<pre class="line-numbers language-python"><code class="language-python">Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>select<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'new_id'</span><span class="token punctuation">:</span> <span class="token string">"select col from sometable where othercol > %s"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> select_params<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>where<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'headline=%s'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> params<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Lennon'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>where<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"foo='a' OR bar = 'a'"</span><span class="token punctuation">,</span> <span class="token string">"baz = 'a'"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-Entry<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>extra<span class="token punctuation">(</span>select<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'new_id'</span><span class="token punctuation">:</span> <span class="token string">"select id from tb where id > %s"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>select_params<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> order_by<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'-nid'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Entry.objects.extra(select=&#123;<span class="string">'new_id'</span>: <span class="string">"select col from sometable where othercol &gt; %s"</span>&#125;, select_params=(<span class="number">1</span>,))</span><br><span class="line">Entry.objects.extra(where=[<span class="string">'headline=%s'</span>], params=[<span class="string">'Lennon'</span>])</span><br><span class="line">Entry.objects.extra(where=[<span class="string">"foo='a' OR bar = 'a'"</span>, <span class="string">"baz = 'a'"</span>])</span><br><span class="line">Entry.objects.extra(select=&#123;<span class="string">'new_id'</span>: <span class="string">"select id from tb where id &gt; %s"</span>&#125;,select_params=(<span class="number">1</span>,), order_by=[<span class="string">'-nid'</span>])</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>raw</li>
 </ol>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 执行原生SQL</span>
-models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select * from userinfo'</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># 如果SQL是其他表时，必须将名字设置为当前UserInfo对象的主键列名</span>
-models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select id as nid from 其他表'</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># 为原生SQL设置参数</span>
-models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'select id as nid from userinfo where nid>%s'</span><span class="token punctuation">,</span> params<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-name_map <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'first'</span><span class="token punctuation">:</span> <span class="token string">'first_name'</span><span class="token punctuation">,</span> <span class="token string">'last'</span><span class="token punctuation">:</span> <span class="token string">'last_name'</span><span class="token punctuation">,</span> <span class="token string">'bd'</span><span class="token punctuation">:</span> <span class="token string">'birth_date'</span><span class="token punctuation">,</span> <span class="token string">'pk'</span><span class="token punctuation">:</span> <span class="token string">'id'</span><span class="token punctuation">}</span>
-Person<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>raw<span class="token punctuation">(</span><span class="token string">'SELECT * FROM some_other_table'</span><span class="token punctuation">,</span> translations<span class="token operator">=</span>name_map<span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 执行原生SQL</span></span><br><span class="line">models.UserInfo.objects.raw(<span class="string">'select * from userinfo'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果SQL是其他表时，必须将名字设置为当前UserInfo对象的主键列名</span></span><br><span class="line">models.UserInfo.objects.raw(<span class="string">'select id as nid from 其他表'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为原生SQL设置参数</span></span><br><span class="line">models.UserInfo.objects.raw(<span class="string">'select id as nid from userinfo where nid&gt;%s'</span>, params=[<span class="number">12</span>,])</span><br><span class="line"></span><br><span class="line">name_map = &#123;<span class="string">'first'</span>: <span class="string">'first_name'</span>, <span class="string">'last'</span>: <span class="string">'last_name'</span>, <span class="string">'bd'</span>: <span class="string">'birth_date'</span>, <span class="string">'pk'</span>: <span class="string">'id'</span>&#125;</span><br><span class="line">Person.objects.raw(<span class="string">'SELECT * FROM some_other_table'</span>, translations=name_map)</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>原生SQL</li>
 </ol>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> connection<span class="token punctuation">,</span> connections
-cursor <span class="token operator">=</span> connection<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># cursor = connections['default'].cursor()</span>
-cursor<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token triple-quoted-string string">"""SELECT * from auth_user where id = %s"""</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-row <span class="token operator">=</span> cursor<span class="token punctuation">.</span>fetchone<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># fetchall()/fetchmany(..)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> connection, connections</span><br><span class="line">cursor = connection.cursor()  <span class="comment"># cursor = connections['default'].cursor()</span></span><br><span class="line">cursor.execute(<span class="string">"""SELECT * from auth_user where id = %s"""</span>, [<span class="number">1</span>])</span><br><span class="line">row = cursor.fetchone() <span class="comment"># fetchall()/fetchmany(..)</span></span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>选择数据库</li>
 </ol>
-<pre class="line-numbers language-python"><code class="language-python">queryset <span class="token operator">=</span> models<span class="token punctuation">.</span>Course<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>using<span class="token punctuation">(</span><span class="token string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">queryset = models.Course.objects.using(<span class="string">'default'</span>).all()</span><br></pre></td></tr></table></figure>
 <h1 id="？、其他"><a href="#？、其他" class="headerlink" title="？、其他"></a>？、其他</h1><h2 id="1-git的作用是什么"><a href="#1-git的作用是什么" class="headerlink" title="1. git的作用是什么"></a>1. git的作用是什么</h2><p>进行版本控制，实现协同开发</p>
 <h2 id="2-git命令与意义"><a href="#2-git命令与意义" class="headerlink" title="2. git命令与意义"></a>2. git命令与意义</h2><ul>
 <li>git init </li>

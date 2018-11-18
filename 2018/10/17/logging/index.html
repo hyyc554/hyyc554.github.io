@@ -137,8 +137,7 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-atom-dark.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN">
 
@@ -325,26 +324,7 @@
         <p><img src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&amp;dl=adventure-backpack-blue-mountains-868097.jpg&amp;fm=jpg" alt=""></p>
 <a id="more"></a>
 <h2 id="问题起源："><a href="#问题起源：" class="headerlink" title="问题起源："></a>问题起源：</h2><p>​    在学习了python的函数式编程后，又接触到了logging这样一个强大的日志模块。为了减少重复代码，应该不少同学和我一样便迫不及待的写了一个自己的日志函数，比如下面这样：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
-
-
-<span class="token comment" spellcheck="true"># 这里为了便于理解，简单的展示了一个输出到屏幕的日志函数</span>
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">'mysql.log'</span><span class="token punctuation">)</span>
-
-    ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-    fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-    logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> logger
-
-
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里为了便于理解，简单的展示了一个输出到屏幕的日志函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">()</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">'mysql.log'</span>)</span><br><span class="line"></span><br><span class="line">    ch = logging.StreamHandler()</span><br><span class="line">    ch.setLevel(logging.ERROR)</span><br><span class="line">    fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    ch.setFormatter(fmt)</span><br><span class="line">    logger.addHandler(ch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log().error(<span class="string">'run one'</span>)</span><br><span class="line">my_log().error(<span class="string">'run two'</span>)</span><br><span class="line">my_log().error(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
 <p>函数写好了，看起来似乎也没有问题，我们来运行一下！</p>
 <p>结果如下：</p>
 <blockquote>
@@ -358,28 +338,7 @@ my_log<span class="token punctuation">(</span><span class="token punctuation">)<
 <li><p>实例化的logger对象具有‘handlers’这样一个属性来存储 Handler，代码演示如下：</p>
 </li>
 </ul>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
-
-
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">'mysql.log'</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 每次被调用后打印出logger的handlers列表</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>logger<span class="token punctuation">.</span>handlers<span class="token punctuation">)</span>
-
-    ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-    fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-
-    logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> logger
-
-
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">()</span>:</span></span><br><span class="line">	logger = logging.getLogger(<span class="string">'mysql.log'</span>)</span><br><span class="line">	<span class="comment"># 每次被调用后打印出logger的handlers列表</span></span><br><span class="line">	print(logger.handlers)</span><br><span class="line"></span><br><span class="line">	ch = logging.StreamHandler()</span><br><span class="line">	ch.setLevel(logging.ERROR)</span><br><span class="line">	fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">	ch.setFormatter(fmt)</span><br><span class="line"></span><br><span class="line">	logger.addHandler(ch)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log().error(<span class="string">'run one'</span>)</span><br><span class="line">my_log().error(<span class="string">'run two'</span>)</span><br><span class="line">my_log().error(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <blockquote>
 <p>[]<br>2018-06-21 13:26:14,059 - mysql.log - ERROR - run one<br>[&lt;StreamHandler \<stderr> (ERROR)&gt;]<br>2018-06-21 13:26:14,060 - mysql.log - ERROR - run two<br>2018-06-21 13:26:14,060 - mysql.log - ERROR - run two<br>[&lt;StreamHandler \<stderr> (ERROR)&gt;, &lt;StreamHandler \<stderr> (ERROR)&gt;]<br>2018-06-21 13:26:14,060 - mysql.log - ERROR - run three<br>2018-06-21 13:26:14,060 - mysql.log - ERROR - run three<br>2018-06-21 13:26:14,060 - mysql.log - ERROR - run three</stderr></stderr></stderr></p>
@@ -389,97 +348,15 @@ my_log<span class="token punctuation">(</span><span class="token punctuation">)<
 <li>在第二次被调用时，<code>logger.handlers</code>已经存在一个‘StreamHandler’，再次执行‘logger.addHandler(ch)’就会再次添加一个‘StreamHandler’，此时的logger有两个‘StreamHandler’，输出两条重复的日志</li>
 <li>在第三次被调用时，<code>logger.handlers</code>已经存在两个‘StreamHandler’，再次执行‘logger.addHandler(ch)’就会再次添加一个，此时的logger有三个‘StreamHandler’，输出三条重复的日志</li>
 </ol>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="1-改名换姓"><a href="#1-改名换姓" class="headerlink" title="1.改名换姓"></a>1.改名换姓</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
-
-
-<span class="token comment" spellcheck="true"># 为日志函数添加一个name，每次调用时传入不同的日志名</span>
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-
-    ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-    fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-    logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> logger
-
-
-my_log<span class="token punctuation">(</span><span class="token string">'log1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token string">'log2'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token string">'log3'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="1-改名换姓"><a href="#1-改名换姓" class="headerlink" title="1.改名换姓"></a>1.改名换姓</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 为日志函数添加一个name，每次调用时传入不同的日志名</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">(name)</span>:</span></span><br><span class="line">    logger = logging.getLogger(name)</span><br><span class="line"></span><br><span class="line">    ch = logging.StreamHandler()</span><br><span class="line">    ch.setLevel(logging.ERROR)</span><br><span class="line">    fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    ch.setFormatter(fmt)</span><br><span class="line">    logger.addHandler(ch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log(<span class="string">'log1'</span>).error(<span class="string">'run one'</span>)</span><br><span class="line">my_log(<span class="string">'log2'</span>).error(<span class="string">'run two'</span>)</span><br><span class="line">my_log(<span class="string">'log3'</span>).error(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <blockquote>
 <p>2018-06-21 13:40:51,685 - log1 - ERROR - run one<br>2018-06-21 13:40:51,685 - log2 - ERROR - run two<br>2018-06-21 13:40:51,685 - log3 - ERROR - run three</p>
 </blockquote>
-<h3 id="2-及时清理（logger-handlers-clear）"><a href="#2-及时清理（logger-handlers-clear）" class="headerlink" title="2.及时清理（logger.handlers.clear）"></a>2.及时清理（logger.handlers.clear）</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
-
-
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">'mysql.log'</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 每次被调用后，清空已经存在handler</span>
-    logger<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-    fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-
-    logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> logger
-
-
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-及时清理（logger-handlers-clear）"><a href="#2-及时清理（logger-handlers-clear）" class="headerlink" title="2.及时清理（logger.handlers.clear）"></a>2.及时清理（logger.handlers.clear）</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">()</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">'mysql.log'</span>)</span><br><span class="line">    <span class="comment"># 每次被调用后，清空已经存在handler</span></span><br><span class="line">    logger.handlers.clear()</span><br><span class="line"></span><br><span class="line">    ch = logging.StreamHandler()</span><br><span class="line">    ch.setLevel(logging.ERROR)</span><br><span class="line">    fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    ch.setFormatter(fmt)</span><br><span class="line"></span><br><span class="line">    logger.addHandler(ch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log().error(<span class="string">'run one'</span>)</span><br><span class="line">my_log().error(<span class="string">'run two'</span>)</span><br><span class="line">my_log().error(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
 <p><strong>ps：removeHandler方法（兼容性较差）</strong></p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 这种写法下的可以使用removeHandler方法(logger.handlers.clear也可以使用在这种写法的函数内)</span>
-<span class="token keyword">import</span> logging
-
-
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">'mysql.log'</span><span class="token punctuation">)</span>
-
-    ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-    fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-    ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-
-    logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-    logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
-
-    <span class="token comment" spellcheck="true"># 在使用完ch后从移除Handler</span>
-    logger<span class="token punctuation">.</span>removeHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-
-my_log<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-用前判断"><a href="#3-用前判断" class="headerlink" title="3.用前判断"></a>3.用前判断</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
-
-
-<span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">'mysql.log'</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 判断logger是否已经添加过handler，是则直接返回logger对象，否则执行handler设定以及addHandler(ch)</span>
-    <span class="token keyword">if</span> <span class="token operator">not</span> logger<span class="token punctuation">.</span>handlers<span class="token punctuation">:</span>
-        ch <span class="token operator">=</span> logging<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        ch<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span>logging<span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span>
-        fmt <span class="token operator">=</span> logging<span class="token punctuation">.</span>Formatter<span class="token punctuation">(</span><span class="token string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="token punctuation">)</span>
-        ch<span class="token punctuation">.</span>setFormatter<span class="token punctuation">(</span>fmt<span class="token punctuation">)</span>
-
-        logger<span class="token punctuation">.</span>addHandler<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> logger
-
-
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run one'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
-my_log<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这种写法下的可以使用removeHandler方法(logger.handlers.clear也可以使用在这种写法的函数内)</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">(msg)</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">'mysql.log'</span>)</span><br><span class="line"></span><br><span class="line">    ch = logging.StreamHandler()</span><br><span class="line">    ch.setLevel(logging.ERROR)</span><br><span class="line">    fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    ch.setFormatter(fmt)</span><br><span class="line"></span><br><span class="line">    logger.addHandler(ch)</span><br><span class="line">    logger.error(msg)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 在使用完ch后从移除Handler</span></span><br><span class="line">    logger.removeHandler(ch)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log(<span class="string">'run one'</span>)</span><br><span class="line">my_log(<span class="string">'run two'</span>)</span><br><span class="line">my_log(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="3-用前判断"><a href="#3-用前判断" class="headerlink" title="3.用前判断"></a>3.用前判断</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_log</span><span class="params">()</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">'mysql.log'</span>)</span><br><span class="line">    <span class="comment"># 判断logger是否已经添加过handler，是则直接返回logger对象，否则执行handler设定以及addHandler(ch)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> logger.handlers:</span><br><span class="line">        ch = logging.StreamHandler()</span><br><span class="line">        ch.setLevel(logging.ERROR)</span><br><span class="line">        fmt = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">        ch.setFormatter(fmt)</span><br><span class="line"></span><br><span class="line">        logger.addHandler(ch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_log().error(<span class="string">'run one'</span>)</span><br><span class="line">my_log().error(<span class="string">'run two'</span>)</span><br><span class="line">my_log().error(<span class="string">'run three'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    第一次遇到日志重复输出问题，那时还没有学习到面向对象编程的内容，当时并没有真正理解logging模块。学习完面向对象编程后，回过头来再思考这些问题有了豁然开朗的感觉。</p>
 <p>​        比如起初对<code>logging.getLogger</code>的实际原理不是很理解，在学习了面向对象编程中的hasattr、getattr、setattr这样一些方法后就恍然大悟了。所以诸君如果现在还是对logging模块不太理解，不妨先不纠结于这些细节，继续学下去。</p>
 <p>​    知识面扩充后，曾经的一些难题自然就会迎刃而解：）</p>

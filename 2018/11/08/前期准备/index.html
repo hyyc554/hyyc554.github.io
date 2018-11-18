@@ -157,8 +157,7 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-atom-dark.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN">
 
@@ -388,105 +387,9 @@
 <h2 id="Django实现"><a href="#Django实现" class="headerlink" title="Django实现"></a>Django实现</h2><p>代码结构</p>
 <p><img src="https://s1.ax1x.com/2018/11/08/iHQ9xO.png" alt="iHQ9xO.png"></p>
 <p>views.py</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render<span class="token punctuation">,</span>redirect<span class="token punctuation">,</span>HttpResponse
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>views<span class="token punctuation">.</span>decorators<span class="token punctuation">.</span>csrf <span class="token keyword">import</span> csrf_exempt
-<span class="token keyword">from</span> utils<span class="token punctuation">.</span>pay <span class="token keyword">import</span> AliPay
-<span class="token keyword">import</span> time
-<span class="token keyword">from</span> django<span class="token punctuation">.</span>conf <span class="token keyword">import</span> settings
-
-<span class="token keyword">def</span> <span class="token function">aliPay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    obj <span class="token operator">=</span> AliPay<span class="token punctuation">(</span>
-        appid<span class="token operator">=</span>settings<span class="token punctuation">.</span>APPID<span class="token punctuation">,</span>
-        app_notify_url<span class="token operator">=</span>settings<span class="token punctuation">.</span>NOTIFY_URL<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 如果支付成功，支付宝会向这个地址发送POST请求（校验是否支付已经完成）</span>
-        return_url<span class="token operator">=</span>settings<span class="token punctuation">.</span>RETURN_URL<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 如果支付成功，重定向回到你的网站的地址。</span>
-        alipay_public_key_path<span class="token operator">=</span>settings<span class="token punctuation">.</span>PUB_KEY_PATH<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 支付宝公钥</span>
-        app_private_key_path<span class="token operator">=</span>settings<span class="token punctuation">.</span>PRI_KEY_PATH<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 应用私钥</span>
-        debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 默认False,</span>
-    <span class="token punctuation">)</span>
-    <span class="token keyword">return</span> obj
-
-<span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'GET'</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span><span class="token string">'index.html'</span><span class="token punctuation">)</span>
-
-
-
-    alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token comment" spellcheck="true"># 对购买的数据进行加密</span>
-    money <span class="token operator">=</span> float<span class="token punctuation">(</span>request<span class="token punctuation">.</span>POST<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'price'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    out_trade_no <span class="token operator">=</span> <span class="token string">"x2"</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 1. 在数据库创建一条数据：状态（待支付）</span>
-
-    query_params <span class="token operator">=</span> alipay<span class="token punctuation">.</span>direct_pay<span class="token punctuation">(</span>
-        subject<span class="token operator">=</span><span class="token string">"充气式韩红"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 商品简单描述</span>
-        out_trade_no<span class="token operator">=</span> out_trade_no<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 商户订单号</span>
-        total_amount<span class="token operator">=</span>money<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 交易金额(单位: 元 保留俩位小数)</span>
-    <span class="token punctuation">)</span>
-
-    pay_url <span class="token operator">=</span> <span class="token string">"https://openapi.alipaydev.com/gateway.do?{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>query_params<span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> redirect<span class="token punctuation">(</span>pay_url<span class="token punctuation">)</span>
-
-
-<span class="token keyword">def</span> <span class="token function">pay_result</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
-    支付完成后，跳转回的地址
-    :param request:
-    :return:
-    """</span>
-    params <span class="token operator">=</span> request<span class="token punctuation">.</span>GET<span class="token punctuation">.</span>dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    sign <span class="token operator">=</span> params<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'sign'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
-
-    alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    status <span class="token operator">=</span> alipay<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>params<span class="token punctuation">,</span> sign<span class="token punctuation">)</span>
-
-    <span class="token keyword">if</span> status<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付成功'</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付失败'</span><span class="token punctuation">)</span>
-
-
-
-@csrf_exempt
-<span class="token keyword">def</span> <span class="token function">update_order</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
-    支付成功后，支付宝向该地址发送的POST请求（用于修改订单状态）
-    :param request:
-    :return:
-    """</span>
-    <span class="token keyword">if</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'POST'</span><span class="token punctuation">:</span>
-        <span class="token keyword">from</span> urllib<span class="token punctuation">.</span>parse <span class="token keyword">import</span> parse_qs
-
-        body_str <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
-        post_data <span class="token operator">=</span> parse_qs<span class="token punctuation">(</span>body_str<span class="token punctuation">)</span>
-
-        post_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-        <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> post_data<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            post_dict<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-
-        alipay <span class="token operator">=</span> aliPay<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-        sign <span class="token operator">=</span> post_dict<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'sign'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
-        status <span class="token operator">=</span> alipay<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>post_dict<span class="token punctuation">,</span> sign<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> status<span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 修改订单状态</span>
-            out_trade_no <span class="token operator">=</span> post_dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'out_trade_no'</span><span class="token punctuation">)</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span>out_trade_no<span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 2. 根据订单号将数据库中的数据进行更新</span>
-            <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付成功'</span><span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">'支付失败'</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render,redirect,HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_exempt</span><br><span class="line"><span class="keyword">from</span> utils.pay <span class="keyword">import</span> AliPay</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aliPay</span><span class="params">()</span>:</span></span><br><span class="line">    obj = AliPay(</span><br><span class="line">        appid=settings.APPID,</span><br><span class="line">        app_notify_url=settings.NOTIFY_URL,  <span class="comment"># 如果支付成功，支付宝会向这个地址发送POST请求（校验是否支付已经完成）</span></span><br><span class="line">        return_url=settings.RETURN_URL,  <span class="comment"># 如果支付成功，重定向回到你的网站的地址。</span></span><br><span class="line">        alipay_public_key_path=settings.PUB_KEY_PATH,  <span class="comment"># 支付宝公钥</span></span><br><span class="line">        app_private_key_path=settings.PRI_KEY_PATH,  <span class="comment"># 应用私钥</span></span><br><span class="line">        debug=<span class="keyword">True</span>,  <span class="comment"># 默认False,</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request,<span class="string">'index.html'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    alipay = aliPay()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对购买的数据进行加密</span></span><br><span class="line">    money = float(request.POST.get(<span class="string">'price'</span>))</span><br><span class="line">    out_trade_no = <span class="string">"x2"</span> + str(time.time())</span><br><span class="line">    <span class="comment"># 1. 在数据库创建一条数据：状态（待支付）</span></span><br><span class="line"></span><br><span class="line">    query_params = alipay.direct_pay(</span><br><span class="line">        subject=<span class="string">"充气式韩红"</span>,  <span class="comment"># 商品简单描述</span></span><br><span class="line">        out_trade_no= out_trade_no,  <span class="comment"># 商户订单号</span></span><br><span class="line">        total_amount=money,  <span class="comment"># 交易金额(单位: 元 保留俩位小数)</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    pay_url = <span class="string">"https://openapi.alipaydev.com/gateway.do?&#123;&#125;"</span>.format(query_params)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> redirect(pay_url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pay_result</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    支付完成后，跳转回的地址</span></span><br><span class="line"><span class="string">    :param request:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    params = request.GET.dict()</span><br><span class="line">    sign = params.pop(<span class="string">'sign'</span>, <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    alipay = aliPay()</span><br><span class="line"></span><br><span class="line">    status = alipay.verify(params, sign)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> status:</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">'支付成功'</span>)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'支付失败'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@csrf_exempt</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_order</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    支付成功后，支付宝向该地址发送的POST请求（用于修改订单状态）</span></span><br><span class="line"><span class="string">    :param request:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="keyword">from</span> urllib.parse <span class="keyword">import</span> parse_qs</span><br><span class="line"></span><br><span class="line">        body_str = request.body.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">        post_data = parse_qs(body_str)</span><br><span class="line"></span><br><span class="line">        post_dict = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> post_data.items():</span><br><span class="line">            post_dict[k] = v[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        alipay = aliPay()</span><br><span class="line"></span><br><span class="line">        sign = post_dict.pop(<span class="string">'sign'</span>, <span class="keyword">None</span>)</span><br><span class="line">        status = alipay.verify(post_dict, sign)</span><br><span class="line">        <span class="keyword">if</span> status:</span><br><span class="line">            <span class="comment"># 修改订单状态</span></span><br><span class="line">            out_trade_no = post_dict.get(<span class="string">'out_trade_no'</span>)</span><br><span class="line">            print(out_trade_no)</span><br><span class="line">            <span class="comment"># 2. 根据订单号将数据库中的数据进行更新</span></span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">'支付成功'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">'支付失败'</span>)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
 <p>settings.py</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 支付相关配置</span>
-APPID <span class="token operator">=</span> <span class="token string">"2016082500309412"</span>
-NOTIFY_URL <span class="token operator">=</span> <span class="token string">"http://47.106.237.76:80/update_order/"</span>
-RETURN_URL <span class="token operator">=</span> <span class="token string">"http://47.106.237.76:80/pay_result/"</span>
-PRI_KEY_PATH <span class="token operator">=</span> <span class="token string">"keys/app_private_2048.txt"</span>
-PUB_KEY_PATH <span class="token operator">=</span> <span class="token string">"keys/alipay_public_2048.txt"</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 支付相关配置</span></span><br><span class="line">APPID = <span class="string">"2016082500309412"</span></span><br><span class="line">NOTIFY_URL = <span class="string">"http://47.106.237.76:80/update_order/"</span></span><br><span class="line">RETURN_URL = <span class="string">"http://47.106.237.76:80/pay_result/"</span></span><br><span class="line">PRI_KEY_PATH = <span class="string">"keys/app_private_2048.txt"</span></span><br><span class="line">PUB_KEY_PATH = <span class="string">"keys/alipay_public_2048.txt"</span></span><br></pre></td></tr></table></figure>
 
       
     </div>

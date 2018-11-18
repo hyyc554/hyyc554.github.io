@@ -281,9 +281,18 @@
     </entry>
     
     <entry>
-      <title>tags</title>
+      <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index%20-%20%E5%89%AF%E6%9C%AC.html"/>
+      <url>/tags/index%20-%20%E5%89%AF%E6%9C%AC.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

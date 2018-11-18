@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="YoungCe的笔记">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&dl=adventure-backpack-blue-mountains-868097.jpg&fm=jpg">
-<meta property="og:updated_time" content="2018-10-25T15:58:38.398Z">
+<meta property="og:updated_time" content="2018-11-18T16:34:45.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析Python日志重复输出问题">
 <meta name="twitter:image" content="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&dl=adventure-backpack-blue-mountains-868097.jpg&fm=jpg">
@@ -298,8 +298,7 @@ my_log<span class="token punctuation">(</span><span class="token string">'run on
 my_log<span class="token punctuation">(</span><span class="token string">'run two'</span><span class="token punctuation">)</span>
 my_log<span class="token punctuation">(</span><span class="token string">'run three'</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>###3.用前判断</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
+<h3 id="3-用前判断"><a href="#3-用前判断" class="headerlink" title="3.用前判断"></a>3.用前判断</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> logging
 
 
 <span class="token keyword">def</span> <span class="token function">my_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -325,10 +324,7 @@ my_log<span class="token punctuation">(</span><span class="token punctuation">)<
 <p>​    知识面扩充后，曾经的一些难题自然就会迎刃而解：）</p>
 <hr>
 <blockquote>
-<p>参考内容：</p>
-<p>luffycity : <a href="https://www.luffycity.com/home" target="_blank" rel="noopener">https://www.luffycity.com/home</a></p>
-<p><a href="https://docs.python.org/3/library/index.html" target="_blank" rel="noopener">The Python Standard Library</a></p>
-<p><a href="https://blog.csdn.net/huilan_same" target="_blank" rel="noopener">huilan_same</a> ：<a href="https://blog.csdn.net/huilan_same/article/details/51858817" target="_blank" rel="noopener">https://blog.csdn.net/huilan_same/article/details/51858817</a></p>
+<p>参考内容：<br>luffycity : <a href="https://www.luffycity.com/home" target="_blank" rel="noopener">https://www.luffycity.com/home</a><br><a href="https://docs.python.org/3/library/index.html" target="_blank" rel="noopener">The Python Standard Library</a><br><a href="https://blog.csdn.net/huilan_same" target="_blank" rel="noopener">huilan_same</a> ：<a href="https://blog.csdn.net/huilan_same/article/details/51858817" target="_blank" rel="noopener">https://blog.csdn.net/huilan_same/article/details/51858817</a></p>
 </blockquote>
 
       
@@ -472,7 +468,7 @@ my_log<span class="token punctuation">(</span><span class="token punctuation">)<
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题起源："><span class="toc-number">1.</span> <span class="toc-text">问题起源：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题解析"><span class="toc-number">2.</span> <span class="toc-text">问题解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-改名换姓"><span class="toc-number">3.1.</span> <span class="toc-text">1.改名换姓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-及时清理（logger-handlers-clear）"><span class="toc-number">3.2.</span> <span class="toc-text">2.及时清理（logger.handlers.clear）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题起源："><span class="toc-number">1.</span> <span class="toc-text">问题起源：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题解析"><span class="toc-number">2.</span> <span class="toc-text">问题解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-改名换姓"><span class="toc-number">3.1.</span> <span class="toc-text">1.改名换姓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-及时清理（logger-handlers-clear）"><span class="toc-number">3.2.</span> <span class="toc-text">2.及时清理（logger.handlers.clear）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-用前判断"><span class="toc-number">3.3.</span> <span class="toc-text">3.用前判断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -489,6 +485,22 @@ my_log<span class="token punctuation">(</span><span class="token punctuation">)<
 
   
 
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
   
 
   
@@ -584,7 +596,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,23 +616,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂记</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">django</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
             
             <div class="clearfix"></div>

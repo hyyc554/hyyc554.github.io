@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-19T07:00:45.442Z</updated>
+  <updated>2018-11-20T10:34:31.196Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://hyyc554.github.io/2018/11/20/%E4%B8%80%E3%80%81REST%E7%AE%80%E8%BF%B0/"/>
+    <id>https://hyyc554.github.io/2018/11/20/一、REST简述/</id>
+    <published>2018-11-20T10:30:12.973Z</published>
+    <updated>2018-11-20T10:34:31.196Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、REST简述&quot;&gt;&lt;a href=&quot;#一、REST简述&quot; class=&quot;headerlink&quot; title=&quot;一、REST简述&quot;&gt;&lt;/a&gt;一、REST简述&lt;/h2&gt;&lt;p&gt;来自维基百科的解释：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="软件风格" scheme="https://hyyc554.github.io/tags/%E8%BD%AF%E4%BB%B6%E9%A3%8E%E6%A0%BC/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux相关思维导图</title>

@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>Django思维导图</title>
+      <link href="/2018/11/21/Django%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
+      <url>/2018/11/21/Django%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</url>
+      
+        <content type="html"><![CDATA[<p>Django基础</p><a id="more"></a><p><img src="https://s1.ax1x.com/2018/11/21/FCcB6S.png" alt="FCcB6S.png"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>搞懂RESTful</title>
       <link href="/2018/11/20/%E4%B8%80%E3%80%81REST%E7%AE%80%E8%BF%B0/"/>
       <url>/2018/11/20/%E4%B8%80%E3%80%81REST%E7%AE%80%E8%BF%B0/</url>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-20T10:38:43.159Z</updated>
+  <updated>2018-11-21T12:50:44.121Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django思维导图</title>
+    <link href="https://hyyc554.github.io/2018/11/21/Django%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
+    <id>https://hyyc554.github.io/2018/11/21/Django思维导图/</id>
+    <published>2018-11-21T12:50:23.920Z</published>
+    <updated>2018-11-21T12:50:44.121Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Django基础&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
+    
+  </entry>
   
   <entry>
     <title>搞懂RESTful</title>

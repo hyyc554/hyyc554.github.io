@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-22T12:48:34.315Z</updated>
+  <updated>2018-11-23T06:47:16.994Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>定位服务公司面试复盘</title>
+    <link href="https://hyyc554.github.io/2018/11/23/%E5%AE%9A%E4%BD%8D%E6%9C%8D%E5%8A%A1%E5%85%AC%E5%8F%B8%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/"/>
+    <id>https://hyyc554.github.io/2018/11/23/定位服务公司面试复盘/</id>
+    <published>2018-11-23T06:47:16.987Z</published>
+    <updated>2018-11-23T06:47:16.994Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录一下面试的细节，不断提升自己吧&lt;/p&gt;
+&lt;p&gt;本次没有笔试&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Django面试总结</title>
     <link href="https://hyyc554.github.io/2018/11/22/Django%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"/>
     <id>https://hyyc554.github.io/2018/11/22/Django面试总结/</id>
     <published>2018-11-22T12:48:34.034Z</published>
-    <updated>2018-11-22T12:48:34.315Z</updated>
+    <updated>2018-11-22T15:32:47.417Z</updated>
     
     <summary type="html">
     
@@ -364,25 +383,6 @@
     
     
       <category term="前端" scheme="https://hyyc554.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://hyyc554.github.io/2018/10/17/hello-world/"/>
-    <id>https://hyyc554.github.io/2018/10/17/hello-world/</id>
-    <published>2018-10-17T10:27:32.147Z</published>
-    <updated>2018-10-17T11:54:45.496Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
     
   </entry>
   

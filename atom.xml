@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-23T11:51:48.111Z</updated>
+  <updated>2018-11-25T04:09:26.364Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -21,18 +21,13 @@
     <link href="https://hyyc554.github.io/2018/11/23/%E5%85%B3%E4%BA%8EHTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%80%BB%E7%BB%93/"/>
     <id>https://hyyc554.github.io/2018/11/23/关于HTTP协议的总结/</id>
     <published>2018-11-23T11:50:39.079Z</published>
-    <updated>2018-11-23T11:51:48.111Z</updated>
+    <updated>2018-11-25T04:09:26.364Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;HTTP简介&quot;&gt;&lt;a href=&quot;#HTTP简介&quot; class=&quot;headerlink&quot; title=&quot;HTTP简介&quot;&gt;&lt;/a&gt;HTTP简介&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;HTTP协议是Hyper Text Transfer
-        
-      
+      &lt;h1 id=&quot;HTTP简介&quot;&gt;&lt;a href=&quot;#HTTP简介&quot; class=&quot;headerlink&quot; title=&quot;HTTP简介&quot;&gt;&lt;/a&gt;HTTP简介&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     

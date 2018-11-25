@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>Django部署手册</title>
+      <link href="/2018/11/25/Django%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/"/>
+      <url>/2018/11/25/Django%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、-安装python环境"><a href="#一、-安装python环境" class="headerlink" title="一、 安装python环境"></a>一、 安装python环境</h2><p>详情参考我的这一篇博文：</p><a id="more"></a><p><a href="https://hyyc554.github.io/2018/10/26/pythonenv/">Python虚拟环境配置</a></p><h2 id="二、Django的配置"><a href="#二、Django的配置" class="headerlink" title="二、Django的配置"></a>二、Django的配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Django</span><br><span class="line">django-admin.py startproject mysite</span><br><span class="line"><span class="built_in">cd</span> mysite</span><br></pre></td></tr></table></figure><p>我将在mysite目录下完成后续相关操作</p><h2 id="二、uWSGI的安装"><a href="#二、uWSGI的安装" class="headerlink" title="二、uWSGI的安装"></a>二、uWSGI的安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install uwsgi</span><br></pre></td></tr></table></figure><h3 id="1-基础测试："><a href="#1-基础测试：" class="headerlink" title="1. 基础测试："></a>1. 基础测试：</h3><ol><li>创建一个在mysite下创建一个<code>test.py</code>的测试文档</li></ol><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">(dj11.7) [root@localhost ~]<span class="comment"># mkdir myporject</span></span><br><span class="line">(dj11.7) [root@localhost ~]<span class="comment"># cd myporject/</span></span><br><span class="line">(dj11.7) [root@localhost myporject]<span class="comment"># django-admin startproject mysite</span></span><br><span class="line">(dj11.7) [root@localhost myporject]<span class="comment"># cd mysite</span></span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># ls</span></span><br><span class="line">manage.py  mysite</span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># touch test.py</span></span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># ls</span></span><br><span class="line">manage.py  mysite  test.py</span><br></pre></td></tr></table></figure><p>​    以上就完成了测试脚本文件的构建</p><ol><li>在<code>test.py</code>中写入以下测试内容:</li></ol><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(env, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>,<span class="string">'text/html'</span>)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">b"Hello World"</span>] <span class="comment"># python3</span></span><br><span class="line">    <span class="comment">#return ["Hello World"] # python2</span></span><br></pre></td></tr></table></figure><ol><li>uWSGI运行:</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uwsgi --http :8000 --wsgi-file test.py</span><br></pre></td></tr></table></figure><p>​    选项的意思是:</p><ul><li><code>http :8000</code>:使用协议http端口8000</li><li><code>wsgi-file test.py</code>:test.py加载指定的文件</li></ul><ol><li>浏览器访问你的IP加端口8000。</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://yourIP:8000</span><br></pre></td></tr></table></figure><p>​    返回结果：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure><p>如果是这样,这意味着以下工作原理:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure><h3 id="2-测试Django项目"><a href="#2-测试Django项目" class="headerlink" title="2. 测试Django项目"></a>2. 测试Django项目</h3><p>现在我们希望uWSGI做同样的事情,但运行Django网站而不是 <code>test.py</code>模块。</p><p>如果您还没有这样做,确保你的 <code>mysite</code>项目实际工作原理:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure><p>如果这工作,运行它使用uWSGI:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uwsgi --http :8000 --module mysite.wsgi</span><br></pre></td></tr></table></figure><ul><li><code>模块 mysite.wsgi</code>:加载指定wsgi模块</li></ul><p>您的浏览器指向服务器; 如果网站出现,这意味着uWSGI能够，大概的页面如下</p><p><img src="https://s1.ax1x.com/2018/11/25/Fk8F61.png" alt="Fk8F61.png"></p><p>这个栈操作 正确:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Django</span><br></pre></td></tr></table></figure><p>现在我们通常不会有浏览器直接向uWSGI说话。 这是一份工作 的网络服务器,它将充当中间人。</p><p>nginx。。。待续  </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>关于HTTP协议的总结</title>
       <link href="/2018/11/23/%E5%85%B3%E4%BA%8EHTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%80%BB%E7%BB%93/"/>
       <url>/2018/11/23/%E5%85%B3%E4%BA%8EHTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%80%BB%E7%BB%93/</url>
@@ -385,15 +402,6 @@
     </entry>
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    <entry>
       <title>tags</title>
       <link href="/tags/index%20-%20%E5%89%AF%E6%9C%AC.html"/>
       <url>/tags/index%20-%20%E5%89%AF%E6%9C%AC.html</url>
@@ -406,6 +414,15 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

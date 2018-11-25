@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="Django," />
 
 
 
@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="一、 安装python环境详情参考我的这一篇博文：">
+<meta name="keywords" content="Django">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL分页limit速度太慢的优化方法">
-<meta property="og:url" content="https://hyyc554.github.io/2018/11/19/MySQL分页limit速度太慢的优化方法/index.html">
+<meta property="og:title" content="Django部署手册">
+<meta property="og:url" content="https://hyyc554.github.io/2018/11/25/Django部署手册/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
+<meta property="og:description" content="一、 安装python环境详情参考我的这一篇博文：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-18T16:26:45.666Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/25/Fk8F61.png">
+<meta property="og:updated_time" content="2018-11-25T09:26:07.033Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL分页limit速度太慢的优化方法">
-<meta name="twitter:description" content="limit用法在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。">
+<meta name="twitter:title" content="Django部署手册">
+<meta name="twitter:description" content="一、 安装python环境详情参考我的这一篇博文：">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/25/Fk8F61.png">
 
 
 
@@ -122,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://hyyc554.github.io/2018/11/19/MySQL分页limit速度太慢的优化方法/"/>
+  <link rel="canonical" href="https://hyyc554.github.io/2018/11/25/Django部署手册/"/>
 
 
 
 
 
-  <title>MySQL分页limit速度太慢的优化方法 | YoungCe的笔记</title>
+  <title>Django部署手册 | YoungCe的笔记</title>
   
 
 
@@ -255,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hyyc554.github.io/2018/11/19/MySQL分页limit速度太慢的优化方法/">
+    <link itemprop="mainEntityOfPage" href="https://hyyc554.github.io/2018/11/25/Django部署手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungCe">
@@ -272,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MySQL分页limit速度太慢的优化方法</h1>
+          <h1 class="post-title" itemprop="name headline">Django部署手册</h1>
         
 
         <div class="post-meta">
@@ -284,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T00:12:58+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-25T17:25:00+08:00">
+                2018-11-25
               </time>
             
 
@@ -327,30 +329,52 @@
       
 
       
-        <h2 id="limit用法"><a href="#limit用法" class="headerlink" title="limit用法"></a>limit用法</h2><p>在我们使用查询语句的时候，经常要返回前几条或者中间某几行数据，这个时候怎么办呢？不用担心，mysql已经为我们提供了这样一个功能。</p>
+        <h2 id="一、-安装python环境"><a href="#一、-安装python环境" class="headerlink" title="一、 安装python环境"></a>一、 安装python环境</h2><p>详情参考我的这一篇博文：</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</span><br></pre></td></tr></table></figure>
-<p>LIMIT 子句可以被用于强制 SELECT 语句返回指定的记录数。LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。如果给定两个参数，第一个参数指定第一个返回记录行的<code>偏移量</code>，第二个参数指定返回记录行的最大数目。<code>初始记录行的偏移量是 0(而不是 1)</code>： 为了与 PostgreSQL 兼容，MySQL 也支持句法： LIMIT # OFFSET #。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM table LIMIT 5,10; // 检索记录行 6-15</span><br></pre></td></tr></table></figure>
-<p>为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.</span><br></pre></td></tr></table></figure>
-<p>如果只给定一个参数，它表示返回最大的记录行数目： </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM table LIMIT 5; //检索前 5 个记录行</span><br></pre></td></tr></table></figure>
-<p>换句话说，<code>LIMIT n</code> 等价于<code>LIMIT 0,n</code>。</p>
-<h2 id="Mysql的分页查询语句的性能分析"><a href="#Mysql的分页查询语句的性能分析" class="headerlink" title="Mysql的分页查询语句的性能分析"></a><strong>Mysql的分页查询语句的性能分析</strong></h2><p>MySql分页sql语句，如果和MSSQL的TOP语法相比，那么MySQL的LIMIT语法要显得优雅了许多。使用它来分页是再自然不过的事情了。</p>
-<h3 id="最基本的分页方式："><a href="#最基本的分页方式：" class="headerlink" title="最基本的分页方式："></a><strong>最基本的分页方式：</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT ...</span><br></pre></td></tr></table></figure>
-<p>在中小数据量的情况下，这样的SQL足够用了，唯一需要注意的问题就是确保使用了索引：举例来说，如果实际SQL类似下面语句，那么在category_id, id两列上建立复合索引比较好：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM articles WHERE category_id = 123 ORDER BY id LIMIT 50, 10</span><br></pre></td></tr></table></figure>
-<h3 id="子查询的分页方式："><a href="#子查询的分页方式：" class="headerlink" title="子查询的分页方式："></a><strong>子查询的分页方式：</strong></h3><p>随着数据量的增加，页数会越来越多，查看后几页的SQL就可能类似：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM articles WHERE category_id = 123 ORDER BY id LIMIT 10000, 10</span><br></pre></td></tr></table></figure>
-<p>一言以蔽之，就是越往后分页，<code>LIMIT语句的偏移量就会越大，速度也会明显变慢</code>。</p>
-<p>此时，我们可以通过子查询的方式来提高分页效率，大致如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM articles WHERE id &gt;= </span><br><span class="line">(SELECT id FROM articles WHERE category_id = 123 ORDER BY id LIMIT 10000, 1) LIMIT 10</span><br></pre></td></tr></table></figure>
-<h3 id="JOIN分页方式"><a href="#JOIN分页方式" class="headerlink" title="JOIN分页方式"></a>JOIN分页方式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `content` AS t1 </span><br><span class="line">JOIN (SELECT id FROM `content` ORDER BY id desc LIMIT &quot;.($page-1)*$pagesize.&quot;, 1) AS t2 </span><br><span class="line">WHERE t1.id &lt;= t2.id ORDER BY t1.id desc LIMIT $pagesize;</span><br></pre></td></tr></table></figure>
-<p>经过我的测试，join分页和子查询分页的效率基本在一个等级上，消耗的时间也基本一致。 explain SQL语句：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id select_type table type possible_keys key key_len ref rows Extra</span><br><span class="line">1 PRIMARY &lt;derived2&gt; system NULL NULL NULL NULL 1 </span><br><span class="line">1 PRIMARY t1 range PRIMARY PRIMARY 4 NULL 6264 Using where</span><br><span class="line">2 DERIVED content index NULL PRIMARY 4 NULL 27085 Using index</span><br></pre></td></tr></table></figure>
-<p>为什么会这样呢？因为子查询是在索引上完成的，而普通的查询时在数据文件上完成的，通常来说，索引文件要比数据文件小得多，所以操作起来也会更有效率。</p>
-<p>实际可以利用类似策略模式的方式去处理分页，比如判断如果是一百页以内，就使用最基本的分页方式，大于一百页，则使用子查询的分页方式。</p>
+<p><a href="https://hyyc554.github.io/2018/10/26/pythonenv/">Python虚拟环境配置</a></p>
+<h2 id="二、Django的配置"><a href="#二、Django的配置" class="headerlink" title="二、Django的配置"></a>二、Django的配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install Django</span><br><span class="line">django-admin.py startproject mysite</span><br><span class="line"><span class="built_in">cd</span> mysite</span><br></pre></td></tr></table></figure>
+<p>我将在mysite目录下完成后续相关操作</p>
+<h2 id="二、uWSGI的安装"><a href="#二、uWSGI的安装" class="headerlink" title="二、uWSGI的安装"></a>二、uWSGI的安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install uwsgi</span><br></pre></td></tr></table></figure>
+<h3 id="1-基础测试："><a href="#1-基础测试：" class="headerlink" title="1. 基础测试："></a>1. 基础测试：</h3><ol>
+<li>创建一个在mysite下创建一个<code>test.py</code>的测试文档</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">(dj11.7) [root@localhost ~]<span class="comment"># mkdir myporject</span></span><br><span class="line">(dj11.7) [root@localhost ~]<span class="comment"># cd myporject/</span></span><br><span class="line">(dj11.7) [root@localhost myporject]<span class="comment"># django-admin startproject mysite</span></span><br><span class="line">(dj11.7) [root@localhost myporject]<span class="comment"># cd mysite</span></span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># ls</span></span><br><span class="line">manage.py  mysite</span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># touch test.py</span></span><br><span class="line">(dj11.7) [root@localhost mysite]<span class="comment"># ls</span></span><br><span class="line">manage.py  mysite  test.py</span><br></pre></td></tr></table></figure>
+<p>​    以上就完成了测试脚本文件的构建</p>
+<ol>
+<li>在<code>test.py</code>中写入以下测试内容:</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(env, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>,<span class="string">'text/html'</span>)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">b"Hello World"</span>] <span class="comment"># python3</span></span><br><span class="line">    <span class="comment">#return ["Hello World"] # python2</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>uWSGI运行:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uwsgi --http :8000 --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+<p>​    选项的意思是:</p>
+<ul>
+<li><code>http :8000</code>:使用协议http端口8000</li>
+<li><code>wsgi-file test.py</code>:test.py加载指定的文件</li>
+</ul>
+<ol>
+<li>浏览器访问你的IP加端口8000。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://yourIP:8000</span><br></pre></td></tr></table></figure>
+<p>​    返回结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>如果是这样,这意味着以下工作原理:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure>
+<h3 id="2-测试Django项目"><a href="#2-测试Django项目" class="headerlink" title="2. 测试Django项目"></a>2. 测试Django项目</h3><p>现在我们希望uWSGI做同样的事情,但运行Django网站而不是 <code>test.py</code>模块。</p>
+<p>如果您还没有这样做,确保你的 <code>mysite</code>项目实际工作原理:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+<p>如果这工作,运行它使用uWSGI:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uwsgi --http :8000 --module mysite.wsgi</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>模块 mysite.wsgi</code>:加载指定wsgi模块</li>
+</ul>
+<p>您的浏览器指向服务器; 如果网站出现,这意味着uWSGI能够，大概的页面如下</p>
+<p><img src="https://s1.ax1x.com/2018/11/25/Fk8F61.png" alt="Fk8F61.png"></p>
+<p>这个栈操作 正确:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Django</span><br></pre></td></tr></table></figure>
+<p>现在我们通常不会有浏览器直接向uWSGI说话。 这是一份工作 的网络服务器,它将充当中间人。</p>
+<p>nginx。。。待续  </p>
 
       
     </div>
@@ -368,7 +392,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+            <a href="/tags/Django/" rel="tag"># Django</a>
           
         </div>
       
@@ -381,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/Python——回顾常用的库/" rel="next" title="Python——回顾常用的库">
-                <i class="fa fa-chevron-left"></i> Python——回顾常用的库
+              <a href="/2018/11/23/关于HTTP协议的总结/" rel="next" title="关于HTTP协议的总结">
+                <i class="fa fa-chevron-left"></i> 关于HTTP协议的总结
               </a>
             
           </div>
@@ -390,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/19/源码剖析Django REST framework的认证方式/" rel="prev" title="源码剖析Django REST framework的认证方式">
-                源码剖析Django REST framework的认证方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -568,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#limit用法"><span class="nav-number">1.</span> <span class="nav-text">limit用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql的分页查询语句的性能分析"><span class="nav-number">2.</span> <span class="nav-text">Mysql的分页查询语句的性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最基本的分页方式："><span class="nav-number">2.1.</span> <span class="nav-text">最基本的分页方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子查询的分页方式："><span class="nav-number">2.2.</span> <span class="nav-text">子查询的分页方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JOIN分页方式"><span class="nav-number">2.3.</span> <span class="nav-text">JOIN分页方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-安装python环境"><span class="nav-number">1.</span> <span class="nav-text">一、 安装python环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Django的配置"><span class="nav-number">2.</span> <span class="nav-text">二、Django的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、uWSGI的安装"><span class="nav-number">3.</span> <span class="nav-text">二、uWSGI的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基础测试："><span class="nav-number">3.1.</span> <span class="nav-text">1. 基础测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-测试Django项目"><span class="nav-number">3.2.</span> <span class="nav-text">2. 测试Django项目</span></a></li></ol></li></ol></div>
             
 
           </div>

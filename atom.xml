@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-25T04:09:26.364Z</updated>
+  <updated>2018-11-25T09:26:07.033Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django部署手册</title>
+    <link href="https://hyyc554.github.io/2018/11/25/Django%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/"/>
+    <id>https://hyyc554.github.io/2018/11/25/Django部署手册/</id>
+    <published>2018-11-25T09:25:00.000Z</published>
+    <updated>2018-11-25T09:26:07.033Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、-安装python环境&quot;&gt;&lt;a href=&quot;#一、-安装python环境&quot; class=&quot;headerlink&quot; title=&quot;一、 安装python环境&quot;&gt;&lt;/a&gt;一、 安装python环境&lt;/h2&gt;&lt;p&gt;详情参考我的这一篇博文：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
+    
+  </entry>
   
   <entry>
     <title>关于HTTP协议的总结</title>
@@ -361,24 +379,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;1-virtualenv&quot;&gt;&lt;a href=&quot;#1-virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1. virtualenv&quot;&gt;&lt;/a&gt;1. virtualenv&lt;/h2&gt;&lt;p&gt;　　virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析Python日志重复输出问题</title>
-    <link href="https://hyyc554.github.io/2018/10/17/logging/"/>
-    <id>https://hyyc554.github.io/2018/10/17/logging/</id>
-    <published>2018-10-17T15:19:34.046Z</published>
-    <updated>2018-11-18T16:34:45.654Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&amp;amp;dl=adventure-backpack-blue-mountains-868097.jpg&amp;amp;fm=jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-25T09:26:07.033Z</updated>
+  <updated>2018-11-25T13:23:31.976Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python开发者的收藏夹</title>
+    <link href="https://hyyc554.github.io/2018/11/25/Python%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E6%94%B6%E8%97%8F%E5%A4%B9/"/>
+    <id>https://hyyc554.github.io/2018/11/25/Python开发者的收藏夹/</id>
+    <published>2018-11-25T13:23:31.736Z</published>
+    <updated>2018-11-25T13:23:31.976Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录一些有用的网址&lt;/p&gt;
+&lt;p&gt;干货：基础python Web ，主要是django框架&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%B0%88/"/>
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Django部署手册</title>
@@ -366,24 +387,6 @@
     
     
       <category term="HTTP" scheme="https://hyyc554.github.io/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python虚拟环境--virtualenv</title>
-    <link href="https://hyyc554.github.io/2018/10/26/pythonenv/"/>
-    <id>https://hyyc554.github.io/2018/10/26/pythonenv/</id>
-    <published>2018-10-25T17:20:01.540Z</published>
-    <updated>2018-10-25T17:20:01.763Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-virtualenv&quot;&gt;&lt;a href=&quot;#1-virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1. virtualenv&quot;&gt;&lt;/a&gt;1. virtualenv&lt;/h2&gt;&lt;p&gt;　　virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
     
   </entry>
   

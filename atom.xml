@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-11-25T13:23:31.976Z</updated>
+  <updated>2018-12-05T12:57:41.357Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://hyyc554.github.io/2018/12/05/%E8%83%8C%E6%99%AF/"/>
+    <id>https://hyyc554.github.io/2018/12/05/背景/</id>
+    <published>2018-12-05T12:57:41.181Z</published>
+    <updated>2018-12-05T12:57:41.357Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Python开发者的收藏夹</title>
@@ -369,24 +391,6 @@
     
     
       <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析跨域请求</title>
-    <link href="https://hyyc554.github.io/2018/10/26/%E8%B7%A8%E5%9F%9F/"/>
-    <id>https://hyyc554.github.io/2018/10/26/跨域/</id>
-    <published>2018-10-26T11:38:51.840Z</published>
-    <updated>2018-10-26T11:50:12.551Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="HTTP" scheme="https://hyyc554.github.io/tags/HTTP/"/>
     
   </entry>
   

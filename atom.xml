@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-05T12:57:41.357Z</updated>
+  <updated>2018-12-11T07:08:14.221Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django与Celery</title>
+    <link href="https://hyyc554.github.io/2018/12/09/Django%E4%B8%8ECelery/"/>
+    <id>https://hyyc554.github.io/2018/12/09/Django与Celery/</id>
+    <published>2018-12-09T15:43:33.825Z</published>
+    <updated>2018-12-11T07:08:14.221Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;先祭上 &lt;a href=&quot;https://github.com/celery/django-celery-beat&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/celery/django-celery-beat&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -368,24 +384,6 @@
     <summary type="html">
     
       &lt;p&gt;每天写一点，直到找到工作&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python基础算法实现</title>
-    <link href="https://hyyc554.github.io/2018/10/29/python%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://hyyc554.github.io/2018/10/29/python基础算法实现/</id>
-    <published>2018-10-28T16:20:02.709Z</published>
-    <updated>2018-11-05T18:00:03.131Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本篇主要实现九(八)大排序算法，分别是冒泡排序，插入排序，选择排序，希尔排序，归并排序，快速排序，堆排序,计数排序。希望大家回顾知识的时候也能从我的这篇文章得到帮助。&lt;/p&gt;
     
     </summary>
     

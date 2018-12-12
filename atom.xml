@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-11T07:08:14.221Z</updated>
+  <updated>2018-12-12T12:22:43.134Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django与Celery配合实现定时任务</title>
+    <link href="https://hyyc554.github.io/2018/12/12/Django%E4%B8%8ECelery%E9%85%8D%E5%90%88%E5%AE%9E%E7%8E%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+    <id>https://hyyc554.github.io/2018/12/12/Django与Celery配合实现定时任务/</id>
+    <published>2018-12-12T12:03:50.206Z</published>
+    <updated>2018-12-12T12:22:43.134Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2018/12/12/Ft8aX4.png&quot; alt=&quot;Ft8aX4.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
+    
+      <category term="Celery" scheme="https://hyyc554.github.io/tags/Celery/"/>
+    
+  </entry>
   
   <entry>
     <title>Django与Celery</title>
@@ -371,24 +391,6 @@
     
     
       <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的面试笔记</title>
-    <link href="https://hyyc554.github.io/2018/11/02/%E6%88%91%E7%9A%84%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/"/>
-    <id>https://hyyc554.github.io/2018/11/02/我的面试笔记/</id>
-    <published>2018-11-02T15:52:36.577Z</published>
-    <updated>2018-11-09T11:48:00.038Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;每天写一点，直到找到工作&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-12T12:22:43.134Z</updated>
+  <updated>2018-12-15T13:55:54.070Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python一行代码处理地理围栏</title>
+    <link href="https://hyyc554.github.io/2018/12/15/Python%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E5%9C%B0%E7%90%86%E5%9B%B4%E6%A0%8F/"/>
+    <id>https://hyyc554.github.io/2018/12/15/Python一行代码处理地理围栏/</id>
+    <published>2018-12-15T11:39:54.269Z</published>
+    <updated>2018-12-15T13:55:54.070Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在工作中遇到了这个一个需求，用户设定地理围栏，后台获取到实时位置信息后通过与围栏比较，判断是否越界等。&lt;/p&gt;
+&lt;p&gt;这个过程需要用到数据协议为GEOjson，通过查阅资料后，发现python的shapely库可以非常简单的解决这个问题,接下来演示一下我处理这个问题的过程。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Django与Celery配合实现定时任务</title>
@@ -41,7 +60,7 @@
     <link href="https://hyyc554.github.io/2018/12/09/Django%E4%B8%8ECelery/"/>
     <id>https://hyyc554.github.io/2018/12/09/Django与Celery/</id>
     <published>2018-12-09T15:43:33.825Z</published>
-    <updated>2018-12-11T07:08:14.221Z</updated>
+    <updated>2018-12-14T07:15:23.381Z</updated>
     
     <summary type="html">
     
@@ -368,24 +387,6 @@
     
       &lt;p&gt;依赖软件：Django\redis&lt;/p&gt;
 &lt;p&gt;测试工具：postman&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在线教育——结算中心的实现</title>
-    <link href="https://hyyc554.github.io/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E2%80%94%E2%80%94%E7%BB%93%E7%AE%97%E4%B8%AD%E5%BF%83%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://hyyc554.github.io/2018/11/07/在线教育——结算中心的实现/</id>
-    <published>2018-11-07T08:31:48.721Z</published>
-    <updated>2018-11-08T10:51:55.124Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;依赖软件：Django、redis&lt;/p&gt;
     
     </summary>
     

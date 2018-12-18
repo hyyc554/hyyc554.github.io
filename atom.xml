@@ -72,28 +72,6 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://hyyc554.github.io/2018/12/05/%E8%83%8C%E6%99%AF/"/>
-    <id>https://hyyc554.github.io/2018/12/05/背景/</id>
-    <published>2018-12-05T12:57:41.181Z</published>
-    <updated>2018-12-05T12:57:41.357Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Python开发者的收藏夹</title>
     <link href="https://hyyc554.github.io/2018/11/25/Python%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E6%94%B6%E8%97%8F%E5%A4%B9/"/>
     <id>https://hyyc554.github.io/2018/11/25/Python开发者的收藏夹/</id>
@@ -387,6 +365,24 @@
     
       &lt;p&gt;依赖软件：Django\redis&lt;/p&gt;
 &lt;p&gt;测试工具：postman&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在线教育——结算中心的实现</title>
+    <link href="https://hyyc554.github.io/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E2%80%94%E2%80%94%E7%BB%93%E7%AE%97%E4%B8%AD%E5%BF%83%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://hyyc554.github.io/2018/11/07/在线教育——结算中心的实现/</id>
+    <published>2018-11-07T08:31:48.721Z</published>
+    <updated>2018-11-08T10:51:55.124Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;依赖软件：Django、redis&lt;/p&gt;
     
     </summary>
     

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-15T13:55:54.070Z</updated>
+  <updated>2018-12-18T16:07:17.133Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://hyyc554.github.io/2018/12/19/%E4%BD%BF%E7%94%A8%20yum%20%E5%AE%89%E8%A3%85%EF%BC%88CentOS%207%E4%B8%8B%EF%BC%89/"/>
+    <id>https://hyyc554.github.io/2018/12/19/使用 yum 安装（CentOS 7下）/</id>
+    <published>2018-12-18T16:06:48.987Z</published>
+    <updated>2018-12-18T16:07:17.133Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;title：CentOS下安装Docker&lt;br&gt;tags：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;li&gt;Docker&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;使用-yum-安装（CentOS-7下）&quot;&gt;&lt;a href=&quot;#使用-yum-安装（CentOS-7下）&quot; class=&quot;headerlink&quot; title=&quot;使用 yum 安装（CentOS 7下）&quot;&gt;&lt;/a&gt;使用 yum 安装（CentOS 7下）&lt;/h2&gt;&lt;p&gt;Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Python一行代码处理地理围栏</title>
@@ -365,24 +388,6 @@
     
       &lt;p&gt;依赖软件：Django\redis&lt;/p&gt;
 &lt;p&gt;测试工具：postman&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在线教育——结算中心的实现</title>
-    <link href="https://hyyc554.github.io/2018/11/07/%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E2%80%94%E2%80%94%E7%BB%93%E7%AE%97%E4%B8%AD%E5%BF%83%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://hyyc554.github.io/2018/11/07/在线教育——结算中心的实现/</id>
-    <published>2018-11-07T08:31:48.721Z</published>
-    <updated>2018-11-08T10:51:55.124Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;依赖软件：Django、redis&lt;/p&gt;
     
     </summary>
     

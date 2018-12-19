@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-18T16:07:17.133Z</updated>
+  <updated>2018-12-19T14:37:42.202Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -17,25 +17,22 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>CentOS下安装Docker</title>
     <link href="https://hyyc554.github.io/2018/12/19/%E4%BD%BF%E7%94%A8%20yum%20%E5%AE%89%E8%A3%85%EF%BC%88CentOS%207%E4%B8%8B%EF%BC%89/"/>
     <id>https://hyyc554.github.io/2018/12/19/使用 yum 安装（CentOS 7下）/</id>
     <published>2018-12-18T16:06:48.987Z</published>
-    <updated>2018-12-18T16:07:17.133Z</updated>
+    <updated>2018-12-19T14:37:42.202Z</updated>
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;p&gt;title：CentOS下安装Docker&lt;br&gt;tags：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Linux&lt;/li&gt;
-&lt;li&gt;Docker&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;使用-yum-安装（CentOS-7下）&quot;&gt;&lt;a href=&quot;#使用-yum-安装（CentOS-7下）&quot; class=&quot;headerlink&quot; title=&quot;使用 yum 安装（CentOS 7下）&quot;&gt;&lt;/a&gt;使用 yum 安装（CentOS 7下）&lt;/h2&gt;&lt;p&gt;Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。&lt;/p&gt;
+      &lt;h2 id=&quot;使用-yum-安装（CentOS-7下）&quot;&gt;&lt;a href=&quot;#使用-yum-安装（CentOS-7下）&quot; class=&quot;headerlink&quot; title=&quot;使用 yum 安装（CentOS 7下）&quot;&gt;&lt;/a&gt;使用 yum 安装（CentOS 7下）&lt;/h2&gt;&lt;p&gt;Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。&lt;/p&gt;
     
     </summary>
     
+    
+      <category term="Linux" scheme="https://hyyc554.github.io/tags/Linux/"/>
+    
+      <category term="Docker" scheme="https://hyyc554.github.io/tags/Docker/"/>
     
   </entry>
   

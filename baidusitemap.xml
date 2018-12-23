@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hyyc554.github.io/2018/10/17/ES6/</loc>
+    <lastmod>2018-12-23T12:30:32.982Z</lastmod>
+  </url>  <url>
     <loc>https://hyyc554.github.io/2018/12/19/%E4%BD%BF%E7%94%A8%20yum%20%E5%AE%89%E8%A3%85%EF%BC%88CentOS%207%E4%B8%8B%EF%BC%89/</loc>
     <lastmod>2018-12-19T14:37:42.202Z</lastmod>
   </url>  <url>
@@ -78,9 +81,6 @@
   </url>  <url>
     <loc>https://hyyc554.github.io/2018/10/26/pythonenv/</loc>
     <lastmod>2018-10-25T17:20:01.763Z</lastmod>
-  </url>  <url>
-    <loc>https://hyyc554.github.io/2018/10/17/ES6/</loc>
-    <lastmod>2018-10-25T17:17:59.885Z</lastmod>
   </url>  <url>
     <loc>https://hyyc554.github.io/2018/10/17/hello-world/</loc>
     <lastmod>2018-10-17T11:54:45.496Z</lastmod>

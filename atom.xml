@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-30T01:15:15.199Z</updated>
+  <updated>2018-12-30T01:22:36.380Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -21,18 +21,11 @@
     <link href="https://hyyc554.github.io/2018/12/30/note1/"/>
     <id>https://hyyc554.github.io/2018/12/30/note1/</id>
     <published>2018-12-30T01:15:40.364Z</published>
-    <updated>2018-12-30T01:15:15.199Z</updated>
+    <updated>2018-12-30T01:22:36.380Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;目的：理解Redis的运作原理&lt;/p&gt;
-&lt;h2 id=&quot;4-1-持久化选项&quot;&gt;&lt;a href=&quot;#4-1-持久化选项&quot; class=&quot;headerlink&quot; title=&quot;4.1 持久化选项&quot;&gt;&lt;/a&gt;4.1
-        
-      
+      &lt;p&gt;目的：理解Redis的运作原理&lt;br&gt;
     
     </summary>
     

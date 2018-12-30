@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="目的：理解Redis的运作原理 4.1 持久化选项一句话概括持久化概念：将内存中的数据保存到硬盘。 Redis的持久化方式：  快照（snapshotting) 将某一时刻的所有数据保存到硬盘  只追加文件（append-only file,  AOF) 在执行写命令时，将被执行的写命令复制到硬盘中。   上述两种方法可以灵活的选择、结合使用。 使用Redis数据持久化的原因：  重用数据 防止系">
+<meta name="description" content="目的：理解Redis的运作原理">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第4章 数据安全与性能保障">
 <meta property="og:url" content="https://hyyc554.github.io/2018/12/30/note1/index.html">
 <meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="目的：理解Redis的运作原理 4.1 持久化选项一句话概括持久化概念：将内存中的数据保存到硬盘。 Redis的持久化方式：  快照（snapshotting) 将某一时刻的所有数据保存到硬盘  只追加文件（append-only file,  AOF) 在执行写命令时，将被执行的写命令复制到硬盘中。   上述两种方法可以灵活的选择、结合使用。 使用Redis数据持久化的原因：  重用数据 防止系">
+<meta property="og:description" content="目的：理解Redis的运作原理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-30T01:15:15.199Z">
+<meta property="og:updated_time" content="2018-12-30T01:22:36.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第4章 数据安全与性能保障">
-<meta name="twitter:description" content="目的：理解Redis的运作原理 4.1 持久化选项一句话概括持久化概念：将内存中的数据保存到硬盘。 Redis的持久化方式：  快照（snapshotting) 将某一时刻的所有数据保存到硬盘  只追加文件（append-only file,  AOF) 在执行写命令时，将被执行的写命令复制到硬盘中。   上述两种方法可以灵活的选择、结合使用。 使用Redis数据持久化的原因：  重用数据 防止系">
+<meta name="twitter:description" content="目的：理解Redis的运作原理">
 
 
 
@@ -327,7 +327,7 @@
       
 
       
-        <p>目的：理解Redis的运作原理</p>
+        <p>目的：理解Redis的运作原理<br><a id="more"></a></p>
 <h2 id="4-1-持久化选项"><a href="#4-1-持久化选项" class="headerlink" title="4.1 持久化选项"></a>4.1 持久化选项</h2><p>一句话概括持久化概念：将内存中的数据保存到硬盘。</p>
 <p>Redis的<strong>持久化方式</strong>：</p>
 <ol>

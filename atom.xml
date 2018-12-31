@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-31T12:56:34.732Z</updated>
+  <updated>2018-12-31T14:35:53.758Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django与supervisor 管理进程</title>
+    <link href="https://hyyc554.github.io/2018/12/31/Django%E4%B8%8Esupervisor-%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B/"/>
+    <id>https://hyyc554.github.io/2018/12/31/Django与supervisor-管理进程/</id>
+    <published>2018-12-31T14:32:35.633Z</published>
+    <updated>2018-12-31T14:35:53.758Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、前言&quot;&gt;&lt;a href=&quot;#1、前言&quot; class=&quot;headerlink&quot; title=&quot;1、前言&quot;&gt;&lt;/a&gt;1、前言&lt;/h2&gt;&lt;p&gt;在Django项目中，我们需要用到一些独立于Django框架外的脚本。这样一些脚本可能需要独立的持续运行，且具有很强的可维护性，这个时候supervisor就可以排上用场了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/d126accegy1fyq9bijxgvj206h08hjrr.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
+    
+      <category term="Linux" scheme="https://hyyc554.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>我的2019计划</title>
@@ -375,25 +396,6 @@
     
     
       <category term="数据库" scheme="https://hyyc554.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>无题1</title>
-    <link href="https://hyyc554.github.io/2018/11/09/%E6%97%A0%E9%A2%981/"/>
-    <id>https://hyyc554.github.io/2018/11/09/无题1/</id>
-    <published>2018-11-09T11:00:46.922Z</published>
-    <updated>2018-11-28T14:38:53.908Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2018/11/09/ibtcXq.jpg&quot; alt=&quot;ibtcXq.jpg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;今天投了十几家简历，还没有回音&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="杂记" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%AE%B0/"/>
     
   </entry>
   

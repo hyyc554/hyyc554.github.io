@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hyyc554.github.io/about/index.html</loc>
+    
+    <lastmod>2019-01-05T11:42:30.098Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hyyc554.github.io/2018/12/31/Django%E4%B8%8Esupervisor-%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B/</loc>
     
     <lastmod>2018-12-31T14:35:53.758Z</lastmod>
@@ -110,13 +117,6 @@
     <loc>https://hyyc554.github.io/2018/11/21/Django%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</loc>
     
     <lastmod>2018-11-21T12:50:44.121Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hyyc554.github.io/about/index.html</loc>
-    
-    <lastmod>2018-11-20T10:50:49.714Z</lastmod>
     
   </url>
   

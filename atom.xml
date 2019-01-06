@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2018-12-31T14:35:53.758Z</updated>
+  <updated>2019-01-06T12:23:08.639Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>流畅的Python读书笔记（二）</title>
+    <link href="https://hyyc554.github.io/2019/01/06/%E6%B5%81%E7%95%85%E7%9A%84Python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>https://hyyc554.github.io/2019/01/06/流畅的Python读书笔记（二）/</id>
+    <published>2019-01-06T12:14:04.327Z</published>
+    <updated>2019-01-06T12:23:08.639Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/d126accegy1fyx4jkxhnaj22l51xu4j6.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Django与supervisor 管理进程</title>
@@ -378,24 +396,6 @@
     
     
       <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Centos7环境 Mongodb 的安装及远程连接</title>
-    <link href="https://hyyc554.github.io/2018/11/13/Centos7%E7%8E%AF%E5%A2%83-Mongodb-%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/"/>
-    <id>https://hyyc554.github.io/2018/11/13/Centos7环境-Mongodb-的安装及远程连接/</id>
-    <published>2018-11-13T12:35:38.335Z</published>
-    <updated>2018-11-13T12:35:38.529Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;此流程仅本人测试，没有报错。折腾了一会，出了解决不了的BUG还是卸载重装比较方便。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数据库" scheme="https://hyyc554.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2019-01-06T12:23:08.639Z</updated>
+  <updated>2019-01-06T12:50:48.745Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>(转)Google 开源项目风格指南(Python篇)</title>
+    <link href="https://hyyc554.github.io/2019/01/06/(%E8%BD%AC)Google-%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97(Python%E7%AF%87)/"/>
+    <id>https://hyyc554.github.io/2019/01/06/(转)Google-开源项目风格指南(Python篇)/</id>
+    <published>2019-01-06T12:50:29.720Z</published>
+    <updated>2019-01-06T12:50:48.745Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于目前在公司独立开发项目，为了提高自己的编码质量与品位，周末利用下午的时间阅读了&lt;a href=&quot;https://zh-google-styleguide.readthedocs.io/en/latest/contents/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt; Google 开源项目风格指南&lt;/a&gt;关于Python的部分，同时转发在这里，以便以后随时查阅。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/d126accegy1fyx5keibjtj207k02kt8l.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>流畅的Python读书笔记（二）</title>
@@ -378,24 +397,6 @@
     
     
       <category term="MySQL" scheme="https://hyyc554.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python——回顾常用的库</title>
-    <link href="https://hyyc554.github.io/2018/11/16/Python%E2%80%94%E2%80%94%E5%9B%9E%E9%A1%BE%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BA%93/"/>
-    <id>https://hyyc554.github.io/2018/11/16/Python——回顾常用的库/</id>
-    <published>2018-11-16T01:33:26.636Z</published>
-    <updated>2018-11-16T01:15:49.996Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这些最基础的面试想不起来会很尴尬&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
     
   </entry>
   

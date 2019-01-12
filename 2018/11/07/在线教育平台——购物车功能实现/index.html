@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="A1iPgcxNQu" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Django," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="依赖软件：Django\redis 测试工具：postman">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在线教育平台——购物车功能实现">
+<meta property="og:url" content="https://hyyc554.github.io/2018/11/07/在线教育平台——购物车功能实现/index.html">
+<meta property="og:site_name" content="YoungCe的笔记">
+<meta property="og:description" content="依赖软件：Django\redis 测试工具：postman">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="e:/chromedown/条件结构流程图.png">
+<meta property="og:updated_time" content="2018-11-08T10:52:27.447Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在线教育平台——购物车功能实现">
+<meta name="twitter:description" content="依赖软件：Django\redis 测试工具：postman">
+<meta name="twitter:image" content="e:/chromedown/条件结构流程图.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hyyc554.github.io/2018/11/07/在线教育平台——购物车功能实现/"/>
+
+
+
+
+
+  <title>在线教育平台——购物车功能实现 | YoungCe的笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungCe的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">献给所有爱我的人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hyyc554.github.io/2018/11/07/在线教育平台——购物车功能实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungCe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123cool.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungCe的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">在线教育平台——购物车功能实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-07T16:31:48+08:00">
+                2018-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>依赖软件：Django\redis</p>
+<p>测试工具：postman<br><a id="more"></a></p>
+<h2 id="redis中购物车数据存储结构"><a href="#redis中购物车数据存储结构" class="headerlink" title="redis中购物车数据存储结构"></a>redis中购物车数据存储结构</h2><ul>
+<li>redis最外层的key的实际意义是”luffy_shopping_car_userid_courseid”，也就是最后的两个数字分别代表的用户ID与需要加入购物车的课程ID</li>
+<li>每个单独的课程中，包含课程名称，课程图片，课程价格策略，当前选中策略。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">redis: &#123;</span><br><span class="line">    "luffy_shopping_car_1_1":</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Linux基础"</span>,</span><br><span class="line">        <span class="attr">"img"</span>: <span class="string">"2.png"</span>,</span><br><span class="line">        <span class="attr">"policy"</span>: &#123;</span><br><span class="line">            <span class="attr">"2"</span>: &#123;</span><br><span class="line">                <span class="attr">"period"</span>: <span class="number">60</span>,</span><br><span class="line">                <span class="attr">"period_display"</span>: <span class="string">"2个月"</span>,</span><br><span class="line">                <span class="attr">"price"</span>: <span class="number">1500</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"default_policy"</span>: <span class="string">"2"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    "luffy_shopping_car_1_3": &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p><img src="E:\chromedown\条件结构流程图.png" alt="条件结构流程图"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>在setting中设置redis配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &quot;default&quot;: &#123;</span><br><span class="line">        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,</span><br><span class="line">        &quot;LOCATION&quot;: &quot;redis://yourip:6379&quot;,</span><br><span class="line">        &quot;OPTIONS&quot;: &#123;</span><br><span class="line">            &quot;CLIENT_CLASS&quot;: &quot;django_redis.client.DefaultClient&quot;,</span><br><span class="line">            &quot;CONNECTION_POOL_KWARGS&quot;: &#123;&quot;max_connections&quot;: 100&#125;,</span><br><span class="line">            &quot;PASSWORD&quot;: &quot;yourpassword&quot;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>路由设置urls.py:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">url(<span class="string">r'^shopping_cart/$'</span>, shopping_cart.ShoppingCart.as_view()),</span><br></pre></td></tr></table></figure>
+<p>基于restframework的视图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">@Author    : Young</span></span><br><span class="line"><span class="string">@Email     : hyc554@outlook.com</span></span><br><span class="line"><span class="string">@site      : http://www.cnblogs.com/huang-yc/</span></span><br><span class="line"><span class="string">@File      : shopping_cart.py</span></span><br><span class="line"><span class="string">@version   : 1.0</span></span><br><span class="line"><span class="string">@Time      : 2018/11/4 20:51</span></span><br><span class="line"><span class="string">Description about this file: </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> APIView</span><br><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response</span><br><span class="line"><span class="keyword">from</span> rest_framework.viewsets <span class="keyword">import</span> GenericViewSet, ViewSetMixin</span><br><span class="line"><span class="keyword">from</span> django_redis <span class="keyword">import</span> get_redis_connection</span><br><span class="line"><span class="keyword">from</span> utils.response_dict <span class="keyword">import</span> BaseResponse</span><br><span class="line"><span class="keyword">from</span> api.views.auth <span class="keyword">import</span> YcAuth</span><br><span class="line"><span class="keyword">from</span> api <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> utils.error <span class="keyword">import</span> PricePolicyInvalid</span><br><span class="line"><span class="keyword">from</span> django.core.exceptions <span class="keyword">import</span> ObjectDoesNotExist</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShoppingCart</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    authentication_classes = [YcAuth]</span><br><span class="line">    conn = get_redis_connection(<span class="string">'default'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        向购物车中添加商品</span></span><br><span class="line"><span class="string">        :param request:</span></span><br><span class="line"><span class="string">        :param args:</span></span><br><span class="line"><span class="string">        :param kwargs:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        ret = BaseResponse()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 在这里获得用户的课程ID与价格策略ID</span></span><br><span class="line">            course_id = int(request.data.get(<span class="string">'course_id'</span>))</span><br><span class="line">            policy_id = int(request.data.get(<span class="string">'policy_id'</span>))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 2. 获取专题课信息</span></span><br><span class="line">            course = models.Course.objects.get(id=course_id)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 3.获取课程相关的所有价格策略</span></span><br><span class="line">            price_policy_list = course.price_policy.all()</span><br><span class="line">            price_policy_dict = &#123;&#125;</span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> price_policy_list:</span><br><span class="line">                price_policy_dict[item.id] = &#123;</span><br><span class="line">                    <span class="string">"period"</span>: item.valid_period,</span><br><span class="line">                    <span class="string">"period_display"</span>: item.get_valid_period_display(),</span><br><span class="line">                    <span class="string">"price"</span>: item.price</span><br><span class="line">                &#125;</span><br><span class="line">            print(price_policy_dict)</span><br><span class="line">            <span class="keyword">if</span> policy_id <span class="keyword">not</span> <span class="keyword">in</span> price_policy_dict:</span><br><span class="line">                <span class="keyword">raise</span> PricePolicyInvalid(<span class="string">'价格策略不合法'</span>)</span><br><span class="line">            <span class="comment"># 5. 将购物信息添加到redis中</span></span><br><span class="line">            <span class="comment"># self.conn</span></span><br><span class="line">            <span class="comment"># car_key = "luffy_shopping_car_%s_%s"</span></span><br><span class="line">            car_key = settings.SHOPPING_CART_KEY % (request.auth.user_id, course_id,)</span><br><span class="line">            car_dict = &#123;</span><br><span class="line">                <span class="string">'title'</span>: course.name,</span><br><span class="line">                <span class="string">'img'</span>: course.course_img,</span><br><span class="line">                <span class="string">'default_policy'</span>: policy_id,</span><br><span class="line">                <span class="string">'policy'</span>: json.dumps(price_policy_dict)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment"># conn = get_redis_connection("default")</span></span><br><span class="line">            self.conn.hmset(car_key, car_dict)</span><br><span class="line">            ret.data = <span class="string">'添加成功'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> PricePolicyInvalid <span class="keyword">as</span> e:</span><br><span class="line">            ret.data = <span class="number">2001</span></span><br><span class="line">            ret.error = e.msg</span><br><span class="line">        <span class="keyword">except</span> ObjectDoesNotExist <span class="keyword">as</span> e:</span><br><span class="line">            ret.data = <span class="number">2002</span></span><br><span class="line">            ret.error = <span class="string">'课程不存在'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            ret.code = <span class="number">1001</span></span><br><span class="line">            ret.data = <span class="string">'获取购物车数据失败'</span></span><br><span class="line">        <span class="keyword">return</span> Response(ret.dict)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        ret = BaseResponse()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            course_id_list = request.data.get(<span class="string">'courseids'</span>)</span><br><span class="line">            key_list = [settings.SHOPPING_CART_KEY % (request.auth.user_id, course_id,) <span class="keyword">for</span> course_id <span class="keyword">in</span> course_id_list]</span><br><span class="line">            self.conn.delete(*key_list)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            ret.code = <span class="number">1002</span></span><br><span class="line">            ret.error = <span class="string">"删除失败"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(ret.dict)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">patch</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        ret = BaseResponse()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            course_id = int(request.data.get(<span class="string">'course_id'</span>))</span><br><span class="line">            policy_id = str(request.data.get(<span class="string">'policy_id'</span>))</span><br><span class="line"></span><br><span class="line">            key = settings.SHOPPING_CART_KEY % (request.auth.user_id, course_id)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.conn.exists(key):</span><br><span class="line">                ret.code = <span class="number">1002</span></span><br><span class="line">                ret.error = <span class="string">"购物车中不存在此课程"</span></span><br><span class="line">                <span class="keyword">return</span> Response(ret.dict)</span><br><span class="line">            <span class="comment"># 3. redis中获取所有的价格策略</span></span><br><span class="line">            <span class="comment"># 请注意这里对redis里的数据进行读取的操作</span></span><br><span class="line">            policy_dict = json.loads(str(self.conn.hget(key, <span class="string">'policy'</span>), encoding=<span class="string">'utf-8'</span>))</span><br><span class="line">            <span class="keyword">if</span> policy_id <span class="keyword">not</span> <span class="keyword">in</span> policy_dict:</span><br><span class="line">                ret.code = <span class="number">1003</span></span><br><span class="line">                ret.error = <span class="string">"价格策略不合法"</span></span><br><span class="line">                <span class="keyword">return</span> Response(ret.dict)</span><br><span class="line"></span><br><span class="line">            self.conn.hset(key, <span class="string">'default_policy'</span>, policy_id)</span><br><span class="line">            ret.data = <span class="string">"修改成功"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            ret.code = <span class="number">2003</span></span><br><span class="line">            ret.error = <span class="string">'修改数据失败'</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(ret.dict)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        查看购物车中所有的商品</span></span><br><span class="line"><span class="string">        :param request:</span></span><br><span class="line"><span class="string">        :param args:</span></span><br><span class="line"><span class="string">        :param kwargs:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        ret = BaseResponse()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            key_match = settings.SHOPPING_CART_KEY % (request.auth.user_id, <span class="string">"*"</span>)</span><br><span class="line"></span><br><span class="line">            course_list = []</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> self.conn.scan_iter(key_match, count=<span class="number">10</span>):</span><br><span class="line">                info = &#123;</span><br><span class="line">                    <span class="string">"title"</span>: self.conn.hget(key, <span class="string">'title'</span>).decode(<span class="string">'utf-8'</span>),</span><br><span class="line">                    <span class="string">"img"</span>: self.conn.hget(key, <span class="string">'img'</span>).decode(<span class="string">'utf-8'</span>),</span><br><span class="line">                    <span class="string">"policy"</span>: json.loads(self.conn.hget(key, <span class="string">'policy'</span>).decode(<span class="string">'utf-8'</span>)),</span><br><span class="line">                    <span class="string">"default_policy"</span>: self.conn.hget(key, <span class="string">'default_policy'</span>).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                course_list.append(info)</span><br><span class="line">            ret.data = course_list</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            ret.code = <span class="number">1002</span></span><br><span class="line">            ret.error = <span class="string">"获取失败"</span></span><br><span class="line">        <span class="keyword">return</span> Response(ret.dict)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/07/在线教育——结算中心的实现/" rel="next" title="在线教育——结算中心的实现">
+                <i class="fa fa-chevron-left"></i> 在线教育——结算中心的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/08/前期准备/" rel="prev" title="Django——支付宝支付功能">
+                Django——支付宝支付功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123cool.png"
+                alt="YoungCe" />
+            
+              <p class="site-author-name" itemprop="name">YoungCe</p>
+              <p class="site-description motion-element" itemprop="description">一个学习者</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hyyc554" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hyc554@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis中购物车数据存储结构"><span class="nav-number">1.</span> <span class="nav-text">redis中购物车数据存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-number">2.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungCe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65888432";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="A1iPgcxNQu" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTTP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析跨域请求">
+<meta property="og:url" content="https://hyyc554.github.io/2018/10/26/跨域/index.html">
+<meta property="og:site_name" content="YoungCe的笔记">
+<meta property="og:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-26T11:50:12.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析跨域请求">
+<meta name="twitter:description" content="前言最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hyyc554.github.io/2018/10/26/跨域/"/>
+
+
+
+
+
+  <title>浅析跨域请求 | YoungCe的笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungCe的笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">献给所有爱我的人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hyyc554.github.io/2018/10/26/跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungCe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123cool.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungCe的笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析跨域请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T19:38:51+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做项目的时候遇到了一些跨域问题，虽然网上对于跨域的问题分享还挺多的。不过当我实际遇到的时候还是有点懵。趁项目刚上线完，写篇文章总结下。</p>
+<a id="more"></a>
+<h3 id="造成跨域的原因"><a href="#造成跨域的原因" class="headerlink" title="造成跨域的原因"></a>造成跨域的原因</h3><p>浏览器的同源策略会导致跨域，这里同源策略又分为以下两种</p>
+<ul>
+<li>DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。</li>
+<li>XmlHttpRequest同源策略：禁止使用XHR对象向不同源的服务器地址发起HTTP请求。</li>
+</ul>
+<blockquote>
+<p>只要协议、域名、端口有任何一个不同，都被当作是不同的域，之间的请求就是跨域操作。</p>
+</blockquote>
+<h3 id="为什么要有跨域限制"><a href="#为什么要有跨域限制" class="headerlink" title="为什么要有跨域限制"></a>为什么要有跨域限制</h3><p>了解完跨域之后，想必大家都会有这么一个思考，为什么要有跨域的限制，浏览器这么做是出于何种原因呢。其实仔细想一想就会明白，跨域限制主要是为了安全考虑。</p>
+<p>AJAX同源策略主要用来防止CSRF攻击。如果没有AJAX同源策略，相当危险，我们发起的每一次HTTP请求都会带上请求地址对应的cookie，那么可以做如下攻击：</p>
+<ol>
+<li>用户登录了自己的银行页面 <code>http://mybank.com</code>，<code>http://mybank.com</code>向用户的cookie中添加用户标识。</li>
+<li>用户浏览了恶意页面 <code>http://evil.com</code>。执行了页面中的恶意AJAX请求代码。</li>
+<li><code>http://evil.com</code>向<code>http://mybank.com</code>发起AJAX HTTP请求，请求会默认把<code>http://mybank.com</code>对应cookie也同时发送过去。</li>
+<li>银行页面从发送的cookie中提取用户标识，验证用户无误，response中返回请求数据。此时数据就泄露了。</li>
+<li>而且由于Ajax在后台执行，用户无法感知这一过程。</li>
+</ol>
+<p>DOM同源策略也一样，如果iframe之间可以跨域访问，可以这样攻击：</p>
+<ol>
+<li>做一个假网站，里面用iframe嵌套一个银行网站 <code>http://mybank.com</code>。</li>
+<li>把iframe宽高啥的调整到页面全部，这样用户进来除了域名，别的部分和银行的网站没有任何差别。</li>
+<li>这时如果用户输入账号密码，我们的主网站可以跨域访问到<code>http://mybank.com</code>的dom节点，就可以拿到用户的输入了，那么就完成了一次攻击。</li>
+</ol>
+<p>所以说有了跨域跨域限制之后，我们才能更安全的上网了。</p>
+<h3 id="跨域的解决方式"><a href="#跨域的解决方式" class="headerlink" title="跨域的解决方式"></a>跨域的解决方式</h3><h4 id="跨域资源共享（CORS"><a href="#跨域资源共享（CORS" class="headerlink" title="跨域资源共享（CORS)"></a>跨域资源共享（CORS)</h4><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<br>对于这个方式，阮一峰老师总结的文章特别好，希望深入了解的可以看一下<code>http://www.ruanyifeng.com/blog/2016/04/cors.html</code>。</p>
+<p>通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。</p>
+<p>实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。</p>
+<p>服务器端在HTTP的响应头中加入（页面层次的控制模式）：</p>
+<p><strong><em>Access-Control-Allow-Origin: example.com</em></strong><br><strong><em>Access-Control-Request-Method: GET, POST</em></strong><br><strong><em>Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin</em></strong></p>
+<p><strong><em>Access-Control-Expose-Headers: Content-Range</em></strong></p>
+<p><strong><em>Access-Control-Max-Age: 3600</em></strong></p>
+<p>多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。”*”表示允许所有域名的跨域访问。</p>
+<p><strong>客户端可以有两种行为：</strong></p>
+<ol>
+<li><p>发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。</p>
+</li>
+<li><p>直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。</p>
+</li>
+</ol>
+<p>本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。</p>
+<p>这里我就简单的说一说大体流程。</p>
+<ol>
+<li>对于客户端，我们还是正常使用xhr对象发送ajax请求。<br>唯一需要注意的是，我们需要设置我们的xhr属性<code>withCredentials</code>为true，不然的话，cookie是带不过去的哦，设置： <code>xhr.withCredentials = true</code>;</li>
+<li>对于服务器端，需要在 response header中设置如下两个字段:<br><code>Access-Control-Allow-Origin: http://www.yourhost.com</code><br><code>Access-Control-Allow-Credentials:true</code><br>这样，我们就可以跨域请求接口了。</li>
+</ol>
+<p>在django的实际项目中,跨域用CORS技术构建一个中间件，来解决跨域问题：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CORSMiddleware</span><span class="params">(MiddlewareMixin)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span><span class="params">(self, request, response)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        解决跨域问题</span></span><br><span class="line"><span class="string">        :param request:</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 添加响应头</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 允许你的域名来获取我的数据</span></span><br><span class="line">        response[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 允许你携带Content-Type请求头</span></span><br><span class="line">        <span class="comment"># response['Access-Control-Allow-Headers'] = "Content-Type"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 允许你发送DELETE,PUT</span></span><br><span class="line">        <span class="comment"># response['Access-Control-Allow-Methods'] = "DELETE,PUT"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+<h4 id="jsonp实现跨域"><a href="#jsonp实现跨域" class="headerlink" title="jsonp实现跨域"></a>jsonp实现跨域</h4><p>基本原理就是通过动态创建script标签,然后利用src属性进行跨域。<br>这么说比较模糊，我们来看个例子:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">//定义一个fun函数</span><br><span class="line">function fun(data) &#123; </span><br><span class="line">    console.log(data); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// 创建一个脚本，并且告诉后端回调函数名叫fun </span><br><span class="line">var body= document.getElementsByTagName(&apos;body&apos;)[0]; </span><br><span class="line">var script= document.createElement(&apos;script&apos;); </span><br><span class="line">script.type= &apos;text/javascript&apos;; </span><br><span class="line">script.src= &apos;demo.js?callback=fun&apos;; </span><br><span class="line">body.appendChild(script); </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>返回的js脚本，直接会执行。所以就执行了事先定义好的fun函数了，并且把数据传入了进来。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fun(&#123;&quot;name&quot;:&quot;name&quot;&#125;)</span><br></pre></td></tr></table></figure>
+<p>当然，这个只是一个原理演示，实际情况下，我们需要动态创建这个fun函数，并且在数据返回的时候销毁它。</p>
+<p>因为在实际使用的时候，我们用的各种ajax库，基本都包含了jsonp的封装，不过我们还是要知道一下原理，不然就不知道为什么jsonp不能发post请求了~</p>
+<h4 id="服务器代理"><a href="#服务器代理" class="headerlink" title="服务器代理"></a>服务器代理</h4><p>浏览器有跨域限制，但是服务器不存在跨域问题，所以可以由服务器请求所要域的资源再返回给客户端。</p>
+<blockquote>
+<p>服务器代理是万能的。</p>
+</blockquote>
+<h4 id="document-domain来跨子域"><a href="#document-domain来跨子域" class="headerlink" title="document.domain来跨子域"></a>document.domain来跨子域</h4><p>对于主域名相同，而子域名不同的情况，可以使用document.domain来跨域<br>这种方式非常适用于iframe跨域的情况，直接看例子吧<br>比如a页面地址为 <code>a.yourhost.com</code> b页面为 <code>b.yourhost.com</code>。<br>这样就可以通过分别给两个页面设置 <code>document.domain = yourhost.com</code> 来实现跨域。<br>之后，就可以通过 parent 或者 window[‘iframename’]等方式去拿到iframe的window对象了。</p>
+<h4 id="使用window-name进行跨域"><a href="#使用window-name进行跨域" class="headerlink" title="使用window.name进行跨域"></a>使用window.name进行跨域</h4><p>window.name跨域同样是受到同源策略限制，父框架和子框架的src必须指向统一域名。window.name的优势在于，name的值在不同的页面(或者不同的域名)，加载后仍然存在，除非你显示的更改。并且支持的长度达到2M.</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//a页面的代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    iframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">    iframe.style.display = &apos;none&apos;;</span><br><span class="line">    var state = 0;</span><br><span class="line"></span><br><span class="line">    iframe.onload = function() &#123;</span><br><span class="line">      if(state === 1) &#123;</span><br><span class="line">          var data = iframe.contentWindow.name;</span><br><span class="line">          console.log(data);</span><br><span class="line">          iframe.contentWindow.document.write(&apos;&apos;);</span><br><span class="line">          iframe.contentWindow.close();</span><br><span class="line">          document.body.removeChild(iframe);</span><br><span class="line">      &#125; else if(state === 0) &#123;</span><br><span class="line">          state = 1;</span><br><span class="line">          iframe.contentWindow.location = </span><br><span class="line">          &apos;http://m.zhuanzhuan.58.com:8887/b.html&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    document.body.appendChild(iframe);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//b页面代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    window.name = &quot;hello&quot;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="window-location-hash跨域"><a href="#window-location-hash跨域" class="headerlink" title="window.location.hash跨域"></a>window.location.hash跨域</h4><p>location.hash方式跨域，是子框架具有修改父框架src的hash值，通过这个属性进行传递数据，且更改hash值，页面不会刷新。但是传递的数据的字节数是有限的。</p>
+<blockquote>
+<p>注意：父子框架受同源策略的限制</p>
+</blockquote>
+<p>代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//a页面的代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    iframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">    iframe.style.display = &apos;none&apos;;</span><br><span class="line">    var state = 0;</span><br><span class="line"></span><br><span class="line">    iframe.onload = function() &#123;</span><br><span class="line">      if(state === 1) &#123;</span><br><span class="line">          var data = window.location.hash;</span><br><span class="line">          console.log(data);</span><br><span class="line">          iframe.contentWindow.document.write(&apos;&apos;);</span><br><span class="line">          iframe.contentWindow.close();</span><br><span class="line">          document.body.removeChild(iframe);</span><br><span class="line">      &#125; else if(state === 0) &#123;</span><br><span class="line">          state = 1;</span><br><span class="line">          iframe.contentWindow.location = </span><br><span class="line">          &apos;http://m.zhuanzhuan.58.com:8887/b.html&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    document.body.appendChild(iframe);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//b页面代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    parent.location.hash = &quot;world&quot;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="window-top"><a href="#window-top" class="headerlink" title="window.top"></a>window.top</h4><p>window.top方法可以访问最顶层的window对象，可以取到最顶层window对象的属性和方法。这样子框架就可以操作父页面的交互了。window.parent可以得到父框架的window对象。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//a页面代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function funa()&#123;</span><br><span class="line">        console.log(&quot;a页面的方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    iframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">    iframe.style.display = &apos;none&apos;;</span><br><span class="line">    iframe.src = &apos;http://m.zhuanzhuan.58.com:8887/b.html&apos;;</span><br><span class="line">    document.body.appendChild(iframe);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//b页面的代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">console.log(window.top.funa());</span><br><span class="line">function funb()&#123;</span><br><span class="line">  console.log(&quot;b页面的方法&quot;);</span><br><span class="line">&#125;</span><br><span class="line">iframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">iframe.style.display = &apos;none&apos;;</span><br><span class="line">iframe.src = &apos;http://m.zhuanzhuan.58.com:8887/c.html&apos;;</span><br><span class="line">document.body.appendChild(iframe);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//c页面的代码</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  console.log(window.parent.funb());</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="使用postMessage实现页面之间通信"><a href="#使用postMessage实现页面之间通信" class="headerlink" title="使用postMessage实现页面之间通信"></a>使用postMessage实现页面之间通信</h4><p>信息传递除了客户端与服务器之前的传递，还存在以下几个问题：</p>
+<ul>
+<li>页面和新开的窗口的数据交互。</li>
+<li>多窗口之间的数据交互。</li>
+<li>页面与所嵌套的iframe之间的信息传递。</li>
+</ul>
+<p>window.postMessage是一个HTML5的api，允许两个窗口之间进行跨域发送消息。这个应该就是以后解决dom跨域通用方法了，具体可以参照MDN。</p>
+<blockquote>
+<p>补充： 其实还有一些方法，比如window.name和location.hash。就很适用于iframe的跨域，不过iframe用的比较少了，所以这些方法也就有点过时了。</p>
+</blockquote>
+<p>这些就是我对跨域的了解了，实际情况下，一般用cors，jsonp等常见方法就可以了。不过遇到了一些非常规情况，我们还是需要知道有更多的方法可以选择的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/26/pythonenv/" rel="next" title="python虚拟环境--virtualenv">
+                <i class="fa fa-chevron-left"></i> python虚拟环境--virtualenv
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/python基础算法实现/" rel="prev" title="python基础算法实现">
+                python基础算法实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123cool.png"
+                alt="YoungCe" />
+            
+              <p class="site-author-name" itemprop="name">YoungCe</p>
+              <p class="site-description motion-element" itemprop="description">一个学习者</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hyyc554" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hyc554@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#造成跨域的原因"><span class="nav-number">2.</span> <span class="nav-text">造成跨域的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有跨域限制"><span class="nav-number">3.</span> <span class="nav-text">为什么要有跨域限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域的解决方式"><span class="nav-number">4.</span> <span class="nav-text">跨域的解决方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跨域资源共享（CORS"><span class="nav-number">4.1.</span> <span class="nav-text">跨域资源共享（CORS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsonp实现跨域"><span class="nav-number">4.2.</span> <span class="nav-text">jsonp实现跨域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器代理"><span class="nav-number">4.3.</span> <span class="nav-text">服务器代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#document-domain来跨子域"><span class="nav-number">4.4.</span> <span class="nav-text">document.domain来跨子域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用window-name进行跨域"><span class="nav-number">4.5.</span> <span class="nav-text">使用window.name进行跨域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-location-hash跨域"><span class="nav-number">4.6.</span> <span class="nav-text">window.location.hash跨域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-top"><span class="nav-number">4.7.</span> <span class="nav-text">window.top</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用postMessage实现页面之间通信"><span class="nav-number">4.8.</span> <span class="nav-text">使用postMessage实现页面之间通信</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungCe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65888432";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

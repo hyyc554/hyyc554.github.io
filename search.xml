@@ -603,15 +603,6 @@
   
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li>黄咏驰</li><li>男/ 1992-12/ 汉族</li><li>手机：18771013309</li><li>E-mail:  <a href="mailto:ychuang92@foxmail.com" target="_blank" rel="noopener">ychuang92@foxmail.com</a></li><li>技术博客：<a href="https://www.cnblogs.com/huang-yc/" target="_blank" rel="noopener">https://www.cnblogs.com/huang-yc/</a></li><li>Github：<a href="https://github.com/hyyc554" target="_blank" rel="noopener">https://github.com/hyyc554</a></li></ul><h2 id="感谢每一个浏览本页面的人"><a href="#感谢每一个浏览本页面的人" class="headerlink" title="感谢每一个浏览本页面的人"></a>感谢每一个浏览本页面的人</h2>]]></content>
-      
-    </entry>
-    
-    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -621,11 +612,11 @@
     </entry>
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index%20-%20%E5%89%AF%E6%9C%AC.html"/>
-      <url>/tags/index%20-%20%E5%89%AF%E6%9C%AC.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul><li>黄咏驰</li><li>男/ 1992-12/ 汉族</li><li>手机：18771013309</li><li>E-mail:  <a href="mailto:ychuang92@foxmail.com" target="_blank" rel="noopener">ychuang92@foxmail.com</a></li><li>技术博客：<a href="https://www.cnblogs.com/huang-yc/" target="_blank" rel="noopener">https://www.cnblogs.com/huang-yc/</a></li><li>Github：<a href="https://github.com/hyyc554" target="_blank" rel="noopener">https://github.com/hyyc554</a></li></ul><h2 id="感谢每一个浏览本页面的人"><a href="#感谢每一个浏览本页面的人" class="headerlink" title="感谢每一个浏览本页面的人"></a>感谢每一个浏览本页面的人</h2>]]></content>
       
     </entry>
     
@@ -633,6 +624,15 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index%20-%20%E5%89%AF%E6%9C%AC.html"/>
+      <url>/tags/index%20-%20%E5%89%AF%E6%9C%AC.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

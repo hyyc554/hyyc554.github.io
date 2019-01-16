@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2019-01-09T15:06:41.031Z</updated>
+  <updated>2019-01-16T16:03:49.632Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>狄克斯特拉算法</title>
+    <link href="https://hyyc554.github.io/2019/01/17/%E7%8B%84%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/"/>
+    <id>https://hyyc554.github.io/2019/01/17/狄克斯特拉算法/</id>
+    <published>2019-01-16T16:03:49.411Z</published>
+    <updated>2019-01-16T16:03:49.632Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;狄克斯特拉算法——用于在加权图中找到最短路径&lt;/p&gt;
+&lt;p&gt;ps：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;广度优先搜索——用于解决非加权图的最短路径问题&lt;/li&gt;
+&lt;li&gt;存在负权边时——贝尔曼-福德算法&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>《Redis in action》读书笔记（三）</title>
@@ -377,27 +400,6 @@
     
     
       <category term="思维导图,Linux" scheme="https://hyyc554.github.io/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE-Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>源码剖析Django REST framework的认证方式</title>
-    <link href="https://hyyc554.github.io/2018/11/19/%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90Django%20REST%20framework%E7%9A%84%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/"/>
-    <id>https://hyyc554.github.io/2018/11/19/源码剖析Django REST framework的认证方式/</id>
-    <published>2018-11-18T16:18:09.681Z</published>
-    <updated>2018-11-18T16:26:25.559Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;由Django的CBV模式流程，可以知道在&lt;code&gt;url匹配完成后，会执行自定义的类中的as_view方法&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;如果自定义的类中没有定义&lt;code&gt;as_view方法&lt;/code&gt;，根据面向对象中类的继承可以知道，则&lt;code&gt;会执行其父类View中的as_view方法&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;在Django的View的as_view方法中，又会调用dispatch方法&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;现在来看看Django rest framework的认证流程&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
     
   </entry>
   

@@ -55,6 +55,18 @@
   <ul class="mobile-menu-list"><a href="/">
         <li class="mobile-menu-item">首页
           </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -65,6 +77,26 @@
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
             首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
             </a>
         </li>
       </ul></nav>
@@ -94,7 +126,7 @@
 <p>Python 官方教程（<a href="https://docs.python.org/3/tutorial/）的开头是这样写的：" target="_blank" rel="noopener">https://docs.python.org/3/tutorial/）的开头是这样写的：</a> “Python 是一门既<br>容易上手又强大的编程语言。 ”这句话本身并无大碍，但需要注意的是，正因为它既好学<br>又好用，所以很多 Python 程序员只用到了其强大功能的一小部分。<br><a id="more"></a><br>工作中人们往往带着一种这很简单的错觉，希望通过这本书我可以学习到进阶的知识，摆脱这样的印象</p>
 </blockquote>
 <h2 id="第一章-Python数据模型"><a href="#第一章-Python数据模型" class="headerlink" title="第一章 Python数据模型"></a>第一章 Python数据模型</h2><p>1.1 python风格的纸牌</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">Card = collections.namedtuple(<span class="string">'Card'</span>, [<span class="string">'rank'</span>, <span class="string">'suit'</span>])</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">	ranks = [str(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">11</span>)] + list(<span class="string">'JQKA'</span>)</span><br><span class="line">	suits = <span class="string">'spades diamonds clubs hearts'</span>.split()</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">		self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits </span><br><span class="line">                   					<span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._cards)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, position)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._cards[position]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">Card = collections.namedtuple(<span class="string">'Card'</span>, [<span class="string">'rank'</span>, <span class="string">'suit'</span>])</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">	ranks = [str(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">11</span>)] + list(<span class="string">'JQKA'</span>)</span><br><span class="line">	suits = <span class="string">'spades diamonds clubs hearts'</span>.split()</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">		self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits </span><br><span class="line">                   					<span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._cards)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, position)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> self._cards[position]</span><br></pre></td></tr></table></figure>
 <p>关于<code>collections</code>的用法</p>
 <blockquote>
 <p><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431953239820157155d21c494e5786fce303f3018c86000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431953239820157155d21c494e5786fce303f3018c86000</a></p>
@@ -134,8 +166,8 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hyc554@outlook.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/hyyc554" class="iconfont icon-github" title="github"></a>
         <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">

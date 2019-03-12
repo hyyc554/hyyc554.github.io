@@ -55,6 +55,18 @@
   <ul class="mobile-menu-list"><a href="/">
         <li class="mobile-menu-item">首页
           </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -65,6 +77,26 @@
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
             首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
             </a>
         </li>
       </ul></nav>
@@ -89,57 +121,57 @@
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-virtualenv"><span class="toc-text">1. virtualenv</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-安装"><span class="toc-text">1.1 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2基本使用"><span class="toc-text">1.2基本使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-virtualenvwrapper"><span class="toc-text">2. virtualenvwrapper</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-安装virtualenvwrapper"><span class="toc-text">2.1 安装virtualenvwrapper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-virtualenvwrapper基本使用"><span class="toc-text">2.2 virtualenvwrapper基本使用</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="1-virtualenv"><a href="#1-virtualenv" class="headerlink" title="1. virtualenv"></a>1. virtualenv</h2><p>　　virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。<br><a id="more"></a></p>
-<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
 <h3 id="1-2基本使用"><a href="#1-2基本使用" class="headerlink" title="1.2基本使用"></a>1.2基本使用</h3><ol>
 <li>为一个工程创建一个虚拟环境：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd my_project_dir</span><br><span class="line">$ virtualenv venv　　#venv为虚拟环境目录名，目录名自定义</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd my_project_dir</span><br><span class="line">$ virtualenv venv　　#venv为虚拟环境目录名，目录名自定义</span><br></pre></td></tr></table></figure>
 <p><code>virtualenv venv</code> 将会在当前的目录中创建一个文件夹，包含了Python可执行文件，以及 <code>pip</code> 库的一份拷贝，这样就能安装其他包了。虚拟环境的名字（此例中是 <code>venv</code> ）可以是任意的；若省略名字将会把文件均放在当前目录。</p>
 <p>　　在任何你运行命令的目录中，这会创建Python的拷贝，并将之放在叫做 <code>venv</code> 的文件中。</p>
 <p>　　你可以选择使用一个Python解释器：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ virtualenv -p /usr/bin/python2.7 venv　　　　# -p参数指定Python解释器程序路径</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv -p /usr/bin/python2.7 venv　　　　# -p参数指定Python解释器程序路径</span><br></pre></td></tr></table></figure>
 <p>　　这将会使用 <code>/usr/bin/python2.7</code> 中的Python解释器。</p>
 <ol>
 <li>要开始使用虚拟环境，其需要被激活：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ source venv/bin/activate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source venv/bin/activate</span><br></pre></td></tr></table></figure>
 <p><code>从现在起，任何你使用pip安装的包将会放在 venv</code> 文件夹中，与全局安装的Python隔绝开。</p>
 <p>像平常一样安装包，比如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ pip install requests</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install requests</span><br></pre></td></tr></table></figure>
 <ol>
 <li>如果你在虚拟环境中暂时完成了工作，则可以停用它：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ . venv/bin/deactivate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ . venv/bin/deactivate</span><br></pre></td></tr></table></figure>
 <p>这将会回到系统默认的Python解释器，包括已安装的库也会回到默认的。</p>
 <p>要删除一个虚拟环境，只需删除它的文件夹。（执行 <code>rm -rf venv</code> ）。</p>
 <p>这里virtualenv 有些不便，因为virtual的启动、停止脚本都在特定文件夹，可能一段时间后，你可能会有很多个虚拟环境散落在系统各处，你可能忘记它们的名字或者位置。</p>
 <h2 id="2-virtualenvwrapper"><a href="#2-virtualenvwrapper" class="headerlink" title="2. virtualenvwrapper"></a>2. virtualenvwrapper</h2><p>　　鉴于virtualenv不便于对虚拟环境集中管理，所以推荐直接使用virtualenvwrapper。 virtualenvwrapper提供了一系列命令使得和虚拟环境工作变得便利。它把你所有的虚拟环境都放在一个地方。</p>
 <h3 id="2-1-安装virtualenvwrapper"><a href="#2-1-安装virtualenvwrapper" class="headerlink" title="2.1 安装virtualenvwrapper"></a>2.1 安装virtualenvwrapper</h3><p>(确保virtualenv已安装)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br><span class="line">pip install virtualenvwrapper-win　　#Windows使用该命令</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br><span class="line">pip install virtualenvwrapper-win　　#Windows使用该命令</span><br></pre></td></tr></table></figure>
 <p>安装完成后，在~/.bashrc写入以下内容</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export WORKON_HOME=~/Envs</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export WORKON_HOME=~/Envs</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
 <p>第一行：<strong>virtualenvwrapper</strong>存放虚拟环境目录</p>
 <p>第二行：<strong>virtrualenvwrapper</strong>会安装到python的bin目录下，所以该路径是python安装目录下bin/virtualenvwrapper.sh</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source ~/.bashrc　　　　#读入配置文件，立即生效</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc　　　　#读入配置文件，立即生效</span><br></pre></td></tr></table></figure>
 <p>　</p>
 <h3 id="2-2-virtualenvwrapper基本使用"><a href="#2-2-virtualenvwrapper基本使用" class="headerlink" title="2.2 virtualenvwrapper基本使用"></a>2.2 virtualenvwrapper基本使用</h3><ol>
 <li>创建虚拟环境——<strong>mkvirtualenv</strong></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkvirtualenv venv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv venv</span><br></pre></td></tr></table></figure>
 <p>这样会在WORKON_HOME变量指定的目录下新建名为venv的虚拟环境。</p>
 <p>若想指定python版本，可通过”–python”指定python解释器</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkvirtualenv --python=/usr/local/python3.5.3/bin/python venv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv --python=/usr/local/python3.5.3/bin/python venv</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>基本命令 　</li>
 </ol>
 <p>　　查看当前的虚拟环境目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# workon</span><br><span class="line">py2</span><br><span class="line">py3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# workon</span><br><span class="line">py2</span><br><span class="line">py3</span><br></pre></td></tr></table></figure>
 <p>　　切换到虚拟环境</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# workon py3</span><br><span class="line">(py3) [root@localhost ~]#</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# workon py3</span><br><span class="line">(py3) [root@localhost ~]#</span><br></pre></td></tr></table></figure>
 <p>　　退出虚拟环境</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(py3) [root@localhost ~]# deactivate</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(py3) [root@localhost ~]# deactivate</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
 <p>　　删除虚拟环境</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rmvirtualenv venv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmvirtualenv venv</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>本文参考链接：<a href="http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html" target="_blank" rel="noopener">http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html</a></p>
 </blockquote>
@@ -177,8 +209,8 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hyc554@outlook.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/hyyc554" class="iconfont icon-github" title="github"></a>
         <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">

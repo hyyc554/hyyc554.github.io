@@ -55,6 +55,18 @@
   <ul class="mobile-menu-list"><a href="/">
         <li class="mobile-menu-item">首页
           </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -65,6 +77,26 @@
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
             首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
             </a>
         </li>
       </ul></nav>
@@ -91,7 +123,7 @@
 <li>“shopping_car_用户ID_课程ID”作为标识key</li>
 <li>“payment_global_coupon_用户ID”用来保存用户所持有的全场券</li>
 </ul>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">redis = &#123;</span><br><span class="line">	payment_1_2:&#123;</span><br><span class="line">		course_id:2,</span><br><span class="line">		'title': 'CRM客户关系管理系统实战开发-专题', </span><br><span class="line">		'img': 'CRM.jpg', 'policy_id': '4', </span><br><span class="line">		'coupon': &#123;&#125;, </span><br><span class="line">		'default_coupon': 0, </span><br><span class="line">		'period': 210, 'period_display': '12个月', 'price': 122.0&#125;, </span><br><span class="line">	&#125;,</span><br><span class="line">	payment_1_1:&#123;</span><br><span class="line">		course_id:1,</span><br><span class="line">		'title': '爬虫开发-专题', </span><br><span class="line">		'img': '爬虫开发-专题.jpg', </span><br><span class="line">		'policy_id': '2', </span><br><span class="line">		'coupon': &#123;</span><br><span class="line">			4: &#123;'coupon_type': 0, 'coupon_display': '立减券', 'money_equivalent_value': 40&#125;, </span><br><span class="line">			6: &#123;'coupon_type': 1, 'coupon_display': '满减券', 'money_equivalent_value': 60, 'minimum_consume': 100&#125;</span><br><span class="line">		&#125;, </span><br><span class="line">		'default_coupon': 0, </span><br><span class="line">		'period': 60, </span><br><span class="line">		'period_display': '2个月', </span><br><span class="line">		'price': 599.0&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	payment_global_coupon_1:&#123;</span><br><span class="line">		'coupon': &#123;</span><br><span class="line">			2: &#123;'coupon_type': 1, 'coupon_display': '满减券', 'money_equivalent_value': 200, 'minimum_consume': 500&#125;</span><br><span class="line">		&#125;, </span><br><span class="line">		'default_coupon': 0</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">redis = &#123;</span><br><span class="line">	payment_1_2:&#123;</span><br><span class="line">		course_id:2,</span><br><span class="line">		'title': 'CRM客户关系管理系统实战开发-专题', </span><br><span class="line">		'img': 'CRM.jpg', 'policy_id': '4', </span><br><span class="line">		'coupon': &#123;&#125;, </span><br><span class="line">		'default_coupon': 0, </span><br><span class="line">		'period': 210, 'period_display': '12个月', 'price': 122.0&#125;, </span><br><span class="line">	&#125;,</span><br><span class="line">	payment_1_1:&#123;</span><br><span class="line">		course_id:1,</span><br><span class="line">		'title': '爬虫开发-专题', </span><br><span class="line">		'img': '爬虫开发-专题.jpg', </span><br><span class="line">		'policy_id': '2', </span><br><span class="line">		'coupon': &#123;</span><br><span class="line">			4: &#123;'coupon_type': 0, 'coupon_display': '立减券', 'money_equivalent_value': 40&#125;, </span><br><span class="line">			6: &#123;'coupon_type': 1, 'coupon_display': '满减券', 'money_equivalent_value': 60, 'minimum_consume': 100&#125;</span><br><span class="line">		&#125;, </span><br><span class="line">		'default_coupon': 0, </span><br><span class="line">		'period': 60, </span><br><span class="line">		'period_display': '2个月', </span><br><span class="line">		'price': 599.0&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	payment_global_coupon_1:&#123;</span><br><span class="line">		'coupon': &#123;</span><br><span class="line">			2: &#123;'coupon_type': 1, 'coupon_display': '满减券', 'money_equivalent_value': 200, 'minimum_consume': 500&#125;</span><br><span class="line">		&#125;, </span><br><span class="line">		'default_coupon': 0</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       </div>
       <div class="post-copyright">
@@ -126,8 +158,8 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hyc554@outlook.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/hyyc554" class="iconfont icon-github" title="github"></a>
         <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">

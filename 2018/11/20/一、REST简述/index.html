@@ -55,6 +55,18 @@
   <ul class="mobile-menu-list"><a href="/">
         <li class="mobile-menu-item">首页
           </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -65,6 +77,26 @@
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
             首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
             </a>
         </li>
       </ul></nav>
@@ -122,20 +154,20 @@
 <p>最常见的一种设计错误，就是URI包含动词。因为”资源”表示一种实体，所以应该是名词，URI不应该有动词，动词应该放在HTTP协议中。</p>
 <p>举例来说，某个URI是 /posts/show/1 ，其中 show 是动词，这个URI就设计错了，正确的写法应该是 /posts/1 ，然后用 GET 方法表示 show 。</p>
 <p>如果某些动作是HTTP动词表示不了的，你就应该把动作做成一种资源。比如网上汇款，从账户1向账户2汇款500元，错误的URI是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST /accounts/1/transfer/500/to/2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /accounts/1/transfer/500/to/2</span><br></pre></td></tr></table></figure>
 <p>正确的写法是把动词transfer改成名词transaction，资源不能是动词，但是可以是一种服务：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST /transaction HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">　　</span><br><span class="line">from=1&amp;to=2&amp;amount=500.00</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /transaction HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">　　</span><br><span class="line">from=1&amp;to=2&amp;amount=500.00</span><br></pre></td></tr></table></figure>
 <p>另一个设计误区，就是在URI中加入版本号：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.example.com/app/1.0/foo</span><br><span class="line"></span><br><span class="line">http://www.example.com/app/1.1/foo</span><br><span class="line"></span><br><span class="line">http://www.example.com/app/2.0/foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/app/1.0/foo</span><br><span class="line"></span><br><span class="line">http://www.example.com/app/1.1/foo</span><br><span class="line"></span><br><span class="line">http://www.example.com/app/2.0/foo</span><br></pre></td></tr></table></figure>
 <p>因为不同的版本，可以理解成同一种资源的不同表现形式，所以应该采用同一个URI。版本号可以在HTTP请求头信息的Accept字段中进行区分（参见<a href="http://www.informit.com/articles/article.aspx?p=1566460" target="_blank" rel="noopener">Versioning REST Services</a>）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Accept: vnd.example-com.foo+json; version=1.0</span><br><span class="line"></span><br><span class="line">Accept: vnd.example-com.foo+json; version=1.1</span><br><span class="line"></span><br><span class="line">Accept: vnd.example-com.foo+json; version=2.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Accept: vnd.example-com.foo+json; version=1.0</span><br><span class="line"></span><br><span class="line">Accept: vnd.example-com.foo+json; version=1.1</span><br><span class="line"></span><br><span class="line">Accept: vnd.example-com.foo+json; version=2.0</span><br></pre></td></tr></table></figure>
 <h2 id="八、RESTful-API设计"><a href="#八、RESTful-API设计" class="headerlink" title="八、RESTful API设计"></a>八、RESTful API设计</h2><h3 id="8-1-协议"><a href="#8-1-协议" class="headerlink" title="8.1 协议"></a>8.1 协议</h3><p>API与用户的通信协议，总是使用<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">HTTPs协议</a>。</p>
 <h3 id="8-2-域名"><a href="#8-2-域名" class="headerlink" title="8.2 域名"></a>8.2 域名</h3><p>应该尽量将API部署在专用域名之下。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">https:<span class="comment">//api.example.com</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//api.example.com</span></span><br></pre></td></tr></table></figure>
 <p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">https:<span class="comment">//example.org/api/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//example.org/api/</span></span><br></pre></td></tr></table></figure>
 <h3 id="8-3-版本（Versioning）"><a href="#8-3-版本（Versioning）" class="headerlink" title="8.3 版本（Versioning）"></a>8.3 版本（Versioning）</h3><p>应该将API的版本号放入URL。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">https:<span class="comment">//api.example.com/v1/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="comment">//api.example.com/v1/</span></span><br></pre></td></tr></table></figure>
 <p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。<a href="https://developer.github.com/v3/media/#request-specific-version" target="_blank" rel="noopener">Github</a>采用这种做法。</p>
 <h3 id="8-4-路径（Endpoint）"><a href="#8-4-路径（Endpoint）" class="headerlink" title="8.4 路径（Endpoint）"></a>8.4 路径（Endpoint）</h3><p>路径又称”终点”（endpoint），表示API的具体网址。</p>
 <p>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的”集合”（collection），所以API中的名词也应该使用复数。</p>
@@ -199,7 +231,7 @@
 </ul>
 <p>状态码的完全列表参见<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" target="_blank" rel="noopener">这里</a>。</p>
 <h3 id="8-8-错误处理（Error-handling）"><a href="#8-8-错误处理（Error-handling）" class="headerlink" title="8.8 错误处理（Error handling）"></a>8.8 错误处理（Error handling）</h3><p>如果状态码是4xx，就应该向用户返回出错信息。一般来说，返回的信息中将error作为键名，出错信息作为键值即可。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    error: <span class="string">"Invalid API key"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    error: <span class="string">"Invalid API key"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="8-9-返回结果"><a href="#8-9-返回结果" class="headerlink" title="8.9 返回结果"></a>8.9 返回结果</h3><p>针对不同操作，服务器向用户返回的结果应该符合以下规范。</p>
 <ul>
 <li>GET /collection：返回资源对象的列表（数组）</li>
@@ -211,12 +243,12 @@
 </ul>
 <h3 id="8-10-Hypermedia-API"><a href="#8-10-Hypermedia-API" class="headerlink" title="8.10 Hypermedia API"></a>8.10 Hypermedia API</h3><p>RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</p>
 <p>比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;<span class="string">"link"</span>: &#123;</span><br><span class="line">  <span class="string">"rel"</span>:   <span class="string">"collection https://www.example.com/zoos"</span>,</span><br><span class="line">  <span class="string">"href"</span>:  <span class="string">"https://api.example.com/zoos"</span>,</span><br><span class="line">  <span class="string">"title"</span>: <span class="string">"List of zoos"</span>,</span><br><span class="line">  <span class="string">"type"</span>:  <span class="string">"application/vnd.yourformat+json"</span></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"link"</span>: &#123;</span><br><span class="line">  <span class="string">"rel"</span>:   <span class="string">"collection https://www.example.com/zoos"</span>,</span><br><span class="line">  <span class="string">"href"</span>:  <span class="string">"https://api.example.com/zoos"</span>,</span><br><span class="line">  <span class="string">"title"</span>: <span class="string">"List of zoos"</span>,</span><br><span class="line">  <span class="string">"type"</span>:  <span class="string">"application/vnd.yourformat+json"</span></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。</p>
 <p>Hypermedia API的设计被称为<a href="http://en.wikipedia.org/wiki/HATEOAS" target="_blank" rel="noopener">HATEOAS</a>。Github的API就是这种设计，访问<a href="https://api.github.com/" target="_blank" rel="noopener">api.github.com</a>会得到一个所有可用API的网址列表。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"current_user_url"</span>: <span class="string">"https://api.github.com/user"</span>,</span><br><span class="line">  <span class="string">"authorizations_url"</span>: <span class="string">"https://api.github.com/authorizations"</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"current_user_url"</span>: <span class="string">"https://api.github.com/user"</span>,</span><br><span class="line">  <span class="string">"authorizations_url"</span>: <span class="string">"https://api.github.com/authorizations"</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从上面可以看到，如果想获取当前用户的信息，应该去访问<a href="https://api.github.com/user" target="_blank" rel="noopener">api.github.com/user</a>，然后就得到了下面结果。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"message"</span>: <span class="string">"Requires authentication"</span>,</span><br><span class="line">  <span class="string">"documentation_url"</span>: <span class="string">"https://developer.github.com/v3"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"message"</span>: <span class="string">"Requires authentication"</span>,</span><br><span class="line">  <span class="string">"documentation_url"</span>: <span class="string">"https://developer.github.com/v3"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p>
 <h3 id="8-11-其他"><a href="#8-11-其他" class="headerlink" title="8.11 其他"></a>8.11 其他</h3><p>（1）API的身份认证应该使用<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">OAuth 2.0</a>框架。</p>
 <p>（2）服务器返回的数据格式，应该尽量使用JSON，避免使用XML。</p>
@@ -259,8 +291,8 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hyc554@outlook.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/hyyc554" class="iconfont icon-github" title="github"></a>
         <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">

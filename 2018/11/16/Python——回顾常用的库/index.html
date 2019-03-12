@@ -55,6 +55,18 @@
   <ul class="mobile-menu-list"><a href="/">
         <li class="mobile-menu-item">首页
           </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -65,6 +77,26 @@
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
             首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
             </a>
         </li>
       </ul></nav>
@@ -93,7 +125,7 @@
 <h2 id="Python-map-函数"><a href="#Python-map-函数" class="headerlink" title="Python map() 函数"></a>Python map() 函数</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p><strong>map()</strong> 会根据提供的函数对指定序列做映射。</p>
 <p>第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。</p>
 <p>语法</p>
-<h3 id="map-函数语法："><a href="#map-函数语法：" class="headerlink" title="map() 函数语法："></a>map() 函数语法：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">map(function, iterable, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="map-函数语法："><a href="#map-函数语法：" class="headerlink" title="map() 函数语法："></a>map() 函数语法：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(function, iterable, ...)</span><br></pre></td></tr></table></figure>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
 <li>function – 函数</li>
 <li>iterable – 一个或多个序列</li>
@@ -101,15 +133,15 @@
 <h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>Python 2.x 返回列表。</p>
 <p>Python 3.x 返回迭代器。</p>
 <h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例展示了 map() 的使用方法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(x)</span> :</span>            <span class="comment"># 计算平方数</span></span><br><span class="line">	<span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line">&gt;&gt;&gt;map(square, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表各个元素的平方</span></span><br><span class="line">&gt;&gt;&gt;[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">&gt;&gt;&gt;map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])  <span class="comment"># 使用 lambda 匿名函数</span></span><br><span class="line">&gt;&gt;&gt;[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="提供了两个列表，对相同位置的列表数据进行相加"><a href="#提供了两个列表，对相同位置的列表数据进行相加" class="headerlink" title="提供了两个列表，对相同位置的列表数据进行相加"></a>提供了两个列表，对相同位置的列表数据进行相加</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">&gt;&gt;&gt;[<span class="number">3</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>, <span class="number">19</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(x)</span> :</span>            <span class="comment"># 计算平方数</span></span><br><span class="line">	<span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line">&gt;&gt;&gt;map(square, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表各个元素的平方</span></span><br><span class="line">&gt;&gt;&gt;[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">&gt;&gt;&gt;map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])  <span class="comment"># 使用 lambda 匿名函数</span></span><br><span class="line">&gt;&gt;&gt;[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="提供了两个列表，对相同位置的列表数据进行相加"><a href="#提供了两个列表，对相同位置的列表数据进行相加" class="headerlink" title="提供了两个列表，对相同位置的列表数据进行相加"></a>提供了两个列表，对相同位置的列表数据进行相加</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">&gt;&gt;&gt;[<span class="number">3</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>, <span class="number">19</span>]</span><br></pre></td></tr></table></figure>
 <h2 id="Python-filter-函数"><a href="#Python-filter-函数" class="headerlink" title="Python filter() 函数"></a>Python filter() 函数</h2><h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><p><strong>filter()</strong> 函数用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。</p>
 <p>该接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判，然后返回 True 或 False，最后将返回 True 的元素放到新列表中。</p>
 <blockquote>
 <p><strong>注意:</strong> Pyhton2.7 返回列表，Python3.x 返回迭代器对象，具体内容可以查看：<a href="http://www.runoob.com/python3/python3-func-filter.html" target="_blank" rel="noopener">Python3 filter() 函数</a></p>
 </blockquote>
 <h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>以下是 filter() 方法的语法:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">filter(function, iterable)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(function, iterable)</span><br></pre></td></tr></table></figure>
 <h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><ul>
 <li>function – 判断函数。</li>
 <li>iterable – 可迭代对象。</li>
@@ -117,16 +149,16 @@
 <h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>返回列表。</p>
 <hr>
 <h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>以下展示了使用 filter 函数的实例：</p>
-<h3 id="过滤出列表中的所有奇数："><a href="#过滤出列表中的所有奇数：" class="headerlink" title="过滤出列表中的所有奇数："></a>过滤出列表中的所有奇数：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python </span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-   </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line">newlist = filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]) </span><br><span class="line">print(newlist)</span><br></pre></td></tr></table></figure>
+<h3 id="过滤出列表中的所有奇数："><a href="#过滤出列表中的所有奇数：" class="headerlink" title="过滤出列表中的所有奇数："></a>过滤出列表中的所有奇数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python </span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-   </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line">newlist = filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]) </span><br><span class="line">print(newlist)</span><br></pre></td></tr></table></figure>
 <p>输出结果 ：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="过滤出1-100中平方根是整数的数："><a href="#过滤出1-100中平方根是整数的数：" class="headerlink" title="过滤出1~100中平方根是整数的数："></a>过滤出1~100中平方根是整数的数：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python </span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-   </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_sqr</span><span class="params">(x)</span>:</span>     </span><br><span class="line">	<span class="keyword">return</span> math.sqrt(x) % <span class="number">1</span> == <span class="number">0</span></span><br><span class="line">newlist = filter(is_sqr, range(<span class="number">1</span>, <span class="number">101</span>)) </span><br><span class="line">print(newlist)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="过滤出1-100中平方根是整数的数："><a href="#过滤出1-100中平方根是整数的数：" class="headerlink" title="过滤出1~100中平方根是整数的数："></a>过滤出1~100中平方根是整数的数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python </span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-   </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_sqr</span><span class="params">(x)</span>:</span>     </span><br><span class="line">	<span class="keyword">return</span> math.sqrt(x) % <span class="number">1</span> == <span class="number">0</span></span><br><span class="line">newlist = filter(is_sqr, range(<span class="number">1</span>, <span class="number">101</span>)) </span><br><span class="line">print(newlist)</span><br></pre></td></tr></table></figure>
 <p>输出结果 ：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
 <h2 id="Python-reduce-函数"><a href="#Python-reduce-函数" class="headerlink" title="Python reduce() 函数"></a>Python reduce() 函数</h2><h3 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h3><p><strong>reduce()</strong> 函数会对参数序列中元素进行累积。</p>
 <p>函数将一个数据集合（链表，元组等）中的所有数据进行下列操作：用传给 reduce 中的函数 function（有两个参数）先对集合中的第 1、2 个元素进行操作，得到的结果再与第三个数据用 function 函数运算，最后得到一个结果。</p>
 <h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><p>reduce() 函数语法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">reduce(function, iterable[, initializer])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce(function, iterable[, initializer])</span><br></pre></td></tr></table></figure>
 <h3 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h3><ul>
 <li>function – 函数，有两个参数</li>
 <li>iterable – 可迭代对象</li>
@@ -134,7 +166,7 @@
 </ul>
 <h3 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h3><p>返回函数计算结果。</p>
 <h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><p>以下实例展示了 reduce() 的使用方法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span> :</span>            <span class="comment"># 两数相加 ...     </span></span><br><span class="line">	<span class="keyword">return</span> x + y ...  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(add, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表和：1+2+3+4+5 15 </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])  <span class="comment"># 使用 lambda 匿名函数 15</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span> :</span>            <span class="comment"># 两数相加 ...     </span></span><br><span class="line">	<span class="keyword">return</span> x + y ...  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(add, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表和：1+2+3+4+5 15 </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])  <span class="comment"># 使用 lambda 匿名函数 15</span></span><br></pre></td></tr></table></figure>
 
       </div>
       <div class="post-copyright">
@@ -169,8 +201,8 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hyc554@outlook.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/hyyc554" class="iconfont icon-github" title="github"></a>
         <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">

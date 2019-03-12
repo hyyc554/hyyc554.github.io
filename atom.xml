@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2019-02-25T11:30:31.415Z</updated>
+  <updated>2019-03-12T12:36:10.398Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python 中的单例模式</title>
+    <link href="https://hyyc554.github.io/2019/03/12/Python%20%E4%B8%AD%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://hyyc554.github.io/2019/03/12/Python 中的单例模式/</id>
+    <published>2019-03-12T12:36:58.004Z</published>
+    <updated>2019-03-12T12:36:10.398Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot; title=&quot;单例模式&quot;&gt;&lt;/a&gt;单例模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;单例模式（Singleton Pattern）&lt;/strong&gt;是一种常用的软件设计模式，该模式的主要目的是确保&lt;strong&gt;某一个类只有一个实例存在&lt;/strong&gt;。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>django rest_framework 序列化组件详解</title>
@@ -384,24 +402,6 @@
     
     
       <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搞懂RESTful</title>
-    <link href="https://hyyc554.github.io/2018/11/20/%E4%B8%80%E3%80%81REST%E7%AE%80%E8%BF%B0/"/>
-    <id>https://hyyc554.github.io/2018/11/20/一、REST简述/</id>
-    <published>2018-11-20T10:30:12.973Z</published>
-    <updated>2018-11-20T10:38:43.159Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一、REST简述&quot;&gt;&lt;a href=&quot;#一、REST简述&quot; class=&quot;headerlink&quot; title=&quot;一、REST简述&quot;&gt;&lt;/a&gt;一、REST简述&lt;/h2&gt;&lt;p&gt;来自维基百科的解释：&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="软件风格" scheme="https://hyyc554.github.io/tags/%E8%BD%AF%E4%BB%B6%E9%A3%8E%E6%A0%BC/"/>
     
   </entry>
   

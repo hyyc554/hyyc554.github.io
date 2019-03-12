@@ -1,333 +1,94 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
+<html lang="zh-Hans">
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+<meta name="description" content="Django面试总结"/><meta name="keywords" content="Django, 面试, YoungCe的笔记" /><link rel="alternate" href="/atom.xml" title="YoungCe的笔记"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://hyyc554.github.io/2018/11/22/Django面试总结/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-
-
-
-
-
-  <meta name="baidu-site-verification" content="A1iPgcxNQu" />
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Django,面试," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="自己整理的一些面试题，持续更新中。。。">
-<meta name="keywords" content="Django,面试">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Django面试总结">
-<meta property="og:url" content="https://hyyc554.github.io/2018/11/22/Django面试总结/index.html">
-<meta property="og:site_name" content="YoungCe的笔记">
-<meta property="og:description" content="自己整理的一些面试题，持续更新中。。。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T15:32:47.417Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django面试总结">
-<meta name="twitter:description" content="自己整理的一些面试题，持续更新中。。。">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
+    <title>Django面试总结 - YoungCe的笔记</title>
+  </head>
 
-
-  <link rel="canonical" href="https://hyyc554.github.io/2018/11/22/Django面试总结/"/>
-
-
-
-
-
-  <title>Django面试总结 | YoungCe的笔记</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">YoungCe的笔记</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">献给所有爱我的人</p>
-      
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">YoungCe的笔记</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a></ul>
 </nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">YoungCe的笔记</a>
+</div>
 
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      </ul></nav>
+</header>
 
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Django面试总结
+        </h1>
 
- </div>
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-22
+        </span></div>
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hyyc554.github.io/2018/11/22/Django面试总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YoungCe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/123cool.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YoungCe的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Django面试总结</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T20:48:34+08:00">
-                2018-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv">本文总阅读量
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>自己整理的一些面试题，持续更新中。。。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#django、flask、tornado框架的比较？"><span class="toc-text">django、flask、tornado框架的比较？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是wsgi？"><span class="toc-text">什么是wsgi？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django请求的生命周期？"><span class="toc-text">django请求的生命周期？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列举django的内置组件"><span class="toc-text">列举django的内置组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列举django中间件的5个方法？以及django中间件的应用场景？"><span class="toc-text">列举django中间件的5个方法？以及django中间件的应用场景？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简述什么是FBV和CBV？"><span class="toc-text">简述什么是FBV和CBV？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的request对象是在什么时候创建的？"><span class="toc-text">django的request对象是在什么时候创建的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何给CBV的程序添加装饰器？"><span class="toc-text">如何给CBV的程序添加装饰器？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列举django-orm-中所有的方法（QuerySet对象的所有方法）"><span class="toc-text">列举django orm 中所有的方法（QuerySet对象的所有方法）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#only和defer的区别？"><span class="toc-text">only和defer的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select-related和prefetch-related的区别？"><span class="toc-text">select_related和prefetch_related的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#filter和exclude的区别？"><span class="toc-text">filter和exclude的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列举django-orm中三种能写sql语句的方法"><span class="toc-text">列举django orm中三种能写sql语句的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django-orm-中如何设置读写分离？"><span class="toc-text">django orm 中如何设置读写分离？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F和Q的作用"><span class="toc-text">F和Q的作用?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#values和values-list的区别"><span class="toc-text">values和values_list的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用django-orm批量创建数据？"><span class="toc-text">如何使用django orm批量创建数据？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的Form和ModeForm的作用？"><span class="toc-text">django的Form和ModeForm的作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新"><span class="toc-text">django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#django的Model中的ForeignKey字段中的on-delete参数有什么作用？"><span class="toc-text">django的Model中的ForeignKey字段中的on_delete参数有什么作用？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django中csrf的实现机制？"><span class="toc-text">django中csrf的实现机制？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django如何实现websocket？"><span class="toc-text">django如何实现websocket？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf-token？"><span class="toc-text">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django中如何实现orm表中添加数据时创建一条日志记录"><span class="toc-text">django中如何实现orm表中添加数据时创建一条日志记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django缓存如何设置？"><span class="toc-text">django缓存如何设置？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的缓存能使用redis吗？如果可以的话，如何配置？"><span class="toc-text">django的缓存能使用redis吗？如果可以的话，如何配置？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django路由系统中name的作用？"><span class="toc-text">django路由系统中name的作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的模板中filter和simple-tag的区别？"><span class="toc-text">django的模板中filter和simple_tag的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django-debug-toolbar的作用？"><span class="toc-text">django-debug-toolbar的作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django中如何实现单元测试？"><span class="toc-text">django中如何实现单元测试？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解释orm中-db-first-和-code-first的含义"><span class="toc-text">解释orm中 db first 和 code first的含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django中如何根据数据库表生成model中的类"><span class="toc-text">django中如何根据数据库表生成model中的类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用orm和原生sql的优缺点？"><span class="toc-text">使用orm和原生sql的优缺点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简述MVC和MTV"><span class="toc-text">简述MVC和MTV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django的contenttype组件的作用？"><span class="toc-text">django的contenttype组件的作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#谈谈你对restfull-规范的认识？"><span class="toc-text">谈谈你对restfull 规范的认识？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口的幂等性是什么意思？"><span class="toc-text">接口的幂等性是什么意思？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是RPC？"><span class="toc-text">什么是RPC？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http和Https的区别？"><span class="toc-text">Http和Https的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用django-rest-framework框架？"><span class="toc-text">为什么要使用django rest framework框架？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django-rest-framework框架中都有那些组件？"><span class="toc-text">django rest framework框架中都有那些组件？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#django-models中null和blank得区别"><span class="toc-text">django models中null和blank得区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#django-rest-framework框架中的视图都可以继承哪些类？"><span class="toc-text">django rest framework框架中的视图都可以继承哪些类？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简述-django-rest-framework框架的认证流程。"><span class="toc-text">简述 django rest framework框架的认证流程。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#django-rest-framework如何实现的用户访问频率控制？"><span class="toc-text">django rest framework如何实现的用户访问频率控制？</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>自己整理的一些面试题，持续更新中。。。</p>
 <a id="more"></a>
 <h2 id="django、flask、tornado框架的比较？"><a href="#django、flask、tornado框架的比较？" class="headerlink" title="django、flask、tornado框架的比较？"></a>django、flask、tornado框架的比较？</h2><p>django：<br>优点：最全能的web开发框架，各种功能完备，可维护性高，开发速度快<br>缺点：django orm 跟数据库的交互，django同步特性导致吞吐量小的问题可以通过celery解决</p>
 <p>tornado：<br>优点：天生异步，性能强悍<br>缺点：框架提供的功能比较少，需要自己实现，这样导致了开发速度偏慢</p>
@@ -610,491 +371,69 @@
 <h3 id="django-rest-framework框架中的视图都可以继承哪些类？"><a href="#django-rest-framework框架中的视图都可以继承哪些类？" class="headerlink" title="django rest framework框架中的视图都可以继承哪些类？"></a>django rest framework框架中的视图都可以继承哪些类？</h3><p>APIview、ViewSets、Generic views</p>
 <h3 id="简述-django-rest-framework框架的认证流程。"><a href="#简述-django-rest-framework框架的认证流程。" class="headerlink" title="简述 django rest framework框架的认证流程。"></a>简述 django rest framework框架的认证流程。</h3><p><a href="https://www.cnblogs.com/renpingsheng/p/9534984.html" target="_blank" rel="noopener">https://www.cnblogs.com/renpingsheng/p/9534984.html</a></p>
 <h3 id="django-rest-framework如何实现的用户访问频率控制？"><a href="#django-rest-framework如何实现的用户访问频率控制？" class="headerlink" title="django rest framework如何实现的用户访问频率控制？"></a>django rest framework如何实现的用户访问频率控制？</h3>
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://hyyc554.github.io">YoungCe</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://hyyc554.github.io/2018/11/22/Django面试总结/">https://hyyc554.github.io/2018/11/22/Django面试总结/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
         <div class="post-tags">
-          
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
-            <a href="/tags/面试/" rel="tag"># 面试</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/21/Django思维导图/" rel="next" title="Django思维导图">
-                <i class="fa fa-chevron-left"></i> Django思维导图
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/23/定位服务公司面试复盘/" rel="prev" title="定位服务公司面试复盘">
-                定位服务公司面试复盘 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        
-  <script>
-    window._bd_share_config = {
-      "common": {
-        "bdText": "",
-        "bdMini": "1",
-        "bdMiniList": false,
-        "bdPic": ""
-      },
-      "image": {
-        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
-        "viewText": "分享到：",
-        "viewSize": "16"
-      },
-      "slide": {
-        "bdImg": "5",
-        "bdPos": "left",
-        "bdTop": "100"
-      }
-    }
-  </script>
-
-<script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng=="></div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/123cool.png"
-                alt="YoungCe" />
-            
-              <p class="site-author-name" itemprop="name">YoungCe</p>
-              <p class="site-description motion-element" itemprop="description">一个学习者</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">37</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/hyyc554" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:hyc554@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
+            <a href="/tags/Django/">Django</a>
+            <a href="/tags/面试/">面试</a>
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#django、flask、tornado框架的比较？"><span class="nav-number">1.</span> <span class="nav-text">django、flask、tornado框架的比较？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是wsgi？"><span class="nav-number">2.</span> <span class="nav-text">什么是wsgi？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django请求的生命周期？"><span class="nav-number">3.</span> <span class="nav-text">django请求的生命周期？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列举django的内置组件"><span class="nav-number">4.</span> <span class="nav-text">列举django的内置组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列举django中间件的5个方法？以及django中间件的应用场景？"><span class="nav-number">5.</span> <span class="nav-text">列举django中间件的5个方法？以及django中间件的应用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述什么是FBV和CBV？"><span class="nav-number">6.</span> <span class="nav-text">简述什么是FBV和CBV？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的request对象是在什么时候创建的？"><span class="nav-number">7.</span> <span class="nav-text">django的request对象是在什么时候创建的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何给CBV的程序添加装饰器？"><span class="nav-number">8.</span> <span class="nav-text">如何给CBV的程序添加装饰器？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列举django-orm-中所有的方法（QuerySet对象的所有方法）"><span class="nav-number">9.</span> <span class="nav-text">列举django orm 中所有的方法（QuerySet对象的所有方法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#only和defer的区别？"><span class="nav-number">10.</span> <span class="nav-text">only和defer的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-related和prefetch-related的区别？"><span class="nav-number">11.</span> <span class="nav-text">select_related和prefetch_related的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter和exclude的区别？"><span class="nav-number">12.</span> <span class="nav-text">filter和exclude的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列举django-orm中三种能写sql语句的方法"><span class="nav-number">13.</span> <span class="nav-text">列举django orm中三种能写sql语句的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django-orm-中如何设置读写分离？"><span class="nav-number">14.</span> <span class="nav-text">django orm 中如何设置读写分离？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F和Q的作用"><span class="nav-number">15.</span> <span class="nav-text">F和Q的作用?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#values和values-list的区别"><span class="nav-number">16.</span> <span class="nav-text">values和values_list的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用django-orm批量创建数据？"><span class="nav-number">17.</span> <span class="nav-text">如何使用django orm批量创建数据？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的Form和ModeForm的作用？"><span class="nav-number">18.</span> <span class="nav-text">django的Form和ModeForm的作用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新"><span class="nav-number">19.</span> <span class="nav-text">django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#django的Model中的ForeignKey字段中的on-delete参数有什么作用？"><span class="nav-number">19.1.</span> <span class="nav-text">django的Model中的ForeignKey字段中的on_delete参数有什么作用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django中csrf的实现机制？"><span class="nav-number">20.</span> <span class="nav-text">django中csrf的实现机制？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django如何实现websocket？"><span class="nav-number">21.</span> <span class="nav-text">django如何实现websocket？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf-token？"><span class="nav-number">22.</span> <span class="nav-text">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django中如何实现orm表中添加数据时创建一条日志记录"><span class="nav-number">23.</span> <span class="nav-text">django中如何实现orm表中添加数据时创建一条日志记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django缓存如何设置？"><span class="nav-number">24.</span> <span class="nav-text">django缓存如何设置？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的缓存能使用redis吗？如果可以的话，如何配置？"><span class="nav-number">25.</span> <span class="nav-text">django的缓存能使用redis吗？如果可以的话，如何配置？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django路由系统中name的作用？"><span class="nav-number">26.</span> <span class="nav-text">django路由系统中name的作用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的模板中filter和simple-tag的区别？"><span class="nav-number">27.</span> <span class="nav-text">django的模板中filter和simple_tag的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django-debug-toolbar的作用？"><span class="nav-number">28.</span> <span class="nav-text">django-debug-toolbar的作用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django中如何实现单元测试？"><span class="nav-number">29.</span> <span class="nav-text">django中如何实现单元测试？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解释orm中-db-first-和-code-first的含义"><span class="nav-number">30.</span> <span class="nav-text">解释orm中 db first 和 code first的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django中如何根据数据库表生成model中的类"><span class="nav-number">31.</span> <span class="nav-text">django中如何根据数据库表生成model中的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用orm和原生sql的优缺点？"><span class="nav-number">32.</span> <span class="nav-text">使用orm和原生sql的优缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述MVC和MTV"><span class="nav-number">33.</span> <span class="nav-text">简述MVC和MTV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django的contenttype组件的作用？"><span class="nav-number">34.</span> <span class="nav-text">django的contenttype组件的作用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谈谈你对restfull-规范的认识？"><span class="nav-number">35.</span> <span class="nav-text">谈谈你对restfull 规范的认识？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的幂等性是什么意思？"><span class="nav-number">36.</span> <span class="nav-text">接口的幂等性是什么意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是RPC？"><span class="nav-number">37.</span> <span class="nav-text">什么是RPC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http和Https的区别？"><span class="nav-number">38.</span> <span class="nav-text">Http和Https的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用django-rest-framework框架？"><span class="nav-number">39.</span> <span class="nav-text">为什么要使用django rest framework框架？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django-rest-framework框架中都有那些组件？"><span class="nav-number">40.</span> <span class="nav-text">django rest framework框架中都有那些组件？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django-models中null和blank得区别"><span class="nav-number">41.</span> <span class="nav-text">django models中null和blank得区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#django-rest-framework框架中的视图都可以继承哪些类？"><span class="nav-number">41.1.</span> <span class="nav-text">django rest framework框架中的视图都可以继承哪些类？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述-django-rest-framework框架的认证流程。"><span class="nav-number">41.2.</span> <span class="nav-text">简述 django rest framework框架的认证流程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django-rest-framework如何实现的用户访问频率控制？"><span class="nav-number">41.3.</span> <span class="nav-text">django rest framework如何实现的用户访问频率控制？</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
-      </div>
-    </main>
+        <nav class="post-nav"><a class="prev" href="/2018/11/23/定位服务公司面试复盘/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">定位服务公司面试复盘</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/2018/11/21/Django思维导图/">
+        <span class="next-text nav-default">Django思维导图</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
-  <span class="author" itemprop="copyrightHolder">YoungCe</span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
 
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-    <span class="site-pv">
-      本站总访问量
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
     </span>
-  
+    <span class="author">YoungCe</span>
+  </span>
 </div>
+</footer>
 
-
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=65888432";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
-
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

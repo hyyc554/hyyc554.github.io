@@ -664,11 +664,11 @@
     </entry>
     
     <entry>
-      <title></title>
+      <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
       
-        <content type="html"><![CDATA[<p>title: tags<br>layout: tags</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>逐风空间</title>
+  <title>MadLife</title>
   
-  <subtitle>献给所有爱我的人</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://hyyc554.github.io/</id>
   
   <author>
-    <name>YoungCe</name>
+    <name>Yongchi</name>
     
   </author>
   

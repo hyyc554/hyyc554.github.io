@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hyyc554.github.io/"/>
-  <updated>2019-03-27T15:53:40.640Z</updated>
+  <updated>2019-04-05T05:01:05.056Z</updated>
   <id>https://hyyc554.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python线性表——单链表</title>
+    <link href="https://hyyc554.github.io/2019/04/05/1.%20%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%AE%80%E4%BB%8B/"/>
+    <id>https://hyyc554.github.io/2019/04/05/1. 线性表简介/</id>
+    <published>2019-04-05T04:58:34.759Z</published>
+    <updated>2019-04-05T05:01:05.056Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-线性表简介&quot;&gt;&lt;a href=&quot;#1-线性表简介&quot; class=&quot;headerlink&quot; title=&quot;1. 线性表简介&quot;&gt;&lt;/a&gt;1. 线性表简介&lt;/h2&gt;&lt;p&gt;线性表是一种线性结构，它是由零个或多个数据元素构成的&lt;strong&gt;有限序列&lt;/strong&gt;。线性表的特征是在一个序列中，除了头尾元素，每个元素都有且只有一个直接前驱，有且只有一个直接后继，而序列头元素没有直接前驱，序列尾元素没有直接后继。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode（[21. 合并两个有序链表]）</title>
@@ -382,26 +400,6 @@
     
     
       <category term="杂谈" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Django面试总结</title>
-    <link href="https://hyyc554.github.io/2018/11/22/Django%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"/>
-    <id>https://hyyc554.github.io/2018/11/22/Django面试总结/</id>
-    <published>2018-11-22T12:48:34.034Z</published>
-    <updated>2018-11-22T15:32:47.417Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;自己整理的一些面试题，持续更新中。。。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Django" scheme="https://hyyc554.github.io/tags/Django/"/>
-    
-      <category term="面试" scheme="https://hyyc554.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   

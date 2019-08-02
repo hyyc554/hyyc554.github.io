@@ -48,9 +48,9 @@ highlight:
 
 # prism_plugin:
 #   mode: 'preprocess'    # realtime/preprocess
-#   theme: 'atom-dark'
+#   theme: 'duotone-light'
 #   line_number: true    # default false
-#   # custom_css: 'path/to/your/custom.css'     # optional
+# #   # custom_css: 'path/to/your/custom.css'     # optional
   
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

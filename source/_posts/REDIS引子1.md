@@ -1,5 +1,6 @@
 ---
 title: Redis降低内存占用(一)
+date: 2018-04-25 08:52:08
 tags:
  - Redis
 categories:

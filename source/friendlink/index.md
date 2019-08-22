@@ -9,7 +9,8 @@ date: 2019-06-22 12:09:17
 
 > 以下为Madlife的友情站点，如需交换友链，可邮我：ychuang92#foxmail.com
 
-- 目前空荡荡- -
+- [JoyoBlog](https://xieboke.net/)
+- [borber](https://borber.cn/)
 
 # 推荐网站
 

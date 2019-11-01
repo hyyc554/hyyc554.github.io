@@ -1,7 +1,7 @@
 ---
 title: python虚拟环境--virtualenv
 tags: 
-  - python
+  - Python
 ---
 
 ## 1. virtualenv 

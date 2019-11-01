@@ -1,7 +1,7 @@
 ---
 title: Python——回顾常用的库
 tags:
-  - python
+  - Python
 ---
 
 这些最基础的面试想不起来会很尴尬

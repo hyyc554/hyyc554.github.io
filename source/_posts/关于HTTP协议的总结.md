@@ -1,14 +1,10 @@
 ---
 title: 关于HTTP协议的总结
 tags: 
-  - HTTP
+  - 网络协议
 ---
 
-
-
-
-
-# HTTP简介
+## HTTP简介
 
 - HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
 
@@ -20,9 +16,7 @@ tags:
 
 ![FiWzx1.jpg](https://s1.ax1x.com/2018/11/23/FiWzx1.jpg)
 
-
-
-# 主要特点
+## 主要特点
 
 1. 简单快速：
 
@@ -42,7 +36,7 @@ tags:
 
 5. 支持B/S及C/S模式。
 
-# HTTP之URL
+## HTTP之URL
 
 HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息
 
@@ -70,9 +64,9 @@ http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name
 
 （原文：<http://blog.csdn.net/ergouge/article/details/8185219> ）
 
-# URI和URL的区别
+## URI和URL的区别
 
-##### URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。
+**URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。**
 
 Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的
 URI一般由三部组成：
@@ -80,7 +74,7 @@ URI一般由三部组成：
 ②存放资源的主机名
 ③资源自身的名称，由路径表示，着重强调于资源。
 
-##### URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。
+**URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。**
 
 URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。
 采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。URL一般由三部组成：
@@ -88,7 +82,7 @@ URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客
 ②存有该资源的主机IP地址(有时也包括端口号)
 ③主机资源的具体地址。如目录和文件名等
 
-##### URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如mailto:java-net@java.sun.com。
+**URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如mailto:java-net@java.sun.com。**
 
 URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。URL和URN都是一种URI。笼统地说，每个 URL 都是 URI，但不一定每个 URI 都是 URL。这是因为 URI 还包括一个子类，即统一资源名称 (URN)，它命名资源但不指定如何定位资源。上面的 mailto、news 和 isbn URI 都是 URN 的示例。
 
@@ -96,7 +90,7 @@ URI是以一种抽象的，高层次概念定义统一资源标识，而URL和UR
 在Java类库中，URI类不包含任何访问资源的方法，它唯一的作用就是解析。
 相反的是，URL类可以打开一个到达资源的流。
 
-# HTTP之请求消息Request
+## HTTP之请求消息Request
 
 客户端发送一个HTTP请求到服务器的请求消息包括以下格式：
 
@@ -105,15 +99,11 @@ URI是以一种抽象的，高层次概念定义统一资源标识，而URL和UR
 3. 空行
 4. 请求数据
 
-
-
-
-
 ![FiWx2R.png](https://s1.ax1x.com/2018/11/23/FiWx2R.png)
 
 - 请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本。
 
-##### Get请求例子，使用Charles抓取的request：
+### Get请求例子，使用Charles抓取的request：
 
 ```
 GET /562f25980001b1b106000338.jpg HTTP/1.1
@@ -125,23 +115,23 @@ Accept-Encoding    gzip, deflate, sdch
 Accept-Language    zh-CN,zh;q=0.8
 ```
 
-##### 第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.
+**第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.**
 
 GET说明请求类型为GET,[/562f25980001b1b106000338.jpg]为要访问的资源，该行的最后一部分说明使用的是HTTP1.1版本。
 
-##### 第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息
+**第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息**
 
 从第二行起为请求头部，HOST将指出请求的目的地.User-Agent,服务器端和客户端脚本都能访问它,它是浏览器类型检测逻辑的重要基础.该信息由你的浏览器来定义,并且在每个请求中自动发送等等
 
-##### 第三部分：空行，请求头部后面的空行是必须的
+**第三部分：空行，请求头部后面的空行是必须的**
 
 即使第四部分的请求数据为空，也必须有空行。
 
-##### 第四部分：请求数据也叫主体，可以添加任意的其他数据。
+**第四部分：请求数据也叫主体，可以添加任意的其他数据**。
 
 这个例子的请求数据为空。
 
-##### POST请求例子，使用Charles抓取的request：
+### POST请求例子，使用Charles抓取的request：
 
 ```
 POST / HTTP1.1
@@ -159,7 +149,7 @@ name=Professional%20Ajax&publisher=Wiley
 第三部分：空行，第七行的空行。
 第四部分：请求数据，第八行。
 
-# HTTP之响应消息Response
+## HTTP之响应消息Response
 
 一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。
 
@@ -201,7 +191,7 @@ Date:生成响应的日期和时间；Content-Type:指定了MIME类型的HTML(te
 
 空行后面的html部分为响应正文。
 
-# HTTP之状态码
+## HTTP之状态码
 
 状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:
 
@@ -229,7 +219,7 @@ Date:生成响应的日期和时间；Content-Type:指定了MIME类型的HTML(te
 
 更多状态码<http://www.runoob.com/http/http-status-codes.html>
 
-# HTTP请求方法
+## HTTP请求方法
 
 根据HTTP标准，HTTP请求可以使用多种请求方法。
 HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。
@@ -246,7 +236,7 @@ OPTIONS     允许客户端查看服务器的性能。
 TRACE     回显服务器收到的请求，主要用于测试或诊断。
 ```
 
-# HTTP工作原理
+## HTTP工作原理
 
 HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。
 
@@ -354,7 +344,7 @@ Http协议定义了很多与服务器交互的方法，最基本的有4种，分
    3. GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。
    4. GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.
 
-# 参考文献
+## 参考文献
 
 原文链接：
 

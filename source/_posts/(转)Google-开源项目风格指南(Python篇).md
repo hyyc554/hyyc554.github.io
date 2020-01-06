@@ -622,8 +622,6 @@ Tip
 
 \#!先用于帮助内核找到Python解释器, 但是在导入模块时, 将会被忽略. 因此只有被直接执行的文件中才有必要加入#!.
 
-
-
 ## 注释
 
 Tip
@@ -971,19 +969,19 @@ module_name, package_name, ClassName, method_name, ExceptionName, function_name,
 
 **Python之父Guido推荐的规范**
 
-| Type                       | Public             | Internal                                                     |
-| -------------------------- | ------------------ | ------------------------------------------------------------ |
-| Modules                    | lower_with_under   | _lower_with_under                                            |
-| Packages                   | lower_with_under   |                                                              |
-| Classes                    | CapWords           | _CapWords                                                    |
-| Exceptions                 | CapWords           |                                                              |
-| Functions                  | lower_with_under() | _lower_with_under()                                          |
-| Global/Class Constants     | CAPS_WITH_UNDER    | _CAPS_WITH_UNDER                                             |
-| Global/Class Variables     | lower_with_under   | _lower_with_under                                            |
-| Instance Variables         | lower_with_under   | _lower_with_under (protected) or __lower_with_under (private) |
+| Type                       | Public             | Internal                                                          |
+| -------------------------- | ------------------ | ----------------------------------------------------------------- |
+| Modules                    | lower_with_under   | _lower_with_under                                                 |
+| Packages                   | lower_with_under   |                                                                   |
+| Classes                    | CapWords           | _CapWords                                                         |
+| Exceptions                 | CapWords           |                                                                   |
+| Functions                  | lower_with_under() | _lower_with_under()                                               |
+| Global/Class Constants     | CAPS_WITH_UNDER    | _CAPS_WITH_UNDER                                                  |
+| Global/Class Variables     | lower_with_under   | _lower_with_under                                                 |
+| Instance Variables         | lower_with_under   | _lower_with_under (protected) or __lower_with_under (private)     |
 | Method Names               | lower_with_under() | _lower_with_under() (protected) or __lower_with_under() (private) |
-| Function/Method Parameters | lower_with_under   |                                                              |
-| Local Variables            | lower_with_under   |                                                              |
+| Function/Method Parameters | lower_with_under   |                                                                   |
+| Local Variables            | lower_with_under   |                                                                   |
 
 
 

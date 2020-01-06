@@ -33,7 +33,7 @@ Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付
 
 移除旧的版本：
 
-```
+```shell
 $ sudo yum remove docker \
                   docker-client \
                   docker-client-latest \
@@ -48,37 +48,37 @@ $ sudo yum remove docker \
 
 安装一些必要的系统工具：
 
-```
+```shell
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 添加软件源信息：
 
-```
+```shell
 sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
 更新 yum 缓存：
 
-```
+```shell
 sudo yum makecache fast
 ```
 
 安装 Docker-ce：
 
-```
+```shell
 sudo yum -y install docker-ce
 ```
 
 启动 Docker 后台服务
 
-```
+```shell
 sudo systemctl start docker
 ```
 
 测试运行 hello-world
 
-```
+```shell
 docker run hello-world
 ```
 
@@ -86,8 +86,22 @@ docker run hello-world
 
 由于本地没有hello-world这个镜像，所以会下载一个hello-world的镜像，并在容器内运行。
 
+### 镜像加速
 
+鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决，我使用的是网易的镜像地址：http://hub-mirror.c.163.com。
 
-## 参考资料：
+新版的 Docker 使用 /etc/docker/daemon.json（Linux） 或者 %programdata%\docker\config\daemon.json（Windows） 来配置 Daemon。
+
+请在该配置文件中加入（没有该文件的话，请先建一个）：
+
+```shell
+{
+  "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}
+```
+
+------
+
+## 参考资料
 
 > http://www.runoob.com/docker/centos-docker-install.html

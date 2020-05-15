@@ -1,13 +1,10 @@
 ---
 title: 每日一题:leetcode:100. 相同的树
-date: 2019-4-20 08:50:35
+date: 2020-04-20T09:02:46+08:00
 tags:
  - Python
  - leetcode
-categories:
- - 算法
 ---
-
 ### 问题描述
 
 [每日一题:leetcode:100. 相同的树](https://leetcode-cn.com/problems/same-tree/)

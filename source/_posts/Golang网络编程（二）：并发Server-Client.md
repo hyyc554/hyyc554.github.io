@@ -1,7 +1,7 @@
 ---
 title: Golang网络编程（二）：并发Server-Client
 tags:
- - Golang
+ - golang
 categories:
  - 计算机技术
   

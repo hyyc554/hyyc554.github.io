@@ -2,7 +2,7 @@
 title: Python与Golang协程异同
 tags:
  - Python
- - Golang
+ - golang
 categories:
  - 计算机技术
 ---

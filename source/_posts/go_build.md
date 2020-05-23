@@ -1,7 +1,7 @@
 ---
 title: Golang的多平台编译
 tags:
- - Golang
+ - golang
 date: 2020-04-04 15:55
 ---
 

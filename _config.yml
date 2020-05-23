@@ -8,8 +8,7 @@ subtitle:
 description: 自律成就自我
 keywords:
 author: Yongchi | 粤ICP备19044639号
-language: zh-Hans
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -81,7 +80,10 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: even
+# theme: even
+theme: fluid  # 指定主题
+
+language: zh-CN  # 指定语言，可不改
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

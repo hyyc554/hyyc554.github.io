@@ -1,7 +1,7 @@
 ---
 title: GOPROXY 环境变量
 tags:
- - Golang
+ - golang
 categories:
  - 计算机技术
 ---

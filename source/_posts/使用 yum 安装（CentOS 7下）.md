@@ -1,5 +1,6 @@
 ---
 title: CentOS下安装Docker
+date: 2018-10-21 13:22:08
 tags:
  - Linux
  - Docker

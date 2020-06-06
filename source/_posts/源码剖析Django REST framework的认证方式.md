@@ -1,5 +1,6 @@
 ---
 title: 源码剖析Django REST framework的认证方式
+date: 2019-05-05 18:42:08
 tags:
   - Django
 ---

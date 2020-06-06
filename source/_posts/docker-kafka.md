@@ -78,7 +78,9 @@ categories:
 2. 创建一个topic并查看，需要指定zookeeper的容器名(这里是kafka_zookeeper_1)，topic的名字为test
 
    ```bash
-   $KAFKA_HOME/bin/kafka-topics.sh --create --topic test --zookeeper kafka-docker_zookeeper_1:2181 --replication-factor 1 --partitions 1$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper kafka_zookeeper_1:2181
+   $KAFKA_HOME/bin/kafka-topics.sh --create --topic test --zookeeper kafka-docker_zookeeper_1:2181 --replication-factor 1 --partitions 1
+   
+   $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper kafka-docker_zookeeper_1:2181
    ```
 
 3. 发布消息，输入几条消息后，按^C退出发布

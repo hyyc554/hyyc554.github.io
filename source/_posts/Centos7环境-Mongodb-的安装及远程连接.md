@@ -1,5 +1,7 @@
 ---
 title: Centos7环境 Mongodb 的安装及远程连接
+date: 2019-05-05 18:42:08
+
 tags:
   - 数据库
 ---

@@ -1,5 +1,7 @@
 ---
 title: MySQL为什么表数据删掉一半，表文件大小不变？
+date: 2019-05-05 18:42:08
+
 tags:
  - MySQL
 categories:

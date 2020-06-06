@@ -1,5 +1,7 @@
 ---
 title: Docker构建Django部署环境（二）基本指令集
+date: 2019-05-05 18:42:08
+
 tags:
  - Docker
 categories:

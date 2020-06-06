@@ -1,6 +1,9 @@
 ---
 title: 浅析Python日志重复输出问题
-tags: Python
+date: 2019-05-05 18:42:08
+
+tags: 
+    - python
 ---
 
 ![](https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?cs=srgb&dl=adventure-backpack-blue-mountains-868097.jpg&fm=jpg)

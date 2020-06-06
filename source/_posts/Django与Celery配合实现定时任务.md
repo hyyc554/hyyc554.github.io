@@ -1,5 +1,7 @@
 ---
 title: Django与Celery配合实现定时任务
+date: 2019-05-05 18:42:08
+
 tags:
  - Django
  - Celery

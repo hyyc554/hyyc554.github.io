@@ -1,5 +1,7 @@
 ---
 title: Django与supervisor 管理进程
+date: 2019-05-05 18:42:08
+
 tags:
 - Django
 - Linux

@@ -131,3 +131,6 @@ sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
+
+
+#  tcb hosting:deploy ./ -e ycblog-100e16

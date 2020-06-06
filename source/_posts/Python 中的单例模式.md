@@ -1,5 +1,7 @@
 ---
 title: Python 中的单例模式
+date: 2019-05-05 18:42:08
+
 tags: 
 - Python
 ---

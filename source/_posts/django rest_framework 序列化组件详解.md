@@ -1,5 +1,7 @@
 ---
 title: django rest_framework 序列化组件详解
+date: 2019-05-05 18:42:08
+
 tag: 
  - Django
 ---

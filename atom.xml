@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MadLife</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://hyyc554.github.io/"/>
+  <updated>2021-04-14T15:58:24.461Z</updated>
+  <id>https://hyyc554.github.io/</id>
+  
+  <author>
+    <name>Yongchi | 粤ICP备19044639号</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入Kubernetes——01项目本质</title>
+    <link href="https://hyyc554.github.io/2021/04/14/%E6%B7%B1%E5%85%A5Kubernetes%E2%80%94%E2%80%9401%E9%A1%B9%E7%9B%AE%E6%9C%AC%E8%B4%A8/"/>
+    <id>https://hyyc554.github.io/2021/04/14/深入Kubernetes——01项目本质/</id>
+    <published>2021-04-14T15:58:08.000Z</published>
+    <updated>2021-04-14T15:58:24.461Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Kubernetes 项目的本质，是为用户提供一个具有普遍意义的容器编排工具。&lt;/p&gt;
+&lt;p&gt;Kubernetes 项目为用户提供的不仅限于一个工具。它真正的价值，在于提供了一套基于容器构建分布式系统的基础依赖。&lt;/p&gt;
+&lt;p&gt;全局架构：&lt;/p&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://hyyc554.github.io/tags/Linux/"/>
+    
+      <category term="Docker" scheme="https://hyyc554.github.io/tags/Docker/"/>
+    
+      <category term="K8S" scheme="https://hyyc554.github.io/tags/K8S/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021书单</title>
+    <link href="https://hyyc554.github.io/2021/01/05/booklist/"/>
+    <id>https://hyyc554.github.io/2021/01/05/booklist/</id>
+    <published>2021-01-05T05:43:01.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;人类简史&lt;/li&gt;
+&lt;li&gt;自卑与超越&lt;/li&gt;
+&lt;li&gt;财富自由之路&lt;/li&gt;
+&lt;li&gt;放大&lt;/li&gt;
+&lt;li&gt;浪潮之巅&lt;/li&gt;
+&lt;li&gt;麦田里的守望者&lt;/li&gt;
+&lt;li&gt;老人与海&lt;/li&gt;
+&lt;li&gt;地球上最孤单的动物&lt;/li&gt;
+&lt;li&gt;how
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂记" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sentry部署</title>
+    <link href="https://hyyc554.github.io/2020/12/26/sentry_init/"/>
+    <id>https://hyyc554.github.io/2020/12/26/sentry_init/</id>
+    <published>2020-12-26T01:48:59.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Sentry 是一个日志收集和统计平台, 由客户端和服务端组成，目前支持大部分主流的编程语言，并提供 SDK，当程序出现异常就向服务端发送消息，服务端将消息记录到数据库中并提供一个 Web 端显示。&lt;/p&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="sentry" scheme="https://hyyc554.github.io/tags/sentry/"/>
+    
+      <category term="日志" scheme="https://hyyc554.github.io/tags/%E6%97%A5%E5%BF%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB——TTL索引</title>
+    <link href="https://hyyc554.github.io/2020/12/15/mongo_ttl/"/>
+    <id>https://hyyc554.github.io/2020/12/15/mongo_ttl/</id>
+    <published>2020-12-15T05:56:59.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;MongoDB 有几种很实用的特殊索引，在特定场景中可以达到事半功倍的效果，TTL 索引即其中之一。&lt;/p&gt;
+&lt;p&gt;过期特定数据是一种常见场景，对 IoT 设备日志、网站 session 等数据而言，我们一般只关心一定时间内的数据，过期数据需要及时删除，TTL
+        
+      
+    
+    </summary>
+    
+    
+      <category term="mongodb" scheme="https://hyyc554.github.io/tags/mongodb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S3协议入门</title>
+    <link href="https://hyyc554.github.io/2020/12/12/S3%E5%89%8D%E8%A8%80/"/>
+    <id>https://hyyc554.github.io/2020/12/12/S3前言/</id>
+    <published>2020-12-11T19:56:59.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="云计算" scheme="https://hyyc554.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Go 客户端控制 Kubernetes</title>
+    <link href="https://hyyc554.github.io/2020/09/24/k8s20/"/>
+    <id>https://hyyc554.github.io/2020/09/24/k8s20/</id>
+    <published>2020-09-23T23:54:14.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/09/24/0pR3gx.png&quot; alt=&quot;0pR3gx.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;早期我已经在本地搭建了一个两台机器的k3s集群，并部署了&lt;em&gt;Crawlab&lt;/em&gt;（ 一个使用Golang
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+      <category term="k8s" scheme="https://hyyc554.github.io/tags/k8s/"/>
+    
+      <category term="docker" scheme="https://hyyc554.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>K3S本地测试环境搭建</title>
+    <link href="https://hyyc554.github.io/2020/09/24/k8s19/"/>
+    <id>https://hyyc554.github.io/2020/09/24/k8s19/</id>
+    <published>2020-09-23T23:52:14.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;迫于家里没有矿，又想尝试在本地搭建一个真实的K8s集群，于是翻出了闲置许久的学生机和目前手上的一台开发机组成了本地K3s集群。&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+      <category term="k8s" scheme="https://hyyc554.github.io/tags/k8s/"/>
+    
+      <category term="docker" scheme="https://hyyc554.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>groupcache源码阅读(三)——防止缓存惊群效应</title>
+    <link href="https://hyyc554.github.io/2020/09/12/%E7%BC%93%E5%AD%98%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/"/>
+    <id>https://hyyc554.github.io/2020/09/12/缓存惊群效应/</id>
+    <published>2020-09-12T08:38:23.000Z</published>
+    <updated>2021-04-14T15:19:54.328Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/05/25/t9CtxI.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h2 id=&quot;缓存惊群效应&quot;&gt;&lt;a href=&quot;#缓存惊群效应&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://hyyc554.github.io/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Yance的技能树(2020)</title>
+    <link href="https://hyyc554.github.io/2020/07/23/2020%E5%B9%B4%E4%B8%AD%E6%8A%80%E8%83%BD%E6%A0%91/"/>
+    <id>https://hyyc554.github.io/2020/07/23/2020年中技能树/</id>
+    <published>2020-07-23T14:32:21.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前几个月准备面试整理的技能树，还没有画完已经拿到了满意的offer，未来继续扩充。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="杂记" scheme="https://hyyc554.github.io/tags/%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python使用协程库aiokafka操作Kafka</title>
+    <link href="https://hyyc554.github.io/2020/06/08/pykafka/"/>
+    <id>https://hyyc554.github.io/2020/06/08/pykafka/</id>
+    <published>2020-06-08T04:14:03.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/06/08/LeswCYIqFoD5BMh.png&quot; alt=&quot;pyka&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
+    
+      <category term="kafka" scheme="https://hyyc554.github.io/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode136-Single Number</title>
+    <link href="https://hyyc554.github.io/2020/06/06/leetcode136/"/>
+    <id>https://hyyc554.github.io/2020/06/06/leetcode136/</id>
+    <published>2020-06-05T19:39:15.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h2&gt;&lt;p&gt;Given a &lt;strong&gt;non-empty&lt;/strong&gt; array of integers, every element appears &lt;em&gt;twice&lt;/em&gt; except for one. Find that single one.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 1:&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter hljs&quot;&gt;&lt;div class=&quot;hljs code-wrapper&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;div class=&quot;hljs code-wrapper&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs undefined&quot;&gt;&lt;span class=&quot;hljs-attr&quot;&gt;Input:&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;[2,2,1]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-attr&quot;&gt;Output:&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;Example 2:&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter hljs&quot;&gt;&lt;div class=&quot;hljs code-wrapper&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;div class=&quot;hljs code-wrapper&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs undefined&quot;&gt;&lt;span class=&quot;hljs-attr&quot;&gt;Input:&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;[4,1,2,1,2]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-attr&quot;&gt;Output:&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://hyyc554.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>groupcache源码阅读(二）——缓存并发控制</title>
+    <link href="https://hyyc554.github.io/2020/05/24/groupcache2/"/>
+    <id>https://hyyc554.github.io/2020/05/24/groupcache2/</id>
+    <published>2020-05-24T01:44:23.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/05/25/t9CtxI.jpg&quot; alt=&quot;t9CtxI.jpg&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;互斥锁——sync-Mutex&quot;&gt;&lt;a href=&quot;#互斥锁——sync-Mutex&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Golang" scheme="https://hyyc554.github.io/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Groupcache源码阅读（一）——LRU淘汰策略实现</title>
+    <link href="https://hyyc554.github.io/2020/05/23/groupcache/"/>
+    <id>https://hyyc554.github.io/2020/05/23/groupcache/</id>
+    <published>2020-05-22T22:48:26.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这里是Groupcache源码阅读计划的第一步，首先我们熟悉一下这个项目的代码结构。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+      <category term="缓存" scheme="https://hyyc554.github.io/tags/%E7%BC%93%E5%AD%98/"/>
+    
+      <category term="LRU" scheme="https://hyyc554.github.io/tags/LRU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang应用部署到Docker</title>
+    <link href="https://hyyc554.github.io/2020/05/23/golangindocker/"/>
+    <id>https://hyyc554.github.io/2020/05/23/golangindocker/</id>
+    <published>2020-05-22T18:39:26.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Golang作为一门静态语言运行前必须完成编译，而Python这类动态语言只要在解释器环境下就可以直接运行，所以他们的docker部署的最佳实践方式会略有不同。&lt;img src=&quot;https://i.loli.net/2020/05/23/dzCOVvEkItop5w4.png&quot; alt&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker" scheme="https://hyyc554.github.io/tags/Docker/"/>
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>django数据库查询优化</title>
+    <link href="https://hyyc554.github.io/2020/05/12/djangopro/"/>
+    <id>https://hyyc554.github.io/2020/05/12/djangopro/</id>
+    <published>2020-05-12T10:42:08.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-DBA-的建议&quot;&gt;&lt;a href=&quot;#1-DBA-的建议&quot; class=&quot;headerlink&quot; title=&quot;1. DBA 的建议&quot;&gt;&lt;/a&gt;1. DBA 的建议&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="django" scheme="https://hyyc554.github.io/tags/django/"/>
+    
+      <category term="python" scheme="https://hyyc554.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8sbug</title>
+    <link href="https://hyyc554.github.io/2020/05/04/k8sbug/"/>
+    <id>https://hyyc554.github.io/2020/05/04/k8sbug/</id>
+    <published>2020-05-04T01:19:39.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;踩坑一：Kubernetes-is-starting&quot;&gt;&lt;a href=&quot;#踩坑一：Kubernetes-is-starting&quot; class=&quot;headerlink&quot; title=&quot;踩坑一：Kubernetes is starting&quot;&gt;&lt;/a&gt;踩坑一：Kubernetes is starting&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://hyyc554.github.io/tags/k8s/"/>
+    
+      <category term="docker" scheme="https://hyyc554.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>win10下的Kubernetes实践笔记（—）</title>
+    <link href="https://hyyc554.github.io/2020/05/04/k8s1/"/>
+    <id>https://hyyc554.github.io/2020/05/04/k8s1/</id>
+    <published>2020-05-04T01:18:07.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;转载自&lt;a href=&quot;https://www.dongwm.com/post/use-kubernetes-1/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;strong&gt;小明明S À DOMICILE&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;针对原文中mac环境下的执行流程，于win10环境下测试通过，并进行相应的修改&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Kubernetes (音 kubə’netis) 这个名字来自希腊语，意思是「舵手」或「领航员」，它是一个起源于 Google 的开源项目，允许自动化部署、管理和扩容容器化应用，它现在已成为容器编排的事实标准。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+      <category term="k8s" scheme="https://hyyc554.github.io/tags/k8s/"/>
+    
+      <category term="docker" scheme="https://hyyc554.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang相比于Memcached和Redis的优越的缓存解决方案</title>
+    <link href="https://hyyc554.github.io/2020/05/02/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/"/>
+    <id>https://hyyc554.github.io/2020/05/02/惊群效应/</id>
+    <published>2020-05-01T21:52:46.000Z</published>
+    <updated>2021-04-14T15:19:54.324Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;分布式缓存系统（例如redis和memcached客户端）通常以以下方式工作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;应用程序&lt;/strong&gt;通过密钥向&lt;strong&gt;客户端&lt;/strong&gt;请求缓存的数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客户端&lt;/strong&gt;对密钥执行一致的哈希，以确定哪个&lt;strong&gt;节点&lt;/strong&gt;拥有数据&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客户端&lt;/strong&gt;向&lt;strong&gt;节点&lt;/strong&gt;发出网络请求&lt;strong&gt;。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;如果找到，&lt;strong&gt;节点&lt;/strong&gt;将返回数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用程序&lt;/strong&gt;检查是否返回了数据，否则从数据库渲染或获取数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用程序&lt;/strong&gt;告诉&lt;strong&gt;客户端&lt;/strong&gt;存储该密钥的数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客户端&lt;/strong&gt;对密钥执行一致的哈希，以确定哪个&lt;strong&gt;节点&lt;/strong&gt;应拥有数据。&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;客户端&lt;/strong&gt;将数据存储在&lt;strong&gt;节点上。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://hyyc554.github.io/tags/golang/"/>
+    
+      <category term="缓存" scheme="https://hyyc554.github.io/tags/%E7%BC%93%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>每日一题:leetcode106. 从中序与后序遍历序列构造二叉树</title>
+    <link href="https://hyyc554.github.io/2020/05/02/106/"/>
+    <id>https://hyyc554.github.io/2020/05/02/106/</id>
+    <published>2020-05-01T21:13:46.000Z</published>
+    <updated>2021-04-14T15:19:54.320Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;根据一棵树的中序遍历与后序遍历构造二叉树。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+      <category term="leetcode" scheme="https://hyyc554.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>每日一题:leetcode:100. 相同的树</title>
+    <link href="https://hyyc554.github.io/2020/04/20/100leetcode/"/>
+    <id>https://hyyc554.github.io/2020/04/20/100leetcode/</id>
+    <published>2020-04-19T17:02:46.000Z</published>
+    <updated>2021-04-14T15:19:54.320Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/same-tree/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;每日一题:leetcode:100. 相同的树&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;给定两个二叉树，编写一个函数来检验它们是否相同。&lt;/p&gt;
+&lt;p&gt;如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://hyyc554.github.io/tags/Python/"/>
+    
+      <category term="leetcode" scheme="https://hyyc554.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+</feed>

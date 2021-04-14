@@ -1,0 +1,586 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="自律成就自我">
+  <meta name="author" content="Yongchi | 粤ICP备19044639号">
+  <meta name="keywords" content>
+  <title>源码剖析Django REST framework的认证方式 - MadLife</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"hyyc554.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MadLife</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/seek.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="源码剖析Django REST framework的认证方式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-05-05 18:42" pubdate>
+        2019年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">源码剖析Django REST framework的认证方式</h1>
+            
+            <div class="markdown-body">
+              <p>由Django的CBV模式流程，可以知道在<code>url匹配完成后，会执行自定义的类中的as_view方法</code>。</p>
+<p>如果自定义的类中没有定义<code>as_view方法</code>，根据面向对象中类的继承可以知道，则<code>会执行其父类View中的as_view方法</code></p>
+<p><code>在Django的View的as_view方法中，又会调用dispatch方法</code>。</p>
+<p>现在来看看Django rest framework的认证流程</p>
+<a id="more"></a>
+<blockquote>
+<p>Django restframework是基于Django的框架，所以基于CBV的模式也会执行自定义的类中的as_view方法</p>
+</blockquote>
+<p>先新建一个项目，配置url</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url<br><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><br><span class="hljs-keyword">from</span> app01 <span class="hljs-keyword">import</span> views<br><br>urlpatterns = [<br>    url(<span class="hljs-string">r'^user/'</span>, views.UserView.as_view()),<br>]<br></code></pre></div></td></tr></table></figure>
+<p>views.py文件内容</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render,HttpResponse<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> APIView<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserView</span><span class="hljs-params">(APIView)</span>:</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br>        print(request.__dict__)<br>        print(request.user)<br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"UserView GET"</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"UserView POST"</span>)<br></code></pre></div></td></tr></table></figure>
+<p>启动项目，用浏览器向<code>http://127.0.0.1:8000/user/</code>发送get请求</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825183747075-1935268768.png" alt="img"></p>
+<p>可以知道请求发送成功。现在来看看源码流程，由于UserView继承APIView，查看APIView中的as_view方法</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">APIView</span><span class="hljs-params">(View)</span>:</span><br>    ...<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">as_view</span><span class="hljs-params">(cls, **initkwargs)</span>:</span><br>        <span class="hljs-keyword">if</span> isinstance(getattr(cls, <span class="hljs-string">'queryset'</span>, <span class="hljs-literal">None</span>), models.query.QuerySet):<br>            <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">force_evaluation</span><span class="hljs-params">()</span>:</span><br>                <span class="hljs-keyword">raise</span> RuntimeError(<br>                    <span class="hljs-string">'Do not evaluate the `.queryset` attribute directly, '</span><br>                    <span class="hljs-string">'as the result will be cached and reused between requests. '</span><br>                    <span class="hljs-string">'Use `.all()` or call `.get_queryset()` instead.'</span><br>                )<br>            cls.queryset._fetch_all = force_evaluation<br><br>        view = super(APIView, cls).as_view(**initkwargs)<br>        view.cls = cls<br>        view.initkwargs = initkwargs<br>        <span class="hljs-keyword">return</span> csrf_exempt(view)<br></code></pre></div></td></tr></table></figure>
+<p><code>通过super来执行APIView的父类Django的View中的as_view方法</code>。上一篇文章<a href="https://www.cnblogs.com/renpingsheng/p/9531649.html" target="_blank" rel="noopener">源码解析Django CBV的本质</a>中已经知道，View类的as_view方法会调用dispatch方法。</p>
+<p>View类的as_view方法源码如下所示</p>
+<figure class="highlight ruby"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span>(<span class="hljs-title">object</span>):</span><br>    ...<br>    @classonlymethod<br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">as_view</span><span class="hljs-params">(cls, **initkwargs)</span></span>:<br>        ...<br>        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span><span class="hljs-params">(request, *args, **kwargs)</span></span>:<br>            <span class="hljs-keyword">self</span> = cls(**initkwargs)<br>            <span class="hljs-keyword">if</span> hasattr(<span class="hljs-keyword">self</span>, <span class="hljs-string">'get'</span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> hasattr(<span class="hljs-keyword">self</span>, <span class="hljs-string">'head'</span>):<br>                <span class="hljs-keyword">self</span>.head = <span class="hljs-keyword">self</span>.get<br>            <span class="hljs-keyword">self</span>.request = request<br>            <span class="hljs-keyword">self</span>.args = args<br>            <span class="hljs-keyword">self</span>.kwargs = kwargs<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.dispatch(request, *args, **kwargs)<br>        ...<br></code></pre></div></td></tr></table></figure>
+<p><code>as_view方法中的self实际上指的是自定义的UserView这个类</code>，上面的代码会执行UserView类中dispatch方法。</p>
+<p>由于UserView类中并没有定义dispatch方法，而UserView类继承自Django restframework的APIView类，所以会执行APIView类中的dispatch方法</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">def dispatch(<span class="hljs-keyword">self</span>, request, *args, **kwargs):<br>    <span class="hljs-keyword">self</span>.args = args<br>    <span class="hljs-keyword">self</span>.kwargs = kwargs<br>    request = <span class="hljs-keyword">self</span>.initialize_request(request, *args, **kwargs)<br>    <span class="hljs-keyword">self</span>.request = request<br>    <span class="hljs-keyword">self</span>.headers = <span class="hljs-keyword">self</span>.default_response_headers  # deprecate?<br><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">self</span>.initial(request, *args, **kwargs)<br>        <span class="hljs-keyword">if</span> request<span class="hljs-function">.<span class="hljs-keyword">method</span>.<span class="hljs-title">lower</span><span class="hljs-params">()</span> <span class="hljs-title">in</span> <span class="hljs-title">self</span>.<span class="hljs-title">http_method_names</span>:</span><br>            handler = getattr(<span class="hljs-keyword">self</span>, request<span class="hljs-function">.<span class="hljs-keyword">method</span>.<span class="hljs-title">lower</span><span class="hljs-params">()</span>,<br>                              <span class="hljs-title">self</span>.<span class="hljs-title">http_method_not_allowed</span>)<br>        <span class="hljs-title">else</span>:</span><br>            handler = <span class="hljs-keyword">self</span>.http_method_not_allowed<br><br>        response = handler(request, *args, **kwargs)<br><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> exc:<br>        response = <span class="hljs-keyword">self</span>.handle_exception(exc)<br><br>    <span class="hljs-keyword">self</span>.response = <span class="hljs-keyword">self</span>.finalize_response(request, response, *args, **kwargs)<br>    return <span class="hljs-keyword">self</span>.response<br></code></pre></div></td></tr></table></figure>
+<p>可以看到，<code>先执行initialize_request方法处理浏览器发送的request请求</code>。</p>
+<p>来看看initialize_request方法的源码</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_request</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span><br>    <span class="hljs-string">"""<br>    Returns the initial request object.<br>    """</span><br>    parser_context = self.get_parser_context(request)<br><br>    <span class="hljs-keyword">return</span> Request(<br>        request,<br>        parsers=self.get_parsers(),<br>        authenticators=self.get_authenticators(),<br>        negotiator=self.get_content_negotiator(),<br>        parser_context=parser_context<br>    )<br></code></pre></div></td></tr></table></figure>
+<p>在initialize_request方法里，把浏览器发送的request和restframework的处理器，认证，选择器等对象列表作为参数实例化Request类中得到新的request对象并返回，其中跟认证相关的对象就是authenticators。</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_authenticators</span><span class="hljs-params">(self)</span>:</span><br>    <span class="hljs-string">"""<br>    Instantiates and returns the list of authenticators that this view can use.<br>    """</span><br>    <span class="hljs-keyword">return</span> [auth() <span class="hljs-keyword">for</span> auth <span class="hljs-keyword">in</span> self.authentication_classes]<br>get_authenticators方法通过列表生成式得到一个列表，列表中包含认证类实例化后的对象<br></code></pre></div></td></tr></table></figure>
+<p>在这里，<code>authentication_classes来自于api_settings的配置</code></p>
+<figure class="highlight ini"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-attr">authentication_classes</span> = api_settings.DEFAULT_AUTHENTICATION_CLASSES<br></code></pre></div></td></tr></table></figure>
+<p>通过查看api_settings的源码可以知道，可以在项目的settings.py文件中进行认证相关的配置</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">api_settings = APISettings(<span class="hljs-literal">None</span>, DEFAULTS, IMPORT_STRINGS)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reload_api_settings</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>    setting = kwargs[<span class="hljs-string">'setting'</span>]<br>    <span class="hljs-keyword">if</span> setting == <span class="hljs-string">'REST_FRAMEWORK'</span>:<br>        api_settings.reload()<br></code></pre></div></td></tr></table></figure>
+<p>Django restframework通过initialize_request方法对原始的request进行一些封装后实例化得到新的request对象</p>
+<p>然后执行initial方法来处理新得到的request对象，再来看看initial方法中又执行了哪些操作</p>
+<figure class="highlight ruby"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initial</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request, *args, **kwargs)</span></span>:<br>    <span class="hljs-keyword">self</span>.format_kwarg = <span class="hljs-keyword">self</span>.get_format_suffix(**kwargs)<br>    neg = <span class="hljs-keyword">self</span>.perform_content_negotiation(request)<br>    request.accepted_renderer, request.accepted_media_type = neg<br><br>    version, scheme = <span class="hljs-keyword">self</span>.determine_version(request, *args, **kwargs)<br>    request.version, request.versioning_scheme = version, scheme<br><br>    <span class="hljs-keyword">self</span>.perform_authentication(request)<br>    <span class="hljs-keyword">self</span>.check_permissions(request)<br>    <span class="hljs-keyword">self</span>.check_throttles(request)<br></code></pre></div></td></tr></table></figure>
+<p>由上面的源码可以知道，在initial方法中，<code>执行perform_authentication来对request对象进行认证操作</code></p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">perform_authentication</span><span class="hljs-params">(self, request)</span>:</span><br>    request.user<br>perform_authentication方法中调用执行request中的user方法`，`这里的request是封装了原始request,认证对象列表，处理器列表等之后的request对象<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Request</span><span class="hljs-params">(object)</span>:</span><br>    ...<br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">user</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-string">"""<br>        Returns the user associated with the current request, as authenticated<br>        by the authentication classes provided to the request.<br>        """</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> hasattr(self, <span class="hljs-string">'_user'</span>):<br>            <span class="hljs-keyword">with</span> wrap_attributeerrors():<br>                self._authenticate()<br>        <span class="hljs-keyword">return</span> self._user<br></code></pre></div></td></tr></table></figure>
+<p>从request中获取<code>_user</code>的值，如果获取到则执行<code>_authenticate方法</code>，否则返回<code>_user</code></p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_authenticate</span><span class="hljs-params">(self)</span>:</span><br>    <span class="hljs-string">"""<br>    Attempt to authenticate the request using each authentication instance<br>    in turn.<br>    """</span><br>    <span class="hljs-keyword">for</span> authenticator <span class="hljs-keyword">in</span> self.authenticators:<br>        <span class="hljs-keyword">try</span>:<br>            user_auth_tuple = authenticator.authenticate(self)<br>        <span class="hljs-keyword">except</span> exceptions.APIException:<br>            self._not_authenticated()<br>            <span class="hljs-keyword">raise</span><br><br>        <span class="hljs-keyword">if</span> user_auth_tuple <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            self._authenticator = authenticator<br>            self.user, self.auth = user_auth_tuple<br>            <span class="hljs-keyword">return</span><br></code></pre></div></td></tr></table></figure>
+<p>在这里<code>self.authenticators</code>实际上是<code>get_authenticators</code>方法执行完成后返回的对象列表</p>
+<figure class="highlight haskell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">Request</span>(<span class="hljs-title">object</span>):<br><br>    def __init__(<span class="hljs-title">self</span>, <span class="hljs-title">request</span>, <span class="hljs-title">parsers</span>=<span class="hljs-type">None</span>, <span class="hljs-title">authenticators</span>=<span class="hljs-type">None</span>,<br>                 <span class="hljs-title">negotiator</span>=<span class="hljs-type">None</span>, <span class="hljs-title">parser_context</span>=<span class="hljs-type">None</span>):<br>        assert isinstance(<span class="hljs-title">request</span>, <span class="hljs-type">HttpRequest</span>), (<br>            '<span class="hljs-type">The</span> `<span class="hljs-title">request</span>` <span class="hljs-title">argument</span> <span class="hljs-title">must</span> <span class="hljs-title">be</span> <span class="hljs-title">an</span> <span class="hljs-title">instance</span> <span class="hljs-title">of</span> '<br>            '`<span class="hljs-title">django</span>.<span class="hljs-title">http</span>.<span class="hljs-type">HttpRequest</span>`, <span class="hljs-title">not</span> `&#123;&#125;.&#123;&#125;`.'<br>            .<span class="hljs-title">format</span>(<span class="hljs-title">request</span>.<span class="hljs-title">__class__</span>.<span class="hljs-title">__module__</span>, <span class="hljs-title">request</span>.<span class="hljs-title">__class__</span>.<span class="hljs-title">__name__</span>)<br>        )<br><br>        self._request = request<br>        self.parsers = parsers or ()<br>        self.authenticators = authenticators or ()<br>        ...</span><br></code></pre></div></td></tr></table></figure>
+<p>循环认证的对象列表,<code>执行每一个认证方法的类中的authenticate方法</code>，得到通过认证的用户及用户的口令的元组，并返回元组完成认证的流程</p>
+<p>在<code>_authenticate</code>方法中使用了try/except方法来捕获authenticate方法可能出现的异常</p>
+<p>如果出现异常,就调用<code>_not_authenticated</code>方法来设置返回元组中的用户及口令并终止程序继续运行</p>
+<p>总结，Django restframework的认证流程如下图</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180825184058007-932847314.jpg" alt="img"></p>
+<h2 id="Django-restframework内置的认证类"><a href="#Django-restframework内置的认证类" class="headerlink" title="Django restframework内置的认证类"></a>Django restframework内置的认证类</h2><p>在上面的项目例子中，在UsersView的get方法中，打印<code>authentication_classes</code>和<code>request._user</code>的值</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserView</span><span class="hljs-params">(APIView)</span>:</span><br>    <span class="hljs-comment"># authentication_classes = [MyAuthentication,]</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br>        print(<span class="hljs-string">'authentication_classes:'</span>, self.authentication_classes)<br>        print(request._user)<br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"UserView GET"</span>)<br></code></pre></div></td></tr></table></figure>
+<p>打印结果为</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">authentication_classes: <span class="hljs-meta">[&lt;class 'rest_framework.authentication.SessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;]</span><br>AnonymousUser<br></code></pre></div></td></tr></table></figure>
+<p>由此可以知道,<code>authentication_classes</code>默认是Django restframework内置的认证类，而request._user为AnonymousUser,因为发送GET请求，用户没有进行登录认证，所以为匿名用户</p>
+<p>在视图函数中导入这两个类,再查看这两个类的源码,可以知道</p>
+<figure class="highlight ruby"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br><br>    www_authenticate_realm = <span class="hljs-string">'api'</span> <br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br><br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_credentials</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, userid, password)</span></span>:<br><br>        ...<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SessionAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br><br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enforce_csrf</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br><br>        ...<br>        <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TokenAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br>    ...<br></code></pre></div></td></tr></table></figure>
+<p>从上面的源码可以发现,这个文件中不仅定义了<code>SessionAuthentication</code>和<code>BasicAuthentication</code>这两个类,</p>
+<p>相关的类还有<code>TokenAuthentication</code>,而且这三个认证相关的类都是继承自<code>BaseAuthentication</code>类</p>
+<p>从上面的源码可以大概知道,这三个继承自<code>BaseAuthentication</code>的类是Django restframework内置的认证方式.</p>
+<h2 id="自定义认证功能"><a href="#自定义认证功能" class="headerlink" title="自定义认证功能"></a>自定义认证功能</h2><p>在上面我们知道,Request会调用认证相关的类及方法,<code>APIView</code>会设置认证相关的类及方法</p>
+<p>所以如果想自定义认证功能,只需要重写<code>authenticate</code>方法及<code>authentication_classes</code>的对象列表即可</p>
+<p>修改上面的例子的views.py文件</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render, HttpResponse<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> APIView<br><span class="hljs-keyword">from</span> rest_framework.authentication <span class="hljs-keyword">import</span> BaseAuthentication<br><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> exceptions<br><br>TOKEN_LIST = [  <span class="hljs-comment"># 定义token_list</span><br>    <span class="hljs-string">'aabbcc'</span>,<br>    <span class="hljs-string">'ddeeff'</span>,<br>]<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserAuthView</span><span class="hljs-params">(BaseAuthentication)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(self, request)</span>:</span><br>        tk = request._request.GET.get(<span class="hljs-string">"tk"</span>)  <span class="hljs-comment"># request._request为原生的request</span><br><br>        <span class="hljs-keyword">if</span> tk <span class="hljs-keyword">in</span> TOKEN_LIST:<br>            <span class="hljs-keyword">return</span> (tk, <span class="hljs-literal">None</span>)  <span class="hljs-comment"># 返回一个元组</span><br>        <span class="hljs-keyword">raise</span> exceptions.AuthenticationFailed(<span class="hljs-string">"用户认证失败"</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(self, request)</span>:</span><br>        <span class="hljs-comment"># 如果不定义authenticate_header方法会抛出异常</span><br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserView</span><span class="hljs-params">(APIView)</span>:</span><br>    authentication_classes = [UserAuthView, ]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span><br>        print(request.user)<br><br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"UserView GET"</span>)<br></code></pre></div></td></tr></table></figure>
+<p>启动项目,在浏览器中输入<code>http://127.0.0.1:8000/users/?tk=aabbcc</code>,然后回车,在服务端后台会打印</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-attribute">aabbcc</span><br></code></pre></div></td></tr></table></figure>
+<p>把浏览器中的url换为<code>http://127.0.0.1:8000/users/?tk=ddeeff</code>,后台打印信息则变为</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-attribute">ddeeff</span><br></code></pre></div></td></tr></table></figure>
+<p>这样就实现REST framework的自定义认证功能</p>
+<h2 id="Django-restframework认证的扩展"><a href="#Django-restframework认证的扩展" class="headerlink" title="Django restframework认证的扩展"></a>Django restframework认证的扩展</h2><h3 id="基于Token进行用户认证"><a href="#基于Token进行用户认证" class="headerlink" title="基于Token进行用户认证"></a>基于Token进行用户认证</h3><p>修改上面的项目，在urls.py文件中添加一条路由记录</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url<br><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> app01 <span class="hljs-keyword">import</span> views<br><br>urlpatterns = [<br>    url(<span class="hljs-string">r'^admin/'</span>, admin.site.urls),<br>    url(<span class="hljs-string">r'^users/'</span>,views.UsersView.as_view()),<br>    url(<span class="hljs-string">r'^auth/'</span>,views.AuthView.as_view()),<br>]<br></code></pre></div></td></tr></table></figure>
+<p>修改视图函数</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render,HttpResponse<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> APIView<br><span class="hljs-keyword">from</span> rest_framework.authentication <span class="hljs-keyword">import</span> BaseAuthentication<br><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> exceptions<br><span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> JsonResponse<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gen_token</span><span class="hljs-params">(username)</span>:</span><br>    <span class="hljs-string">"""<br>    利用时间和用户名生成用户token<br>    :param username: <br>    :return: <br>    """</span><br>    <span class="hljs-keyword">import</span> time<br>    <span class="hljs-keyword">import</span> hashlib<br>    ctime=str(time.time())<br>    hash=hashlib.md5(username.encode(<span class="hljs-string">"utf-8"</span>))<br>    hash.update(ctime.encode(<span class="hljs-string">"utf-8"</span>))<br>    <span class="hljs-keyword">return</span> hash.hexdigest()<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthView</span><span class="hljs-params">(APIView)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span><br>        <span class="hljs-string">"""<br>        获取用户提交的用户名和密码，如果用户名和密码正确，则生成token，并返回给用户<br>        :param request:<br>        :param args:<br>        :param kwargs:<br>        :return:<br>        """</span><br>        res = &#123;<span class="hljs-string">'code'</span>: <span class="hljs-number">1000</span>, <span class="hljs-string">'msg'</span>: <span class="hljs-literal">None</span>&#125;<br>        user = request.data.get(<span class="hljs-string">"user"</span>)<br>        pwd = request.data.get(<span class="hljs-string">"pwd"</span>)<br><br>        <span class="hljs-keyword">from</span> app01 <span class="hljs-keyword">import</span> models<br>        user_obj = models.UserInfo.objects.filter(user=user, pwd=pwd).first()<br><br>        <span class="hljs-keyword">if</span> user_obj:<br>            token = gen_token(user) <span class="hljs-comment"># 生成用户口令</span><br><br>            <span class="hljs-comment"># 如果数据库中存在口令则更新,如果数据库中不存在口令则创建用户口令</span><br>            models.Token.objects.update_or_create(user=user_obj, defaults=&#123;<span class="hljs-string">'token'</span>: token&#125;)<br>            print(<span class="hljs-string">"user_token:"</span>, token)<br>            res[<span class="hljs-string">'code'</span>] = <span class="hljs-number">1001</span><br>            res[<span class="hljs-string">'token'</span>] = token<br>        <span class="hljs-keyword">else</span>:<br>            res[<span class="hljs-string">'msg'</span>] = <span class="hljs-string">"用户名或密码错误"</span><br><br>        <span class="hljs-keyword">return</span> JsonResponse(res)<br>    <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserAuthView</span><span class="hljs-params">(BaseAuthentication)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(self,request)</span>:</span><br>        tk=request.query_params.GET.get(<span class="hljs-string">"tk"</span>)   <span class="hljs-comment"># 获取请求头中的用户token</span><br><br>        <span class="hljs-keyword">from</span> app01 <span class="hljs-keyword">import</span> models<br><br>        token_obj=models.Token.objects.filter(token=tk).first()<br><br>        <span class="hljs-keyword">if</span> token_obj:   <span class="hljs-comment"># 用户数据库中已经存在用户口令返回认证元组</span><br>            <span class="hljs-keyword">return</span> (token_obj.user,token_obj)<br><br>        <span class="hljs-keyword">raise</span> exceptions.AuthenticationFailed(<span class="hljs-string">"认证失败"</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersView</span><span class="hljs-params">(APIView)</span>:</span><br>    authentication_classes = [UserAuthView,]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br><br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"....."</span>)<br></code></pre></div></td></tr></table></figure>
+<p>创建用户数据库的类</p>
+<figure class="highlight haskell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-title">from</span> django.db <span class="hljs-keyword">import</span> models<br><span class="hljs-class"><br><span class="hljs-keyword">class</span> <span class="hljs-type">UserInfo</span>(<span class="hljs-title">models</span>.<span class="hljs-type">Model</span>):<br>    user=models.<span class="hljs-type">CharField</span>(<span class="hljs-title">max_length</span>=32)<br>    pwd=models.<span class="hljs-type">CharField</span>(<span class="hljs-title">max_length</span>=64)<br>    email=models.<span class="hljs-type">CharField</span>(<span class="hljs-title">max_length</span>=64)<br><br><span class="hljs-keyword">class</span> <span class="hljs-type">Token</span>(<span class="hljs-title">models</span>.<span class="hljs-type">Model</span>):<br>    user=models.<span class="hljs-type">OneToOneField</span>(<span class="hljs-type">UserInfo</span>)<br>    token=models.<span class="hljs-type">CharField</span>(<span class="hljs-title">max_length</span>=64)</span><br></code></pre></div></td></tr></table></figure>
+<p>创建数据库,并添加两条用户记录</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201711/1133627-20171126000140781-1551141195.png" alt="img"></p>
+<p>再创建一个test_client.py文件,来发送post请求</p>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">import requests<br><br><span class="hljs-attribute">response</span>=requests.post(<br>    <span class="hljs-attribute">url</span>=<span class="hljs-string">"http://127.0.0.1:8000/auth/"</span>,<br>    data=&#123;<span class="hljs-string">'user'</span>:<span class="hljs-string">'user1'</span>,<span class="hljs-string">'pwd'</span>:<span class="hljs-string">'user123'</span>&#125;,<br>)<br><br><span class="hljs-builtin-name">print</span>(<span class="hljs-string">"response_text:"</span>,response.text)<br></code></pre></div></td></tr></table></figure>
+<p>启动Django项目,运行test_client.py文件,则项目的响应信息为</p>
+<figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-string">response_text:</span> &#123;<span class="hljs-string">"code"</span>: <span class="hljs-number">1001</span>, <span class="hljs-string">"msg"</span>: <span class="hljs-literal">null</span>, <span class="hljs-string">"token"</span>: <span class="hljs-string">"eccd2d256f44cb25b58ba602fe7eb42d"</span>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>由此,就完成了自定义的基于token的用户认证</p>
+<p>如果想在项目中使用自定义的认证方式时,可以在<code>authentication_classes</code>继承刚才的认证的类即可</p>
+<figure class="highlight ini"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-attr">authentication_classes</span> = [UserAuthView,]<br></code></pre></div></td></tr></table></figure>
+<h2 id="全局自定义认证"><a href="#全局自定义认证" class="headerlink" title="全局自定义认证"></a>全局自定义认证</h2><p>在正常的项目中，一个用户登录成功之后，进入自己的主页，可以看到很多内容，比如用户的订单，用户的收藏，用户的主页等</p>
+<p>此时，难倒要在每个视图类中都定义authentication_classes，然后在authentication_classes中追加自定义的认证类吗？</p>
+<p>通过对Django restframework认证的源码分析知道，可以直接在项目的settings.py配置文件中引入自定义的认证类，即可以对所有的url进行用户认证流程</p>
+<p>在应用app01目录下创建utils包，在utils包下创建auth.py文件，内容为自定义的认证类</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> exceptions<br><span class="hljs-keyword">from</span> api <span class="hljs-keyword">import</span> models<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Authtication</span><span class="hljs-params">(object)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(self,request)</span>:</span><br>        token = request._request.GET.get(<span class="hljs-string">"token"</span>)       <span class="hljs-comment"># 获取浏览器传递的token</span><br>        token_obj = models.UserToken.objects.filter(token=token).first()    <span class="hljs-comment"># 到数据库中进行token查询，判断用户是否通过认证</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> token_obj:<br>            <span class="hljs-keyword">raise</span> exceptions.AuthenticationFailed(<span class="hljs-string">"用户认证失败"</span>)<br><br>        <span class="hljs-comment"># restframework会将元组赋值给request,以供后面使用</span><br>        <span class="hljs-keyword">return</span> (token_obj.user,token_obj)<br>    <br>    <span class="hljs-comment"># 必须创建authenticate_header方法，否则会抛出异常</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></div></td></tr></table></figure>
+<p>在settings.py文件中添加内容</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">REST_FRAMEWORK = &#123;<br>    '<span class="hljs-attribute">DEFAULT_AUTHENTICATION_CLASSES'</span>:['app01<span class="hljs-variable">.utils</span><span class="hljs-variable">.auth</span><span class="hljs-variable">.Authtication</span>',]<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>修改views.py文件</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render, HttpResponse<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> APIView<br><span class="hljs-keyword">from</span> rest_framework.authentication <span class="hljs-keyword">import</span> BaseAuthentication<br><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> exceptions<br><span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> JsonResponse<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gen_token</span><span class="hljs-params">(username)</span>:</span><br>    <span class="hljs-string">"""<br>    利用时间和用户名生成用户token<br>    :param username:<br>    :return:<br>    """</span><br>    <span class="hljs-keyword">import</span> time<br>    <span class="hljs-keyword">import</span> hashlib<br>    ctime = str(time.time())<br>    hash = hashlib.md5(username.encode(<span class="hljs-string">"utf-8"</span>))<br>    hash.update(ctime.encode(<span class="hljs-string">"utf-8"</span>))<br>    <span class="hljs-keyword">return</span> hash.hexdigest()<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthView</span><span class="hljs-params">(APIView)</span>:</span><br>    authentication_classes = []     <span class="hljs-comment"># 在这里定义authentication_classes后，用户访问auth页面不需要进行认证</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span><br>        <span class="hljs-string">"""<br>        获取用户提交的用户名和密码，如果用户名和密码正确，则生成token，并返回给用户<br>        :param request:<br>        :param args:<br>        :param kwargs:<br>        :return:<br>        """</span><br>        res = &#123;<span class="hljs-string">'code'</span>: <span class="hljs-number">1000</span>, <span class="hljs-string">'msg'</span>: <span class="hljs-literal">None</span>&#125;<br>        user = request.data.get(<span class="hljs-string">"user"</span>)<br>        pwd = request.data.get(<span class="hljs-string">"pwd"</span>)<br><br>        <span class="hljs-keyword">from</span> app01 <span class="hljs-keyword">import</span> models<br>        user_obj = models.UserInfo.objects.filter(user=user, pwd=pwd).first()<br><br>        <span class="hljs-keyword">if</span> user_obj:<br>            token = gen_token(user)  <span class="hljs-comment"># 生成用户口令</span><br><br>            <span class="hljs-comment"># 如果数据库中存在口令则更新,如果数据库中不存在口令则创建用户口令</span><br>            models.Token.objects.update_or_create(user=user_obj, defaults=&#123;<span class="hljs-string">'token'</span>: token&#125;)<br>            print(<span class="hljs-string">"user_token:"</span>, token)<br>            res[<span class="hljs-string">'code'</span>] = <span class="hljs-number">1001</span><br>            res[<span class="hljs-string">'token'</span>] = token<br>        <span class="hljs-keyword">else</span>:<br>            res[<span class="hljs-string">'msg'</span>] = <span class="hljs-string">"用户名或密码错误"</span><br><br>        <span class="hljs-keyword">return</span> JsonResponse(res)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserView</span><span class="hljs-params">(APIView)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self, request, *args, **kwargs)</span>:</span><br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"UserView GET"</span>)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderView</span><span class="hljs-params">(APIView)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"OrderView GET"</span>)<br></code></pre></div></td></tr></table></figure>
+<p>启动项目，使用POSTMAN向<code>http://127.0.0.1:8000/order/?token=eccd2d256f44cb25b58ba602fe7eb42d</code>和<code>http://127.0.0.1:8000/user/?token=eccd2d256f44cb25b58ba602fe7eb42d</code>发送GET请求，响应结果如下</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225750139-1198840701.png" alt="img"></p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225755562-137171019.png" alt="img"></p>
+<p>在url中不带token,使用POSTMAN向<code>http://127.0.0.1:8000/order/</code>和<code>http://127.0.0.1:8000/user/</code>发送GET请求，则会出现<code>&quot;认证失败&quot;</code>的提示</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225715170-517425689.png" alt="img"></p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225720650-323643037.png" alt="img"></p>
+<p>由此可以知道，在settings.py配置文件中配置自定义的认证类也可以实现用户认证功能</p>
+<h2 id="配置匿名用户"><a href="#配置匿名用户" class="headerlink" title="配置匿名用户"></a>配置匿名用户</h2><p>修改settings.py文件</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">REST_FRAMEWORK = &#123;<br>    <span class="hljs-string">'DEFAULT_AUTHENTICATION_CLASSES'</span>: [<span class="hljs-string">'app01.utils.auth.Authtication'</span>, ],<br>    <span class="hljs-string">'UNAUTHENTICATED_USER'</span>: <span class="hljs-keyword">lambda</span> :<span class="hljs-string">"匿名用户"</span>,     <span class="hljs-comment"># 用户未登录时显示的名称</span><br>    <span class="hljs-string">'UNAUTHENTICATED_TOKEN'</span>: <span class="hljs-keyword">lambda</span> :<span class="hljs-string">"无效token"</span>, <span class="hljs-comment"># 用户未登录时打印的token名</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>修改views.py文件中的OrderView类</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderView</span><span class="hljs-params">(APIView)</span>:</span><br>    authentication_classes = []         <span class="hljs-comment"># authentication_classes为空列表表示视图类不进行认证</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request,*args,**kwargs)</span>:</span><br>        print(request.user)<br>        print(request.auth)<br>        <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"OrderView GET"</span>)<br></code></pre></div></td></tr></table></figure>
+<p>使用浏览器向<code>http://127.0.0.1:8000/order/</code>发送GET请求，后台打印</p>
+<p><img src="https://images2018.cnblogs.com/blog/1133627/201808/1133627-20180826225705126-1550086890.png" alt="img"></p>
+<p>这说明在settings.py文件中配置的匿名用户和匿名用户的token起到作用</p>
+<blockquote>
+<p>建议把匿名用户及匿名用户的token都设置为:None</p>
+</blockquote>
+<h2 id="Django-restframework内置的认证类-1"><a href="#Django-restframework内置的认证类-1" class="headerlink" title="Django restframework内置的认证类"></a>Django restframework内置的认证类</h2><p>从rest_framework中导入authentication</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> authentication<br></code></pre></div></td></tr></table></figure>
+<p>可以看到Django restframework内置的认证类</p>
+<figure class="highlight ruby"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseAuthentication</span>(<span class="hljs-title">object</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        pass<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_credentials</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, userid, password, request=None)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SessionAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enforce_csrf</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TokenAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_credentials</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, key)</span></span>:<br>        ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate_header</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoteUserAuthentication</span>(<span class="hljs-title">BaseAuthentication</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, request)</span></span>:<br>        ...<br></code></pre></div></td></tr></table></figure>
+<p>可以看到，Django restframework内置的认证包含下面的四种：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">BasicAuthentication<br></span><span class="hljs-symbol">SessionAuthentication</span><br><span class="hljs-symbol">TokenAuthentication</span><br><span class="hljs-symbol">RemoteUserAuthentication</span><br></code></pre></div></td></tr></table></figure>
+<p>而这四种认证类都继承自<code>BaseAuthentication</code>，<code>在BaseAuthentication中定义了两个方法：authenticate和authenticate_header</code></p>
+<p>总结：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">为了让认证更规范，自定义的认证类要继承 <span class="hljs-keyword">BaseAuthentication类<br></span>自定义认证类必须要实现authenticate和authenticate_header方法<br><span class="hljs-symbol">authenticate_header</span>方法的作用：在认证失败的时候，给浏览器返回的响应头，可以直接pass，不实现authenticate_header程序会抛出异常<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Django/">Django</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/05/05/字与字节/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一题——位和字节的关系</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/04/21/21问题描述/">
+                        <span class="hidden-mobile">21. 合并两个有序链表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng==">
+    <script type="text/javascript">
+      Fluid.utils.waitElementVisible('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备2020133205号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

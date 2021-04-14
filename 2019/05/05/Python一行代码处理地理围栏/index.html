@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="自律成就自我">
+  <meta name="author" content="Yongchi | 粤ICP备19044639号">
+  <meta name="keywords" content>
+  <title>Python一行代码处理地理围栏 - MadLife</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"hyyc554.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MadLife</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/seek.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Python一行代码处理地理围栏">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-05-05 18:42" pubdate>
+        2019年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      437 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python一行代码处理地理围栏</h1>
+            
+            <div class="markdown-body">
+              <p>最近在工作中遇到了这个一个需求，用户设定地理围栏，后台获取到实时位置信息后通过与围栏比较，判断是否越界等。</p>
+<p>这个过程需要用到数据协议为GEOjson，通过查阅资料后，发现python的shapely库可以非常简单的解决这个问题,接下来演示一下我处理这个问题的过程。</p>
+<a id="more"></a>
+<h2 id="测试数据："><a href="#测试数据：" class="headerlink" title="测试数据："></a>测试数据：</h2><p>通过<a href="http://geojson.io/来获得测试数据，如下图，在地图上绘制了一个多边形设为地理围栏，分别取了围栏内外两个点来进行测试。" target="_blank" rel="noopener">http://geojson.io/来获得测试数据，如下图，在地图上绘制了一个多边形设为地理围栏，分别取了围栏内外两个点来进行测试。</a></p>
+<p><img src="https://s1.ax1x.com/2018/12/14/FUwEh4.png" alt="FUwEh4.png"></p>
+<p>得到GEOjson数据如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"FeatureCollection"</span>,<br>  <span class="hljs-attr">"features"</span>: [<br>    &#123;<br>      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Feature"</span>,<br>      <span class="hljs-attr">"properties"</span>: &#123;&#125;,<br>      <span class="hljs-attr">"geometry"</span>: &#123;<br>        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Polygon"</span>,<br>        <span class="hljs-attr">"coordinates"</span>: [<br>          [<br>            [<br>              <span class="hljs-number">114.3458104133606</span>,<br>              <span class="hljs-number">30.476167529462785</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34512376785278</span>,<br>              <span class="hljs-number">30.475575748963195</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34576749801636</span>,<br>              <span class="hljs-number">30.474540124433936</span><br>            ],<br>            [<br>              <span class="hljs-number">114.3467652797699</span>,<br>              <span class="hljs-number">30.475363076967565</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34693694114685</span>,<br>              <span class="hljs-number">30.476102803645833</span><br>            ],<br>            [<br>              <span class="hljs-number">114.3458104133606</span>,<br>              <span class="hljs-number">30.476167529462785</span><br>            ]<br>          ]<br>        ]<br>      &#125;<br>    &#125;,<br>    &#123;<br>      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Feature"</span>,<br>      <span class="hljs-attr">"properties"</span>: &#123;&#125;,<br>      <span class="hljs-attr">"geometry"</span>: &#123;<br>        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Point"</span>,<br>        <span class="hljs-attr">"coordinates"</span>: [<br>          <span class="hljs-number">114.34605717658997</span>,<br>          <span class="hljs-number">30.475584995561178</span><br>        ]<br>      &#125;<br>    &#125;,<br>    &#123;<br>      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Feature"</span>,<br>      <span class="hljs-attr">"properties"</span>: &#123;&#125;,<br>      <span class="hljs-attr">"geometry"</span>: &#123;<br>        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Point"</span>,<br>        <span class="hljs-attr">"coordinates"</span>: [<br>          <span class="hljs-number">114.346604347229</span>,<br>          <span class="hljs-number">30.476518897432545</span><br>        ]<br>      &#125;<br>    &#125;<br>  ]<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="安装shapely"><a href="#安装shapely" class="headerlink" title="安装shapely"></a>安装shapely</h2><p>本测试基于python——python3.6</p>
+<figure class="highlight cmake"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">$ pip <span class="hljs-keyword">install</span> shapely<br></code></pre></div></td></tr></table></figure>
+<p>windows安装shapely会报错</p>
+<h2 id="shapely解析地理围栏"><a href="#shapely解析地理围栏" class="headerlink" title="shapely解析地理围栏"></a>shapely解析地理围栏</h2><p>话不多说直接上代码</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">from</span> shapely.geometry <span class="hljs-keyword">import</span> Point<br><span class="hljs-keyword">from</span> shapely.geometry.polygon <span class="hljs-keyword">import</span> Polygon<br><br>point = Point(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)<br>polygon = Polygon([(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>)])<br>print(polygon.contains(point))<br></code></pre></div></td></tr></table></figure>
+<p>下面是实际的实例：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">from shapely.geometry import Point<br>from shapely.geometry.polygon import Polygon<br><br>polygon_data= [<br>            [<br>              <span class="hljs-number">114.3458104133606</span>,<br>              <span class="hljs-number">30.476167529462785</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34512376785278</span>,<br>              <span class="hljs-number">30.475575748963195</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34576749801636</span>,<br>              <span class="hljs-number">30.474540124433936</span><br>            ],<br>            [<br>              <span class="hljs-number">114.3467652797699</span>,<br>              <span class="hljs-number">30.475363076967565</span><br>            ],<br>            [<br>              <span class="hljs-number">114.34693694114685</span>,<br>              <span class="hljs-number">30.476102803645833</span><br>            ],<br>            [<br>              <span class="hljs-number">114.3458104133606</span>,<br>              <span class="hljs-number">30.476167529462785</span><br>            ]<br>          ]<br>          <br>point1 = Point([<span class="hljs-number">114.34605717658997</span>,<span class="hljs-number">30.475584995561178</span>])<br>point2 = Point([<span class="hljs-number">114.346604347229</span>,<span class="hljs-number">30.476518897432545</span>])<br>polygon = Polygon(polygon_data)<br>print(polygon.contains(point1))<br>print(polygon.contains(point2))<br></code></pre></div></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-literal">True</span><br><span class="hljs-literal">False</span><br></code></pre></div></td></tr></table></figure>
+<p>这样一来我们就快速的实现了，目标点是否在地理围栏内的判断。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Python还是挺好用的：）</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><blockquote>
+<p><a href="https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python" target="_blank" rel="noopener">https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/05/05/Python——回顾常用的库/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python——回顾常用的库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/05/README/">
+                        <span class="hidden-mobile">Docker构建Django部署环境（四）项目实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng==">
+    <script type="text/javascript">
+      Fluid.utils.waitElementVisible('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备2020133205号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

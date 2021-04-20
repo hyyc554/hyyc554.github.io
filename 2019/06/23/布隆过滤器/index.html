@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="自律成就自我">
+  <meta name="author" content="Yongchi | 粤ICP备19044639号">
+  <meta name="keywords" content>
+  <title>布隆过滤器在海量数据去重验证中应用 - MadLife</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"hyyc554.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MadLife</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/seek.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="布隆过滤器在海量数据去重验证中应用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-06-23 19:25" pubdate>
+        2019年6月23日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">布隆过滤器在海量数据去重验证中应用</h1>
+            
+            <div class="markdown-body">
+              <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>今天一个技术群里的小伙伴提了这样一个问题：</p>
+<blockquote>
+<p>你爬虫的时候假如有海量的url，怎么保证不重复？</p>
+</blockquote>
+<p>他说是之前在面试中遇到了这样的问题，大家第一时间想到的都差不多，用集合这种数据结构不久可以轻松的解决这个问题吗？<br><a id="more"></a></p>
+<p>然而事情似乎没有这么简单，因为及时是存在Redis中，在<code>海量数据</code>的前提下，直接使用set作为数据存储来判断是否出现过，成本似乎比较高（内存条还是比较贵的。。。）</p>
+<h3 id="面试结束级方案——从数据库中取"><a href="#面试结束级方案——从数据库中取" class="headerlink" title="面试结束级方案——从数据库中取"></a>面试结束级方案——从数据库中取</h3><p>爬虫每采集过一个 URL，就把这个 URL 存入数据库中，每次一个新的 URL 过来就到数据库查询下是否访问过。</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">select</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">url</span> = <span class="hljs-string">'https://jaychen.cc'</span><br></code></pre></div></td></tr></table></figure>
+<p>但是随着爬虫爬过的 URL 越来越多，每次请求前都要访问数据库一次，并且对于这种字符串的 SQL 查询效率并不高。</p>
+<h3 id="新手级方案——利用redis的set数据结构"><a href="#新手级方案——利用redis的set数据结构" class="headerlink" title="新手级方案——利用redis的set数据结构"></a>新手级方案——利用redis的set数据结构</h3><p>Redis 的 set 结构也可以满足这个需求，并且性能优于数据库，时间复杂度是O(1)。似乎一切都很美好，甚至还表现出了你对redis还是有一些了解的。但是 Redis 也存在一个问题：耗费过多的内存。</p>
+<p>当这些问题中的<code>海量</code>，其实已经提示了，你必须想好如何应对这样的大数据。如果面试官提出了这样的问题，他显然不希望你只考虑到了，时间复杂度。</p>
+<h3 id="专业级方案——利用布隆过滤器"><a href="#专业级方案——利用布隆过滤器" class="headerlink" title="专业级方案——利用布隆过滤器"></a>专业级方案——利用布隆过滤器</h3><p><img src="https://s2.ax1x.com/2019/05/12/Ehgo59.jpg" alt="Ehgo59.jpg"></p>
+<p>OK，不闹了，不是上面这个布隆。</p>
+<p>我们先看维基百科给出的解释</p>
+<blockquote>
+<p><strong>布隆过滤器</strong>（英语：Bloom Filter）是1970年由布隆提出的。它实际上是一个很长的<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%BF%9B%E5%88%B6" target="_blank" rel="noopener">二进制</a>向量和一系列随机<a href="https://zh.wikipedia.org/wiki/%E6%98%A0%E5%B0%84" target="_blank" rel="noopener">映射函数</a>。布隆过滤器可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>如果想判断一个元素是不是在一个集合里，一般想到的是将集合中所有元素保存起来，然后通过比较确定。<a href="https://zh.wikipedia.org/wiki/%E9%93%BE%E8%A1%A8" target="_blank" rel="noopener">链表</a>、<a href="https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">树</a>)、<a href="https://zh.wikipedia.org/wiki/%E6%95%A3%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">散列表</a>（又叫哈希表，Hash table）等等数据结构都是这种思路。但是随着集合中元素的增加，我们需要的存储空间越来越大。同时检索速度也越来越慢，上述三种结构的检索时间复杂度分别为 O(n),O(log n),O(1)。</p>
+<p>布隆过滤器的原理是，当一个元素被加入集合时，通过K个<a href="https://zh.wikipedia.org/wiki/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">散列函数</a>将这个元素映射成一个位<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E7%BB%84" target="_blank" rel="noopener">数组</a>中的K个点，把它们置为1。检索时，我们只要看看这些点是不是都是1就（大约）知道集合中有没有它了：如果这些点有任何一个0，则被检元素一定不在；如果都是1，则被检元素很可能在。这就是布隆过滤器的基本思想。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>相比于其它的数据结构，布隆过滤器在空间和时间方面都有巨大的优势。布隆过滤器存储空间和插入/查询时间都是常数O(k)。另外，散列函数相互之间没有关系，方便由硬件并行实现。布隆过滤器不需要存储元素本身，在某些对保密要求非常严格的场合有优势。</p>
+<p>布隆过滤器可以表示全集，其它任何数据结构都不能；</p>
+<p>k和m相同，使用同一组散列函数的两个布隆过滤器的交并<a href="https://zh.wikipedia.org/wiki/Wikipedia:%E5%88%97%E6%98%8E%E6%9D%A5%E6%BA%90" target="_blank" rel="noopener">[来源请求]</a>运算可以使用位操作进行。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>但是布隆过滤器的缺点和优点一样明显。误算率是其中之一。随着存入的元素数量增加，误算率随之增加。但是如果元素数量太少，则使用散列表足矣。</p>
+<p>另外，一般情况下不能从布隆过滤器中删除元素。我们很容易想到把位数组变成整数数组，每插入一个元素相应的计数器加1, 这样删除元素时将计数器减掉就可以了。然而要保证安全地删除元素并非如此简单。首先我们必须保证删除的元素的确在布隆过滤器里面。这一点单凭这个过滤器是无法保证的。另外计数器回绕也会造成问题。</p>
+<p>在降低误算率方面，有不少工作，使得出现了很多布隆过滤器的变种。</p>
+</blockquote>
+<p>上面的专业解释看不懂？OK，下面有通俗的解释。</p>
+<h3 id="布隆过滤器的数据结构"><a href="#布隆过滤器的数据结构" class="headerlink" title="布隆过滤器的数据结构"></a>布隆过滤器的数据结构</h3><p>布隆过滤器本质是一个<strong>位数组</strong>，位数组就是数组的每个元素都只占用 1 bit 。每个元素只能是 0 或者 1。这样申请一个 10000 个元素的位数组只占用 10000 / 8 = 1250 B 的空间。布隆过滤器除了一个位数组，还有 K 个哈希函数。当一个元素加入布隆过滤器中的时候，会进行如下操作：</p>
+<ul>
+<li>使用  K 个哈希函数对元素值进行 K 次计算，得到 K 个哈希值。</li>
+<li>根据得到的哈希值，在位数组中把对应下标的值置为 1。</li>
+</ul>
+<p>假设布隆过滤器有 3 个哈希函数：f1, f2, f3 和一个位数组 <code>arr</code>。现在要把 <code>https://jaychen.cc</code> 插入布隆过滤器中：</p>
+<ul>
+<li>对值进行三次哈希计算，得到三个值 n1, n2, n3。</li>
+<li>把位数组中三个元素 arr[n1], arr[n2], arr[3] 置为 1。</li>
+</ul>
+<p>当要判断一个值是否在布隆过滤器中，对元素再次进行哈希计算，得到值之后判断位数组中的每个元素是否都为 1，如果值都为 1，那么说明这个值在布隆过滤器中，如果存在一个值不为 1，说明该元素不在布隆过滤器中。</p>
+<h3 id="布隆过滤器的工作流程"><a href="#布隆过滤器的工作流程" class="headerlink" title="布隆过滤器的工作流程"></a>布隆过滤器的工作流程</h3><p>布隆过滤器是一个 bit 向量或者说 bit 数组，长这样：</p>
+<p><img src="https://s2.ax1x.com/2019/05/12/Ehqr9K.jpg" alt="Ehqr9K.jpg"></p>
+<p>如果我们要映射一个值到布隆过滤器中，我们需要使用<strong>多个不同的哈希函数</strong>生成<strong>多个哈希值，</strong>并对每个生成的哈希值指向的 bit 位置 1，例如针对值 “baidu” 和三个不同的哈希函数分别生成了哈希值 1、4、7，则上图转变为：</p>
+<p><img src="https://s2.ax1x.com/2019/05/12/Ehqs1O.jpg" alt="Ehqs1O.jpg"></p>
+<p>Ok，我们现在再存一个值 “tencent”，如果哈希函数返回 3、4、8 的话，图继续变为：</p>
+<p><img src="https://s2.ax1x.com/2019/05/12/EhqBh6.jpg" alt="EhqBh6.jpg"></p>
+<p>值得注意的是，4 这个 bit 位由于两个值的哈希函数都返回了这个 bit 位，因此它被覆盖了。现在我们如果想查询 “dianping” 这个值是否存在，哈希函数返回了 1、5、8三个值，结果我们发现 5 这个 bit 位上的值为 0，<strong>说明没有任何一个值映射到这个 bit 位上</strong>，因此我们可以很确定地说 “dianping” 这个值不存在。而当我们需要查询 “baidu” 这个值是否存在的话，那么哈希函数必然会返回 1、4、7，然后我们检查发现这三个 bit 位上的值均为 1，那么我们可以说 “baidu” <strong>存在了么？答案是不可以，只能是 “baidu” 这个值可能存在。</strong></p>
+<p>这是为什么呢？答案跟简单，因为随着增加的值越来越多，被置为 1 的 bit 位也会越来越多，这样某个值 “taobao” 即使没有被存储过，但是万一哈希函数返回的三个 bit 位都被其他值置位了 1 ，那么程序还是会判断 “taobao” 这个值存在。</p>
+<h3 id="布隆过滤器的优缺点"><a href="#布隆过滤器的优缺点" class="headerlink" title="布隆过滤器的优缺点"></a>布隆过滤器的优缺点</h3><p>看了上面的说明，必然会提出一个问题：当插入的元素原来越多，位数组中被置为 1 的位置就越多，当一个不在布隆过滤器中的元素，经过哈希计算之后，得到的值在位数组中查询，有可能这些位置也都被置为 1。这样一个不存在布隆过滤器中的也有可能被误判成在布隆过滤器中。但是如果布隆过滤器判断说一个元素不在布隆过滤器中，那么这个值就一定不在布隆过滤器中。简单来说：</p>
+<ul>
+<li>布隆过滤器说某个元素在，可能会被误判。</li>
+<li>布隆过滤器说某个元素不在，那么一定不在。</li>
+</ul>
+<p>这个布隆过滤器的缺陷放到上面爬虫的需求中，可能存在某些没有访问过的 URL 可能会被误判为访问过，但是如果是访问过的 URL 一定不会被误判为没访问过。</p>
+<h2 id="Redis-中的布隆过滤器"><a href="#Redis-中的布隆过滤器" class="headerlink" title="Redis 中的布隆过滤器"></a>Redis 中的布隆过滤器</h2><p>redis 在 4.0 的版本中加入了 module 功能，布隆过滤器可以通过 module 的形式添加到 redis 中，所以使用 redis 4.0 以上的版本可以通过加载 <a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2FRedisLabsModules%2Frebloom" target="_blank" rel="noopener">module</a> 来使用 redis 中的布隆过滤器。但是这不是最简单的方式，使用 docker 可以直接在 redis 中体验布隆过滤器。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">&gt; docker <span class="hljs-built_in">run</span> -d -p <span class="hljs-number">6379</span>:<span class="hljs-number">6379</span> <span class="hljs-comment">--name bloomfilter redislabs/rebloom</span><br>&gt; docker exec -<span class="hljs-keyword">it</span> bloomfilter redis-cli<br>复制代码<br></code></pre></div></td></tr></table></figure>
+<p>redis 布隆过滤器主要就两个命令：</p>
+<ul>
+<li><code>bf.add</code> 添加元素到布隆过滤器中：<code>bf.add urls https://jaychen.cc</code>。</li>
+<li><code>bf.exists</code> 判断某个元素是否在过滤器中：<code>bf.exists urls https://jaychen.cc</code>。</li>
+</ul>
+<p>上面说过布隆过滤器存在误判的情况，在 redis 中有两个值决定布隆过滤器的准确率：</p>
+<ul>
+<li><code>error_rate</code>：允许布隆过滤器的错误率，这个值越低过滤器的位数组的大小越大，占用空间也就越大。</li>
+<li><code>initial_size</code>：布隆过滤器可以储存的元素个数，当实际存储的元素个数超过这个值之后，过滤器的准确率会下降。</li>
+</ul>
+<p>redis 中有一个命令可以来设置这两个值：</p>
+<figure class="highlight css"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-selector-tag">bf</span><span class="hljs-selector-class">.reserve</span> <span class="hljs-selector-tag">urls</span> 0<span class="hljs-selector-class">.01</span> 100<br>复制代码<br></code></pre></div></td></tr></table></figure>
+<p>三个参数的含义：</p>
+<ul>
+<li>第一个值是过滤器的名字。</li>
+<li>第二个值为 <code>error_rate</code> 的值。</li>
+<li>第三个值为 <code>initial_size</code> 的值。</li>
+</ul>
+<p>使用这个命令要注意一点：<strong>执行这个命令之前过滤器的名字应该不存在，如果执行之前就存在会报错：(error) ERR item exists</strong></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p>jaychen：<a href="https://juejin.im/post/5bc7446e5188255c791b3360" target="_blank" rel="noopener">https://juejin.im/post/5bc7446e5188255c791b3360</a></p>
+<p><a href="https://www.zhihu.com/people/EasonChen_7" target="_blank" rel="noopener">Young Chen</a>：<a href="https://zhuanlan.zhihu.com/p/43263751" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43263751</a></p>
+<p>维基百科：<a href="https://zh.wikipedia.org/wiki/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/07/31/162问题描述/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">162. 寻找峰值</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/06/01/15. 二维数组中的查找/">
+                        <span class="hidden-mobile">15. 二维数组中的查找</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng==">
+    <script type="text/javascript">
+      Fluid.utils.waitElementVisible('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备2020133205号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

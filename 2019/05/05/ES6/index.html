@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="自律成就自我">
+  <meta name="author" content="Yongchi | 粤ICP备19044639号">
+  <meta name="keywords" content>
+  <title>ES基础学习 - MadLife</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"hyyc554.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MadLife</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/seek.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="ES基础学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-05-05 18:42" pubdate>
+        2019年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES基础学习</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-什么是ECMAScript"><a href="#1-什么是ECMAScript" class="headerlink" title="1. 什么是ECMAScript"></a>1. 什么是ECMAScript</h2><blockquote>
+<p>ECMAScript是一种由<a href="https://baike.baidu.com/item/Ecma%E5%9B%BD%E9%99%85" target="_blank" rel="noopener">Ecma国际</a>（前身为<a href="https://baike.baidu.com/item/%E6%AC%A7%E6%B4%B2%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%88%B6%E9%80%A0%E5%95%86%E5%8D%8F%E4%BC%9A/2052072" target="_blank" rel="noopener">欧洲计算机制造商协会</a>,英文名称是European Computer Manufacturers Association）通过ECMA-262标准化的脚本<a href="https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">程序设计语言</a>。这种语言在<a href="https://baike.baidu.com/item/%E4%B8%87%E7%BB%B4%E7%BD%91" target="_blank" rel="noopener">万维网</a>上应用广泛，它往往被称为<a href="https://baike.baidu.com/item/JavaScript" target="_blank" rel="noopener">JavaScript</a>或<a href="https://baike.baidu.com/item/JScript" target="_blank" rel="noopener">JScript</a>，所以它可以理解为是javascript的一个标准,但实际上后两者是ECMA-262标准的实现和扩展。<br><a id="more"></a></p>
+</blockquote>
+<h3 id="ECMAScript-与-JavaScript"><a href="#ECMAScript-与-JavaScript" class="headerlink" title="ECMAScript 与 JavaScript"></a>ECMAScript 与 JavaScript</h3><p>一个常见的问题是，ECMAScript 和 JavaScript 到底是什么关系？</p>
+<p>要讲清楚这个问题，需要回顾历史。1996 年 11 月，JavaScript 的创造者 Netscape 公司，决定将 JavaScript 提交给标准化组织 ECMA，希望这种语言能够成为国际标准。次年，ECMA 发布 262 号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为 ECMAScript，这个版本就是 1.0 版。</p>
+<p>该标准从一开始就是针对 JavaScript 语言制定的，但是之所以不叫 JavaScript，有两个原因。一是商标，Java 是 Sun 公司的商标，根据授权协议，只有 Netscape 公司可以合法地使用 JavaScript 这个名字，且 JavaScript 本身也已经被 Netscape 公司注册为商标。二是想体现这门语言的制定者是 ECMA，不是 Netscape，这样有利于保证这门语言的开放性和中立性。</p>
+<p>因此，ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现（另外的 ECMAScript 方言还有 Jscript 和 ActionScript）。日常场合，这两个词是可以互换的。</p>
+<h2 id="2-什么是ES6"><a href="#2-什么是ES6" class="headerlink" title="2. 什么是ES6"></a>2. 什么是ES6</h2><p><strong>ES6</strong>是继ES5之后的一次主要改进，语言规范由ES5.1时代的245页扩充至600页。</p>
+<p>ES6增添了许多必要的特性，例如：模块和类，以及一些实用特性，例如Maps、Sets、Promises、生成器（Generators）等。</p>
+<p>尽管ES6做了大量的更新，但是它依旧完全向后兼容以前的版本，标准化委员会决定避免由不兼容版本语言导致的“web体验破碎”。结果是，所有老代码都可以正常运行，整个过渡也显得更为平滑，但随之而来的问题是，开发者们抱怨了多年的老问题依然存在。</p>
+<h2 id="3-ES6语法"><a href="#3-ES6语法" class="headerlink" title="3. ES6语法"></a>3. ES6语法</h2><h3 id="3-1-let命令"><a href="#3-1-let命令" class="headerlink" title="3.1 let命令"></a>3.1 let命令</h3><h4 id="3-1-1-基础用法"><a href="#3-1-1-基础用法" class="headerlink" title="3.1.1 基础用法"></a>3.1.1 基础用法</h4><p>es6新增了 let 命令，用来声明变量。它的用法类似于 var ，但是所声明的变量，只在let命令所在的代码块内有效。</p>
+<figure class="highlight cs"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">&#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-number">10</span>;<br>  <span class="hljs-keyword">var</span> b = <span class="hljs-number">1</span>;<br>&#125;<br><br>a <span class="hljs-comment">// ReferenceError: a is not defined.</span><br>b <span class="hljs-comment">// 1</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码在代码块之中，分别用 let 和 var 声明了两个变量。然后在代码块之外调用这两个变量，结果 let 声明的变量报错， var 声明的变量返回了正确的值。这表明， let 声明的变量只在它所在的代码块有效</p>
+<p><code>for</code>循环的计数器，就很合适使用<code>let</code>命令。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>  <span class="hljs-comment">// ...</span><br>&#125;<br><br><span class="hljs-built_in">console</span>.log(i);<br><span class="hljs-comment">// ReferenceError: i is not defined</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码中，计数器<code>i</code>只在<code>for</code>循环体内有效，在循环体外引用就会报错。</p>
+<p>下面的代码如果使用<code>var</code>，最后输出的是<code>10</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">var</span> a = [];<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>  a[i] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(i);<br>  &#125;;<br>&#125;<br>a[<span class="hljs-number">6</span>](); <span class="hljs-comment">// 10</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码中，变量<code>i</code>是<code>var</code>命令声明的，在全局范围内都有效，所以全局只有一个变量<code>i</code>。每一次循环，变量<code>i</code>的值都会发生改变，而循环内被赋给数组<code>a</code>的函数内部的<code>console.log(i)</code>，里面的<code>i</code>指向的就是全局的<code>i</code>。也就是说，所有数组<code>a</code>的成员里面的<code>i</code>，指向的都是同一个<code>i</code>，导致运行时输出的是最后一轮的<code>i</code>的值，也就是 10。</p>
+<p>如果使用<code>let</code>，声明的变量仅在块级作用域内有效，最后输出的是 6。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">var</span> a = [];<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>  a[i] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(i);<br>  &#125;;<br>&#125;<br>a[<span class="hljs-number">6</span>](); <span class="hljs-comment">// 6</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码中，变量<code>i</code>是<code>let</code>声明的，当前的<code>i</code>只在本轮循环有效，所以每一次循环的<code>i</code>其实都是一个新的变量，所以最后输出的是<code>6</code>。你可能会问，如果每一轮循环的变量<code>i</code>都是重新声明的，那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量<code>i</code>时，就在上一轮循环的基础上进行计算。</p>
+<p>另外，<code>for</code>循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) &#123;<br>  <span class="hljs-keyword">let</span> i = <span class="hljs-string">'abc'</span>;<br>  <span class="hljs-built_in">console</span>.log(i);<br>&#125;<br><span class="hljs-comment">// abc</span><br><span class="hljs-comment">// abc</span><br><span class="hljs-comment">// abc</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码正确运行，输出了 3 次<code>abc</code>。这表明函数内部的变量<code>i</code>与循环变量<code>i</code>不在同一个作用域，有各自单独的作用域。</p>
+<h4 id="3-1-2-不存在变量提升"><a href="#3-1-2-不存在变量提升" class="headerlink" title="3.1.2 不存在变量提升"></a>3.1.2 不存在变量提升</h4><p><code>var</code>命令会发生”变量提升“现象，即变量可以在声明之前使用，值为<code>undefined</code>。这种现象多多少少是有些奇怪的，按照一般的逻辑，变量应该在声明语句之后才可以使用。</p>
+<p>为了纠正这种现象，<code>let</code>命令改变了语法行为，它所声明的变量一定要在声明后使用，否则报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-comment">// var 的情况</span><br><span class="hljs-built_in">console</span>.log(foo); <span class="hljs-comment">// 输出undefined</span><br><span class="hljs-keyword">var</span> foo = <span class="hljs-number">2</span>;<br><br><span class="hljs-comment">// let 的情况</span><br><span class="hljs-built_in">console</span>.log(bar); <span class="hljs-comment">// 报错ReferenceError</span><br><span class="hljs-keyword">let</span> bar = <span class="hljs-number">2</span>;<br></code></pre></div></td></tr></table></figure>
+<p>上面代码中，变量<code>foo</code>用<code>var</code>命令声明，会发生变量提升，即脚本开始运行时，变量<code>foo</code>已经存在了，但是没有值，所以会输出<code>undefined</code>。变量<code>bar</code>用<code>let</code>命令声明，不会发生变量提升。这表示在声明它之前，变量<code>bar</code>是不存在的，这时如果用到它，就会抛出一个错误。</p>
+<h4 id="3-1-3-为什么需要块级作用域？"><a href="#3-1-3-为什么需要块级作用域？" class="headerlink" title="3.1.3 为什么需要块级作用域？"></a>3.1.3 为什么需要块级作用域？</h4><p>ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。</p>
+<p> 第一种场景，内层变量可能会覆盖外层变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">var</span> tmp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(tmp);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;<br>    <span class="hljs-keyword">var</span> tmp = <span class="hljs-string">'hello world'</span>;<br>  &#125;<br>&#125;<br><br>f(); <span class="hljs-comment">// undefined</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码的原意是，<code>if</code>代码块的外部使用外层的<code>tmp</code>变量，内部使用内层的<code>tmp</code>变量。但是，函数<code>f</code>执行后，输出结果为<code>undefined</code>，原因在于变量提升，导致内层的<code>tmp</code>变量覆盖了外层的<code>tmp</code>变量。</p>
+<p>第二种场景，用来计数的循环变量泄露为全局变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">var</span> s = <span class="hljs-string">'hello'</span>;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; s.length; i++) &#123;<br>  <span class="hljs-built_in">console</span>.log(s[i]);<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 5</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码中，变量<code>i</code>只用来控制循环，但是循环结束后，它并没有消失，泄露成了全局变量。</p>
+<h4 id="3-1-4-不允许重复声明"><a href="#3-1-4-不允许重复声明" class="headerlink" title="3.1.4 不允许重复声明"></a>3.1.4 不允许重复声明</h4><p><code>let</code>不允许在相同作用域内，重复声明同一个变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-comment">// 报错</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-number">10</span>;<br>  <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// 报错</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-number">10</span>;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>因此，不能在函数内部重新声明参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params">arg</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> arg; <span class="hljs-comment">// 报错</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span>(<span class="hljs-params">arg</span>) </span>&#123;<br>  &#123;<br>    <span class="hljs-keyword">let</span> arg; <span class="hljs-comment">// 不报错</span><br>  &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="3-2-const命令"><a href="#3-2-const命令" class="headerlink" title="3.2 const命令"></a>3.2 const命令</h3><h4 id="3-2-1-基本用法"><a href="#3-2-1-基本用法" class="headerlink" title="3.2.1 基本用法"></a>3.2.1 基本用法</h4><p><code>const</code>声明一个只读的常量。一旦声明，常量的值就不能改变。</p>
+<figure class="highlight processing"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">const</span> <span class="hljs-literal">PI</span> = <span class="hljs-number">3.1415</span>;<br><span class="hljs-literal">PI</span> <span class="hljs-comment">// 3.1415</span><br><br><span class="hljs-literal">PI</span> = <span class="hljs-number">3</span>;<br><span class="hljs-comment">// TypeError: Assignment to constant variable.</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码表明改变常量的值会报错。</p>
+<p><code>const</code>声明的变量不得改变值，这意味着，<code>const</code>一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">const</span> foo;<br><span class="hljs-comment">// SyntaxError: Missing initializer in const declaration</span><br></code></pre></div></td></tr></table></figure>
+<p>上面代码表示，对于<code>const</code>来说，只声明不赋值，就会报错。</p>
+<p><code>const</code>的作用域与<code>let</code>命令相同：只在声明所在的块级作用域内有效。</p>
+<figure class="highlight monkey"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-built_in">MAX</span> = <span class="hljs-number">5</span>;<br>&#125;<br><br><span class="hljs-built_in">MAX</span> // Uncaught ReferenceError: <span class="hljs-built_in">MAX</span> is <span class="hljs-keyword">not</span> defined<br></code></pre></div></td></tr></table></figure>
+<p><code>const</code>命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>  console.<span class="hljs-keyword">log</span>(<span class="hljs-keyword">MAX</span>); <span class="hljs-comment">// ReferenceError</span><br>  const <span class="hljs-keyword">MAX</span> = <span class="hljs-number">5</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>上面代码在常量<code>MAX</code>声明之前就调用，结果报错。</p>
+<p><code>const</code>声明的常量，也与<code>let</code>一样不可重复声明。</p>
+<figure class="highlight cs"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">var</span> message = <span class="hljs-string">"Hello!"</span>;<br><span class="hljs-keyword">let</span> age = <span class="hljs-number">25</span>;<br><br><span class="hljs-comment">// 以下两行都会报错</span><br><span class="hljs-keyword">const</span> message = <span class="hljs-string">"Goodbye!"</span>;<br><span class="hljs-keyword">const</span> age = <span class="hljs-number">30</span>;<br></code></pre></div></td></tr></table></figure>
+<h3 id="3-3-模板字符串"><a href="#3-3-模板字符串" class="headerlink" title="3.3 模板字符串"></a>3.3 模板字符串</h3><p>传统的JavaScript语言，输出模板通常是这样的写的。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">$(<span class="hljs-comment">'#result').append(</span><br>  <span class="hljs-comment">'There are <span class="hljs-doctag">&lt;b&gt;</span>' + basket.count + '<span class="hljs-doctag">&lt;/b&gt;</span> ' +</span><br>  <span class="hljs-comment">'items in your basket, ' +</span><br>  <span class="hljs-comment">'<span class="hljs-doctag">&lt;em&gt;</span>' + basket.onSale +</span><br>  <span class="hljs-comment">'<span class="hljs-doctag">&lt;/em&gt;</span> are on sale!'</span><br>);<br></code></pre></div></td></tr></table></figure>
+<p>上面这种写法相当繁琐不方便，ES6 引入了模板字符串解决这个问题。</p>
+<figure class="highlight dust"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="xml">$('#result').append(`<br>  There are <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>$</span><span class="hljs-template-variable">&#123;basket.count&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> items<br>   in your basket, <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>$</span><span class="hljs-template-variable">&#123;basket.onSale&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span><br>  are on sale!<br>`);</span><br></code></pre></div></td></tr></table></figure>
+<p>模板字符串（template string）是增强版的字符串，用反引号（`）标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量</p>
+<figure class="highlight arduino"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-comment">// 普通字符串</span><br>`In JavaScript <span class="hljs-string">'\n'</span> is a <span class="hljs-built_in">line</span>-feed.`<br><br><span class="hljs-comment">// 多行字符串</span><br>`In JavaScript <span class="hljs-keyword">this</span> is<br> <span class="hljs-keyword">not</span> legal.`<br><br>console.<span class="hljs-built_in">log</span>(`<span class="hljs-built_in">string</span> <span class="hljs-built_in">text</span> <span class="hljs-built_in">line</span> <span class="hljs-number">1</span><br><span class="hljs-built_in">string</span> <span class="hljs-built_in">text</span> <span class="hljs-built_in">line</span> <span class="hljs-number">2</span>`);<br><br><span class="hljs-comment">// 字符串中嵌入变量</span><br>let name = <span class="hljs-string">"Bob"</span>, time = <span class="hljs-string">"today"</span>;<br>`Hello $&#123;name&#125;, how are you $&#123;time&#125;?`<br></code></pre></div></td></tr></table></figure>
+<p>上面代码中的模板字符串，都是用反引号表示。如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">let greeting = `\`Yo\` World!`;<br></code></pre></div></td></tr></table></figure>
+<p>输入结果：<code>Yo</code> World!</p>
+<p>如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中。</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">$('<span class="hljs-comment">#list').html(`</span><br><span class="hljs-variable">&lt;ul&gt;</span><br>  <span class="hljs-variable">&lt;li&gt;</span>first<span class="hljs-variable">&lt;/li&gt;</span><br>  <span class="hljs-variable">&lt;li&gt;</span>second<span class="hljs-variable">&lt;/li&gt;</span><br><span class="hljs-variable">&lt;/ul&gt;</span><br>`);<br></code></pre></div></td></tr></table></figure>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><blockquote>
+<p>阮一峰：<a href="http://es6.ruanyifeng.com/#docs/let" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/let</a></p>
+<p>维基百科： <a href="https://zh.wikipedia.org/wiki/ECMAScript" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/ECMAScript</a></p>
+<p>百度百科：<a href="https://baike.baidu.com/item/ECMAScript/1889420?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/ECMAScript/1889420?fr=aladdin</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/前端/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/js/">js</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/05/05/Docker Compose简介/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker构建Django部署环境（三）Docker Compose</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/05/Docker之路（一）一些概念/">
+                        <span class="hidden-mobile">Docker构建Django部署环境（一）核心概念</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng==">
+    <script type="text/javascript">
+      Fluid.utils.waitElementVisible('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备2020133205号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

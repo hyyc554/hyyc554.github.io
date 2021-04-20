@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="自律成就自我">
+  <meta name="author" content="Yongchi | 粤ICP备19044639号">
+  <meta name="keywords" content>
+  <title>Django面试总结 - MadLife</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    
+    
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css">
+    
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"hyyc554.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MadLife</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/seek.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Django面试总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-05-05 18:42" pubdate>
+        2018年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Django面试总结</h1>
+            
+            <div class="markdown-body">
+              <p>自己整理的一些面试题，持续更新中。。。</p>
+<a id="more"></a>
+<h2 id="django、flask、tornado框架的比较？"><a href="#django、flask、tornado框架的比较？" class="headerlink" title="django、flask、tornado框架的比较？"></a>django、flask、tornado框架的比较？</h2><p>django：<br>优点：最全能的web开发框架，各种功能完备，可维护性高，开发速度快<br>缺点：django orm 跟数据库的交互，django同步特性导致吞吐量小的问题可以通过celery解决</p>
+<p>tornado：<br>优点：天生异步，性能强悍<br>缺点：框架提供的功能比较少，需要自己实现，这样导致了开发速度偏慢</p>
+<p>flask：<br>优点：自由、灵活，扩展性强，第三方库的选择面广<br>缺点：但是对程序员要求更高</p>
+<hr>
+<h2 id="什么是wsgi？"><a href="#什么是wsgi？" class="headerlink" title="什么是wsgi？"></a>什么是wsgi？</h2><p><a href="https://www.jianshu.com/p/679dee0a4193" target="_blank" rel="noopener">https://www.jianshu.com/p/679dee0a4193</a></p>
+<p>WSGI，描述web server如何与web application通信的一种规范</p>
+<p>WSGI协议主要包括server和application两部分：</p>
+<p>WSGI server负责从客户端接收请求，将request转发给application，将application返回的response返回给客户端；<br>WSGI application接收由server转发的request，处理请求，并将处理结果返回给server。</p>
+<p>application中可以包括多个栈式的中间件(middlewares)，这些中间件需要同时实现server与application，因此可以在WSGI服务器与WSGI应用之间起调节作用：对服务器来说，中间件扮演应用程序，对应用程序来说，中间件扮演服务器。</p>
+<hr>
+<h2 id="django请求的生命周期？"><a href="#django请求的生命周期？" class="headerlink" title="django请求的生命周期？"></a>django请求的生命周期？</h2><p>Django的请求生命周期是指当用户在浏览器上输入url到用户看到网页的这个时间段内,Django后台所发生的事情</p>
+<p>而Django的生命周期内到底发生了什么呢??</p>
+<ol>
+<li>当用户在浏览器中输入url时,浏览器会生成请求头和请求体发给服务端<br>请求头和请求体中会包含浏览器的动作(action),这个动作通常为get或者post,体现在url之中.</li>
+<li>url经过Django中的wsgi,再经过Django的中间件,最后url到过路由映射表,在路由中一条一条进行匹配,<br>一旦其中一条匹配成功就执行对应的视图函数,后面的路由就不再继续匹配了.</li>
+<li>视图函数根据客户端的请求查询相应的数据.返回给Django,然后Django把客户端想要的数据做为一个字符串返回给客户端.</li>
+<li>客户端浏览器接收到返回的数据,经过渲染后显示给用户.</li>
+</ol>
+<hr>
+<h2 id="列举django的内置组件"><a href="#列举django的内置组件" class="headerlink" title="列举django的内置组件"></a>列举django的内置组件</h2><ul>
+<li>认证组件</li>
+<li>缓存</li>
+<li>日志</li>
+<li>邮件</li>
+<li>分页</li>
+<li>静态文件管理</li>
+<li>资讯聚合</li>
+<li>消息框架</li>
+<li>数据验证</li>
+</ul>
+<hr>
+<h2 id="列举django中间件的5个方法？以及django中间件的应用场景？"><a href="#列举django中间件的5个方法？以及django中间件的应用场景？" class="headerlink" title="列举django中间件的5个方法？以及django中间件的应用场景？"></a>列举django中间件的5个方法？以及django中间件的应用场景？</h2><ol>
+<li><p>在django中，中间件其实就是一个类，在请求到来和结束后，django会根据自己的规则在合适的时机执行中间件中相应的方法</p>
+<p>在django项目的settings模块中，有一个 MIDDLEWARE_CLASSES 变量，其中每一个元素就是一个中间件</p>
+<p>默认的中间件有哪些</p>
+<p>中间件中可以定义五个方法，分别是：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># 方法在请求到来的时候调用</span><br>process_request(self,request)<br><span class="hljs-comment"># 在本次将要执行的View函数被调用前调用本函数</span><br>process_view(self, request, callback, callback_args, callback_kwargs)<br><span class="hljs-comment"># 需使用render()方法才会执行process_template_response</span><br>process_template_response(self,request,response)<br><span class="hljs-comment"># View函数在抛出异常时该函数被调用，得到的exception参数是实际上抛出的异常实例。通过此方法可以进行很好的错误控制，提供友好的用户界面。</span><br>process_exception(self, request, exception)<br><span class="hljs-comment"># 在执行完View函数准备将响应发到客户端前被执行</span><br>process_response(self, request, response)<br></code></pre></div></td></tr></table></figure>
+<ol start="2">
+<li><p>django中间件的使用场景</p>
+<p>如果你想修改请求，例如被传送到view中的HttpRequest对象</p>
+<p>或者你想修改view返回的HttpResponse对象，这些都可以通过中间件来实现</p>
+<p>可能你还想在view执行之前做一些操作，这种情况也可以用 middleware来实现。<br>比如我们写一个判断浏览器来源，是pc还是手机，这里手机我们采用iphone，因为暂时没有其他设备。我们有不想把这个逻辑加到视图函数里，想作为一个通用服务，作为一个可插拔的组件被使用，最好的方法就是实现为中间件</p>
+<p>或者说做一个拦截器，发现一定的时间内某个ip对网页的访问次数过多，则将其加入黑名单</p>
+</li>
+</ol>
+<hr>
+<h2 id="简述什么是FBV和CBV？"><a href="#简述什么是FBV和CBV？" class="headerlink" title="简述什么是FBV和CBV？"></a>简述什么是FBV和CBV？</h2><p><strong>FBV（function base views） 基于函数的视图</strong><br><strong>CBV（class base views） 基于类的视图</strong></p>
+<p>使用fbv的模式,在url匹配成功之后,会直接执行对应的视图函数</p>
+<p>使用cbv模式,在url匹配成功之后,会找到视图函数中对应的类,然后这个类回到请求头中找到对应的Request Method</p>
+<p>用户发送url请求,Django会依次遍历路由映射表中的所有记录,一旦路由映射表其中的一条匹配成功了,就执行视图函数中对应的函数名,这是fbv的执行流程</p>
+<p>当服务端使用cbv模式的时候,用户发给服务端的请求包含url和method,这两个信息都是字符串类型<br>服务端通过路由映射表匹配成功后会自动去找dispatch方法,然后Django会通过dispatch反射的方式找到类中对应的方法并执行<br>类中的方法执行完毕之后,会把客户端想要的数据返回给dispatch方法,由dispatch方法把数据返回经客户端</p>
+<hr>
+<h2 id="django的request对象是在什么时候创建的？"><a href="#django的request对象是在什么时候创建的？" class="headerlink" title="django的request对象是在什么时候创建的？"></a>django的request对象是在什么时候创建的？</h2><p>当请求一个页面时,Django创建一个 HttpRequest 对象.该对象包含 request 的元数据. 然后 Django 调用相应的 view 函数(HttpRequest 对象自动传递给该view函数&lt;作为第一个参数&gt;), 每一个 view 负责返回一个 HttpResponse 对象.</p>
+<p>requests的元数据包括path，get，put等方法，cookies，user等等</p>
+<hr>
+<h2 id="如何给CBV的程序添加装饰器？"><a href="#如何给CBV的程序添加装饰器？" class="headerlink" title="如何给CBV的程序添加装饰器？"></a>如何给CBV的程序添加装饰器？</h2><p>CBV添加装饰器有两种方法</p>
+<ol>
+<li>在指定方法上添加装饰器</li>
+<li>在类上添加，但是要用name来指定方法</li>
+</ol>
+<figure class="highlight PYTHON"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs PYTHON"><span class="hljs-comment">## CBV中添加装饰器</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(func)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inner</span><span class="hljs-params">(*args,**kwargs)</span>:</span><br>        <span class="hljs-keyword">return</span> func(*args,**kwargs)<br>    <span class="hljs-keyword">return</span> inner<br>    <br><span class="hljs-comment"># 1. 指定方法上添加装饰器</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span><span class="hljs-params">(View)</span>:</span><br><br><span class="hljs-meta">    @method_decorator(wrapper)</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-number">2.</span> 在类上添加<br><br><span class="hljs-meta">@method_decorator(wrapper,name='dispatch')</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span><span class="hljs-params">(View)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self,request)</span>:</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></div></td></tr></table></figure>
+<p>总结</p>
+<ol>
+<li>添加装饰器前必须导入from django.utils.decorators import method_decorator</li>
+<li>添加装饰器的格式必须为@method_decorator()，括号里面为装饰器的函数名</li>
+<li>给类添加是必须声明name</li>
+<li>注意csrf-token装饰器的特殊性，它只能加在dispatch上面</li>
+</ol>
+<hr>
+<h2 id="列举django-orm-中所有的方法（QuerySet对象的所有方法）"><a href="#列举django-orm-中所有的方法（QuerySet对象的所有方法）" class="headerlink" title="列举django orm 中所有的方法（QuerySet对象的所有方法）"></a>列举django orm 中所有的方法（QuerySet对象的所有方法）</h2><p>从数据库中查询出来的结果一般是一个集合，这个集合叫做 QuerySet</p>
+<ul>
+<li>filter 过滤</li>
+<li>exclude 排除</li>
+<li>annotate 聚合</li>
+<li>order_by 排序</li>
+<li>reverse 反向排序</li>
+<li>distinct 去除查询结果中重复的行</li>
+<li>values 迭代时返回字典而不是模型实例对象</li>
+<li>values_list 迭代时返回元组而不是字典</li>
+<li>dates 表示特定种类的所有可用日期</li>
+<li>datetimes 表示特定种类的所有可用日期</li>
+<li>none 不返回任何对象</li>
+<li>all 返回所有结果</li>
+<li>select_related 外键查询</li>
+<li>prefetch_related 在单个批处理中自动检索每个指定查找的相关对象</li>
+<li>defer 告诉django不要查询某些字段</li>
+<li>using 多个数据库时控制QuerySet在哪个数据库上求值</li>
+</ul>
+<hr>
+<h2 id="only和defer的区别？"><a href="#only和defer的区别？" class="headerlink" title="only和defer的区别？"></a>only和defer的区别？</h2><p>在复杂的情况下，表中可能有些字段内容非常多，取出来转化成 Python 对象会占用大量的资源。<br>这时候可以用 defer 来排除这些字段，比如我们在文章列表页，只需要文章的标题和作者，没有必要把文章的内容也获取出来（因为会转换成python对象，浪费内存）</p>
+<p>和 defer 相反，only 用于取出需要的字段，假如我们只需要查出 作者的名称</p>
+<hr>
+<h2 id="select-related和prefetch-related的区别？"><a href="#select-related和prefetch-related的区别？" class="headerlink" title="select_related和prefetch_related的区别？"></a><code>select_related</code>和<code>prefetch_related</code>的区别？</h2><p><a href="https://hk.saowen.com/a/bb124ab70580b722d7840c7c0377a326ac4ce022dc653f4cbc7e0ae7fc245232" target="_blank" rel="noopener">https://hk.saowen.com/a/bb124ab70580b722d7840c7c0377a326ac4ce022dc653f4cbc7e0ae7fc245232</a></p>
+<hr>
+<h2 id="filter和exclude的区别？"><a href="#filter和exclude的区别？" class="headerlink" title="filter和exclude的区别？"></a>filter和exclude的区别？</h2><p>filter 设置要查询的字段<br>exclude 设置不要查询的字段</p>
+<hr>
+<h2 id="列举django-orm中三种能写sql语句的方法"><a href="#列举django-orm中三种能写sql语句的方法" class="headerlink" title="列举django orm中三种能写sql语句的方法"></a>列举django orm中三种能写sql语句的方法</h2><ol>
+<li>使用extra：查询人民邮电出版社出版并且价格大于50元的书籍</li>
+</ol>
+<figure class="highlight less"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-selector-tag">Book</span><span class="hljs-selector-class">.objects</span><span class="hljs-selector-class">.filter</span>(publisher__name=<span class="hljs-string">'人民邮电出版社'</span>)<span class="hljs-selector-class">.extra</span>(where=[<span class="hljs-string">'price&gt;50'</span>])<br></code></pre></div></td></tr></table></figure>
+<ol>
+<li>使用raw</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-attribute">books</span>=Book.objects.raw('select * <span class="hljs-keyword">from</span> hello_book<span class="hljs-string">')  <br>for book in books:  <br>   print book</span><br></code></pre></div></td></tr></table></figure>
+<ol>
+<li>自定义sql</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">from django.db import connection  <br>  <br><span class="hljs-built_in">cursor</span> = connection.<span class="hljs-built_in">cursor</span>()  <br><span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-string">"insert into hello_author(name) VALUES ('郭敬明')"</span>)  <br><span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-string">"update hello_author set name='韩寒' WHERE name='郭敬明'"</span>)  <br><span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-string">"delete from hello_author where name='韩寒'"</span>)  <br><span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-string">"select * from hello_author"</span>)  <br><span class="hljs-built_in">cursor</span>.fetchone()  <br><span class="hljs-built_in">cursor</span>.fetchall()<br></code></pre></div></td></tr></table></figure>
+<hr>
+<h2 id="django-orm-中如何设置读写分离？"><a href="#django-orm-中如何设置读写分离？" class="headerlink" title="django orm 中如何设置读写分离？"></a>django orm 中如何设置读写分离？</h2><p><a href="https://blog.csdn.net/Ayhan_huang/article/details/78784486" target="_blank" rel="noopener">https://blog.csdn.net/Ayhan_huang/article/details/78784486</a></p>
+<p><a href="https://my.oschina.net/candiesyangyang/blog/203425" target="_blank" rel="noopener">https://my.oschina.net/candiesyangyang/blog/203425</a></p>
+<hr>
+<h2 id="F和Q的作用"><a href="#F和Q的作用" class="headerlink" title="F和Q的作用?"></a>F和Q的作用?</h2><p>F作用：操作数据表中的某列值，F()允许Django在未实际链接数据的情况下具有对数据库字段的值的引用，不用获取对象放在内存中再对字段进行操作，直接执行原生产sql语句操作</p>
+<p>使用场景：对数据库中的所有的商品，在原价格的基础上涨价10元</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">from</span> django.db.models <span class="hljs-keyword">import</span> F<br><span class="hljs-keyword">from</span> app01.models <span class="hljs-keyword">import</span> Book<br>Book.objects.update(price=F(<span class="hljs-string">"price"</span>)+<span class="hljs-number">20</span>)  <span class="hljs-comment"># 对于book表中每本书的价格都在原价格的基础上增加20元</span><br></code></pre></div></td></tr></table></figure>
+<p>Q作用：对对象进行复杂查询，并支持&amp;（and）,|（or），~（not）操作符</p>
+<p>使用场景：filter查询条件只有一个，而使用Q可以设置多个查询条件</p>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">from django<span class="hljs-selector-class">.db</span><span class="hljs-selector-class">.models</span> import Q<br>search_obj=Asset<span class="hljs-selector-class">.objects</span>.<span class="hljs-attribute">filter</span>(Q(hostname__icontains=keyword)|Q(ip=keyword))<br></code></pre></div></td></tr></table></figure>
+<p>当同时使用filter的关键字查询和Q查询时，一定要把Q对象放在前面</p>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">Asset.objects.<span class="hljs-builtin-name">get</span>(<br>Q(<span class="hljs-attribute">pub_date</span>=date(2005, 5, 2)) | Q(<span class="hljs-attribute">pub_date</span>=date(2005, 5, 6)),<span class="hljs-attribute">question__startswith</span>=<span class="hljs-string">'Who'</span>)<br></code></pre></div></td></tr></table></figure>
+<h2 id="values和values-list的区别"><a href="#values和values-list的区别" class="headerlink" title="values和values_list的区别"></a>values和values_list的区别</h2><p>values 返回字典而不是模型查询对象</p>
+<p>values-list 跟values一样，但是返回的是元组</p>
+<p><a href="https://blog.csdn.net/weixin_40475396/article/details/79529256" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40475396/article/details/79529256</a></p>
+<h2 id="如何使用django-orm批量创建数据？"><a href="#如何使用django-orm批量创建数据？" class="headerlink" title="如何使用django orm批量创建数据？"></a>如何使用django orm批量创建数据？</h2><p>如果使用django save()创建数据，则每次save的时候都会访问一次数据库</p>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> resultlist:<br>    <span class="hljs-selector-tag">p</span> = Account(name=i)<br>    <span class="hljs-selector-tag">p</span>.save()<br></code></pre></div></td></tr></table></figure>
+<p>django1.4之后加入新特性可以批量创建对象，减少SQL查询次数</p>
+<figure class="highlight matlab"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">querysetlist=[]<br><span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> in resultlist:<br>    querysetlist.append(Account(name=<span class="hljs-built_in">i</span>))<br>Account.objects.bulk_create(querysetlist)<br></code></pre></div></td></tr></table></figure>
+<h2 id="django的Form和ModeForm的作用？"><a href="#django的Form和ModeForm的作用？" class="headerlink" title="django的Form和ModeForm的作用？"></a>django的Form和ModeForm的作用？</h2><p><a href="http://www.cnblogs.com/caochao-/articles/8412830.html" target="_blank" rel="noopener">http://www.cnblogs.com/caochao-/articles/8412830.html</a></p>
+<p>表单的作用是收集元素中的内容</p>
+<p>Form 需要自己定义表单的字段</p>
+<p>ModelForm 根据model来生成表单的字段</p>
+<h2 id="django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新"><a href="#django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新" class="headerlink" title="django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新"></a>django的Form组件中，如果字段中包含choices参数，请使用两种方式实现数据源实时更新</h2><p>此问题只适用于From组件，ModelFrom组件不用考虑(自身已经解决)</p>
+<p>示例：例如choice类型字段，添加了新的数据，而在页面中不能显示出来，只有再次刷新页面才能获取最新的数据，因为程序运行时静态字段只加载一次, choice的数据如果从数据库获取可能会造成数据无法实时更新</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># models.py</span><br><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserType</span><span class="hljs-params">(models.Model)</span>:</span><br>    title = models.CharField(max_length=<span class="hljs-number">32</span>)<br>　　　<br>　　<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span><span class="hljs-params">(self)</span>:</span><br>　　　　<span class="hljs-keyword">return</span> self.title<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserInfo</span><span class="hljs-params">(models.Model)</span>:</span><br>    name = models.CharField(max_length=<span class="hljs-number">32</span>)<br>    email = models.CharField(max_length=<span class="hljs-number">32</span>)<br>    ut = models.ForeignKey(to=<span class="hljs-string">'UserType'</span>)<br></code></pre></div></td></tr></table></figure>
+<p>方法一：重写构造方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># views.py      </span><br><br><span class="hljs-keyword">from</span> django.forms <span class="hljs-keyword">import</span> Form<br><span class="hljs-keyword">from</span> django.forms <span class="hljs-keyword">import</span> fields<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserForm</span><span class="hljs-params">(Form)</span>:</span><br>    name = fields.CharField(label=<span class="hljs-string">'用户名'</span>,max_length=<span class="hljs-number">32</span>)<br>    email = fields.EmailField(label=<span class="hljs-string">'邮箱'</span>)<br>    ut_id = fields.ChoiceField(<br>        <span class="hljs-comment"># choices=[(1,'二笔用户'),(2,'闷骚')]</span><br>        choices=[]<br>    )<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self,*args,**kwargs)</span>:</span><br>        super(UserForm,self).__init__(*args,**kwargs)<br>        <br>        <span class="hljs-comment"># 每次实例化，重新去数据库获取数据并更新</span><br>        self.fields[<span class="hljs-string">'ut_id'</span>].choices = models.UserType.objects.all().values_list(<span class="hljs-string">'id'</span>,<span class="hljs-string">'title'</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">user</span><span class="hljs-params">(request)</span>:</span><br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">"GET"</span>:<br>        form = UserForm()<br>        <span class="hljs-keyword">return</span> render(request,<span class="hljs-string">'user.html'</span>,&#123;<span class="hljs-string">'form'</span>:form&#125;)<br></code></pre></div></td></tr></table></figure>
+<p>方法二：使用ModelChoiceField字段</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># views.py</span><br><br><span class="hljs-keyword">from</span> django.forms <span class="hljs-keyword">import</span> Form<br><span class="hljs-keyword">from</span> django.forms <span class="hljs-keyword">import</span> fields<br><span class="hljs-keyword">from</span> django.forms.models <span class="hljs-keyword">import</span> ModelChoiceField<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserForm</span><span class="hljs-params">(Form)</span>:</span><br>    name = fields.CharField(label=<span class="hljs-string">'用户名'</span>,max_length=<span class="hljs-number">32</span>)<br>    email = fields.EmailField(label=<span class="hljs-string">'邮箱'</span>)<br>    ut_id = ModelChoiceField(queryset=models.UserType.objects.all())<br></code></pre></div></td></tr></table></figure>
+<h3 id="django的Model中的ForeignKey字段中的on-delete参数有什么作用？"><a href="#django的Model中的ForeignKey字段中的on-delete参数有什么作用？" class="headerlink" title="django的Model中的ForeignKey字段中的on_delete参数有什么作用？"></a>django的Model中的ForeignKey字段中的on_delete参数有什么作用？</h3><p>当一个被ForeignKey引用的对象删除后，django将会通过指定on_delete参数来仿真sql约束的行为</p>
+<p>例如，如果你有一个可以为空的ForeignKey，在其引用的对象被删除的时你想把这个ForeignKey 设置为空：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">user = models.ForeignKey(User, <span class="hljs-attribute">blank</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">null</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">on_delete</span>=models.SET_NULL)<br></code></pre></div></td></tr></table></figure>
+<p><code>on_delete</code>有<code>CASCADE</code>、<code>PROTECT</code>、<code>SET_NULL</code>、<code>SET_DEFAULT</code>、<code>SET()</code>五个可选择的值</p>
+<ol>
+<li>CASCADE: 级联删除；默认值</li>
+<li>PROTECT: 抛出ProtectedError 以阻止被引用对象的删除，它是django.db.IntegrityError 的一个子类</li>
+<li>SET_NULL: 把ForeignKey 设置为null； null 参数为True 时才可以这样做</li>
+<li>SET_DEFAULT: ForeignKey 值设置成它的默认值；此时必须设置ForeignKey 的default 参数</li>
+<li>SET: 设置ForeignKey 为传递给SET() 的值，如果传递的是一个可调用对象，则为调用后的结果。在大部分情形下，<a href="http://xn--models-9m7igl44aw5bf6lb5io91a1s4fba7274gzkb249ap2b.py/" target="_blank" rel="noopener">传递一个可调用对象用于避免models.py</a> 在导入时执行查询</li>
+</ol>
+<h2 id="django中csrf的实现机制？"><a href="#django中csrf的实现机制？" class="headerlink" title="django中csrf的实现机制？"></a>django中csrf的实现机制？</h2><p><a href="https://blog.csdn.net/u011715678/article/details/48752873" target="_blank" rel="noopener">https://blog.csdn.net/u011715678/article/details/48752873</a></p>
+<p><a href="https://www.jianshu.com/p/991df812e2a5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank" rel="noopener">https://www.jianshu.com/p/991df812e2a5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a></p>
+<h2 id="django如何实现websocket？"><a href="#django如何实现websocket？" class="headerlink" title="django如何实现websocket？"></a>django如何实现websocket？</h2><p><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/05/websocket.html</a></p>
+<p>HTTP 协议有一个缺陷：通信只能由客户端发起</p>
+<p>WebSocket 协议它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种</p>
+<p>django实现websocket有多种方式：</p>
+<ol>
+<li>使用Channels实现websocket</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/3de90e457bb4" target="_blank" rel="noopener">https://www.jianshu.com/p/3de90e457bb4</a></p>
+<ol>
+<li>使用dwebsocket实现Websocket</li>
+</ol>
+<p><a href="https://www.cnblogs.com/huguodong/p/6611602.html" target="_blank" rel="noopener">https://www.cnblogs.com/huguodong/p/6611602.html</a></p>
+<p><a href="http://gtcsq.readthedocs.io/en/latest/others/websocket.html" target="_blank" rel="noopener">http://gtcsq.readthedocs.io/en/latest/others/websocket.html</a></p>
+<h2 id="基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf-token？"><a href="#基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf-token？" class="headerlink" title="基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？"></a>基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</h2><p>1、写在Ajax beforeSend</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">ajax（｛<br>　　xxx:xxx,<br>　　beforeSend:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(xhr, settings)</span></span>&#123;<br>　　　　xhr.setRequestHeader(<span class="hljs-string">"x-CSRFToken"</span>, <span class="hljs-string">"&#123;&#123; csrf_token &#125;&#125;"</span>);<br>　　&#125;,<br>｝）<br></code></pre></div></td></tr></table></figure>
+<p>2、写到Ajax Data</p>
+<figure class="highlight dts"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">ajax（｛<br><span class="hljs-symbol">　　xxx:</span>xxx,<br><span class="hljs-symbol">　　data:</span> $(<span class="hljs-string">"#form"</span>).serialize(),<br>｝）<br></code></pre></div></td></tr></table></figure>
+<p>3、写到ajaxSetup</p>
+<figure class="highlight javascript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">$(<span class="hljs-string">"#add-business-form"</span>).submit(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            $.ajaxSetup(&#123;<br>            <span class="hljs-attr">data</span>: &#123;<span class="hljs-attr">csrfmiddlewaretoken</span>: <span class="hljs-string">'&#123;&#123; csrf_token &#125;&#125;'</span>&#125;<br>            &#125;);<br>            $.ajax(&#123;<br>               <span class="hljs-attr">xxx</span>:xxxx,<br>            &#125;);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;);<br></code></pre></div></td></tr></table></figure>
+<p>4、KindEditor携带CSRF</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><br>    <span class="hljs-keyword">var</span> csrfitems = <span class="hljs-built_in">document</span>.getElementsByName(<span class="hljs-string">"csrfmiddlewaretoken"</span>);<br>    <span class="hljs-keyword">var</span> csrftoken = <span class="hljs-string">""</span>;<br>    <span class="hljs-keyword">if</span>(csrfitems.length &gt; <span class="hljs-number">0</span>)<br>    &#123;<br>        csrftoken = csrfitems[<span class="hljs-number">0</span>].value;<br>    &#125;<br>    $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            initKindEditor();<br>        &#125;);<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initKindEditor</span>(<span class="hljs-params"></span>) </span>&#123;<br>        $.ajaxSetup(&#123;<br>        <span class="hljs-attr">data</span>: &#123;<span class="hljs-attr">csrfmiddlewaretoken</span>: <span class="hljs-string">'&#123;&#123; csrf_token &#125;&#125;'</span>&#125;<br>        &#125;);<br>        <span class="hljs-keyword">var</span> kind = KindEditor.create(<span class="hljs-string">'#content'</span>, &#123;<br>            <span class="hljs-attr">width</span>: <span class="hljs-string">'100%'</span>,       <span class="hljs-comment">// 文本框宽度(可以百分比或像素)</span><br>            <span class="hljs-attr">height</span>: <span class="hljs-string">'300px'</span>,     <span class="hljs-comment">// 文本框高度(只能像素)</span><br>            <span class="hljs-attr">minWidth</span>: <span class="hljs-number">200</span>,       <span class="hljs-comment">// 最小宽度（数字）</span><br>            <span class="hljs-attr">minHeight</span>: <span class="hljs-number">400</span>,      <span class="hljs-comment">// 最小高度（数字）</span><br>            <span class="hljs-attr">uploadJson</span>: <span class="hljs-string">'&#123;% url "upload_image" %&#125;'</span>,<br>            <span class="hljs-attr">extraFileUploadParams</span> : &#123;<br>                <span class="hljs-attr">csrfmiddlewaretoken</span>:csrftoken<br>            &#125;<br>        &#125;);<br>    &#125;<br></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="django中如何实现orm表中添加数据时创建一条日志记录"><a href="#django中如何实现orm表中添加数据时创建一条日志记录" class="headerlink" title="django中如何实现orm表中添加数据时创建一条日志记录"></a>django中如何实现orm表中添加数据时创建一条日志记录</h2><ol>
+<li>使用信号记录</li>
+<li>使用logger</li>
+</ol>
+<p><a href="https://blog.csdn.net/apple9005/article/details/73608994" target="_blank" rel="noopener">https://blog.csdn.net/apple9005/article/details/73608994</a></p>
+<h2 id="django缓存如何设置？"><a href="#django缓存如何设置？" class="headerlink" title="django缓存如何设置？"></a>django缓存如何设置？</h2><p><a href="https://www.cnblogs.com/linxiyue/p/7494540.html" target="_blank" rel="noopener">https://www.cnblogs.com/linxiyue/p/7494540.html</a></p>
+<h2 id="django的缓存能使用redis吗？如果可以的话，如何配置？"><a href="#django的缓存能使用redis吗？如果可以的话，如何配置？" class="headerlink" title="django的缓存能使用redis吗？如果可以的话，如何配置？"></a>django的缓存能使用redis吗？如果可以的话，如何配置？</h2><p><a href="https://www.jianshu.com/p/04ef84c3fe3b" target="_blank" rel="noopener">https://www.jianshu.com/p/04ef84c3fe3b</a></p>
+<h2 id="django路由系统中name的作用？"><a href="#django路由系统中name的作用？" class="headerlink" title="django路由系统中name的作用？"></a>django路由系统中name的作用？</h2><p><a href="https://www.cnblogs.com/no13bus/p/3767521.html" target="_blank" rel="noopener">https://www.cnblogs.com/no13bus/p/3767521.html</a></p>
+<p><a href="https://code.ziqiangxuetang.com/django/django-url-name.html" target="_blank" rel="noopener">https://code.ziqiangxuetang.com/django/django-url-name.html</a></p>
+<h2 id="django的模板中filter和simple-tag的区别？"><a href="#django的模板中filter和simple-tag的区别？" class="headerlink" title="django的模板中filter和simple_tag的区别？"></a>django的模板中filter和simple_tag的区别？</h2><p><a href="https://blog.csdn.net/huanhuanq1209/article/details/77756446" target="_blank" rel="noopener">https://blog.csdn.net/huanhuanq1209/article/details/77756446</a></p>
+<h2 id="django-debug-toolbar的作用？"><a href="#django-debug-toolbar的作用？" class="headerlink" title="django-debug-toolbar的作用？"></a>django-debug-toolbar的作用？</h2><p><a href="https://www.cnblogs.com/Lands-ljk/p/5506766.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lands-ljk/p/5506766.html</a></p>
+<h2 id="django中如何实现单元测试？"><a href="#django中如何实现单元测试？" class="headerlink" title="django中如何实现单元测试？"></a>django中如何实现单元测试？</h2><p><a href="https://www.jianshu.com/p/15af33d2c2c4" target="_blank" rel="noopener">https://www.jianshu.com/p/15af33d2c2c4</a></p>
+<h2 id="解释orm中-db-first-和-code-first的含义"><a href="#解释orm中-db-first-和-code-first的含义" class="headerlink" title="解释orm中 db first 和 code first的含义"></a>解释orm中 db first 和 code first的含义</h2><p>db first：现有数据库，<a href="http://xn--models-ht8i645axqa6a510yi0i5neuviwr3c2cn.py/" target="_blank" rel="noopener">然后从数据库反向生成models.py</a></p>
+<p>code first: <a href="http://xn--models-283m094f.py/" target="_blank" rel="noopener">现有models.py</a> 再进行数据库操作</p>
+<h2 id="django中如何根据数据库表生成model中的类"><a href="#django中如何根据数据库表生成model中的类" class="headerlink" title="django中如何根据数据库表生成model中的类"></a>django中如何根据数据库表生成model中的类</h2><p><a href="https://www.jianshu.com/p/037bd7e20a7a" target="_blank" rel="noopener">https://www.jianshu.com/p/037bd7e20a7a</a></p>
+<h2 id="使用orm和原生sql的优缺点？"><a href="#使用orm和原生sql的优缺点？" class="headerlink" title="使用orm和原生sql的优缺点？"></a>使用orm和原生sql的优缺点？</h2><p>使用 ORM 最大的优点就是快速开发，让我们将更多的精力放在业务上而不是数据库上，下面是 ORM 的几个优点</p>
+<ol>
+<li>隐藏了数据访问细节，使通用数据库交互变得简单易行。同时 ORM 避免了不规范、冗余、风格不统一的 SQL 语句，可以避免很多人为的 bug，方便编码风格的统一和后期维护。</li>
+<li>将数据库表和对象模型关联，我们只需针对相关的对象模型进行编码，无须考虑对象模型和数据库表之间的转化，大大提高了程序的开发效率。</li>
+<li>方便数据库的迁移。当需要迁移到新的数据库时，不需要修改对象模型，只需要修改数据库的配置。</li>
+</ol>
+<p>ORM 的最令人诟病的地方就是性能问题，不过现在已经提高了很多，下面是 ORM 的几个缺点</p>
+<ol>
+<li>性能问题<ol>
+<li>自动化进行数据库关系的映射需要消耗系统资源</li>
+<li>程序员编码</li>
+<li>在处理多表联查、where 条件复杂的查询时，ORM 可能会生成的效率低下的 SQL</li>
+<li>通过 Lazy load 和 Cache 很大程度上改善了性能问题</li>
+</ol>
+</li>
+<li>SQL 调优，SQL 语句是由 ORM 框架自动生成，虽然减少了 SQL 语句错误的发生，但是也给 SQL 调优带来了困难。</li>
+<li>越是功能强大的 ORM 越消耗内存，因为一个 ORM Object 会带有很多成员变量和成员函数。</li>
+<li>对象和关系之间并不是完美映射<br>一般来说 ORM 足以满足我们的需求，如果对性能要求特别高或者查询十分复杂，可以考虑使用原生 SQL 和 ORM 共用的方式</li>
+</ol>
+<p>使用原生sql优点：</p>
+<ol>
+<li>进行复杂的查询时更加灵活</li>
+<li>可以根据需要编写特殊的sql语句</li>
+</ol>
+<p>使用原生sql缺点：</p>
+<ol>
+<li>需要对输入进行严格的检测</li>
+<li>自己写的sql语句，很多时候使用的是字符串拼接，可能会有sql注入的漏洞</li>
+<li>不能使用django orm相关的一些特性</li>
+</ol>
+<h2 id="简述MVC和MTV"><a href="#简述MVC和MTV" class="headerlink" title="简述MVC和MTV"></a>简述MVC和MTV</h2><p><a href="http://www.dongwm.com/archives/%E6%B5%85%E8%B0%88MVC%E3%80%81MTV%E5%92%8CMVVM/" target="_blank" rel="noopener">http://www.dongwm.com/archives/浅谈MVC、MTV和MVVM/</a></p>
+<h2 id="django的contenttype组件的作用？"><a href="#django的contenttype组件的作用？" class="headerlink" title="django的contenttype组件的作用？"></a>django的contenttype组件的作用？</h2><p><a href="https://blog.csdn.net/Ayhan_huang/article/details/78626957" target="_blank" rel="noopener">https://blog.csdn.net/Ayhan_huang/article/details/78626957</a></p>
+<p><a href="https://juejin.im/entry/581da04f128fe1005afdf618" target="_blank" rel="noopener">https://juejin.im/entry/581da04f128fe1005afdf618</a></p>
+<h2 id="谈谈你对restfull-规范的认识？"><a href="#谈谈你对restfull-规范的认识？" class="headerlink" title="谈谈你对restfull 规范的认识？"></a>谈谈你对restfull 规范的认识？</h2><p><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/05/restful_api.html</a></p>
+<h2 id="接口的幂等性是什么意思？"><a href="#接口的幂等性是什么意思？" class="headerlink" title="接口的幂等性是什么意思？"></a>接口的幂等性是什么意思？</h2><p><a href="https://www.jianshu.com/p/b09a2e9bcd29" target="_blank" rel="noopener">https://www.jianshu.com/p/b09a2e9bcd29</a></p>
+<h2 id="什么是RPC？"><a href="#什么是RPC？" class="headerlink" title="什么是RPC？"></a>什么是RPC？</h2><p><a href="https://www.jianshu.com/p/2accc2840a1b" target="_blank" rel="noopener">https://www.jianshu.com/p/2accc2840a1b</a></p>
+<h2 id="Http和Https的区别？"><a href="#Http和Https的区别？" class="headerlink" title="Http和Https的区别？"></a>Http和Https的区别？</h2><p><a href="https://juejin.im/entry/58d7635e5c497d0057fae036" target="_blank" rel="noopener">https://juejin.im/entry/58d7635e5c497d0057fae036</a></p>
+<h2 id="为什么要使用django-rest-framework框架？"><a href="#为什么要使用django-rest-framework框架？" class="headerlink" title="为什么要使用django rest framework框架？"></a>为什么要使用django rest framework框架？</h2><p>为什么要使用REST framework？</p>
+<ul>
+<li>在线可视的API，对于赢得你的开发者们十分有用</li>
+</ul>
+<p>验证策略涵盖了OAuth1a和OAuth2</p>
+<p>同时支持ORM和非ORM数据源的序列化</p>
+<p>可以配置各个环节，若无需更多强大的特性，使用一般基于方法（function-based）的视图（views）即可</p>
+<p>大量的文档，强力的社区支持</p>
+<p>大公司如同Mozilla和Eventbrite，也是忠实的使用者</p>
+<h2 id="django-rest-framework框架中都有那些组件？"><a href="#django-rest-framework框架中都有那些组件？" class="headerlink" title="django rest framework框架中都有那些组件？"></a>django rest framework框架中都有那些组件？</h2><p><strong>1. 路由</strong></p>
+<ul>
+<li>可以通过as_view传参数，根据请求方式不同执行相应的方法</li>
+<li>可以在url中设置一个结尾，类似于： .json</li>
+</ul>
+<p><strong>2. 视图</strong></p>
+<ul>
+<li>帮助开发者提供了一些类，并在类中提供了多个方法以供我们使用</li>
+</ul>
+<p><strong>3. 版本</strong></p>
+<ul>
+<li>在url中设置version参数，用户请求时候传入参数。在request.version中获取版本，根据版本不同做不同处理</li>
+</ul>
+<p><strong>4. 认证</strong><br>写一个类并注册到认证类，在类的的authticate方法中编写认证逻辑。</p>
+<ul>
+<li>认证成功（user,auth）</li>
+<li>raise AuthticateFaild(….)</li>
+<li>None</li>
+</ul>
+<p><strong>5. 权限</strong><br>写一个类并注册到权限类，在类的的has_permission方法中编写认证逻辑。</p>
+<ul>
+<li>True</li>
+<li>False</li>
+</ul>
+<p><strong>6. 频率限制</strong><br>写一个类并注册到频率类，在类的的 allow_request/wait 方法中编写认证逻辑。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined"><span class="hljs-string">allow_request</span><br>	 <span class="hljs-literal">True</span> <br>	 <span class="hljs-literal">False</span>  <span class="hljs-string">如果返回False，那么就要执行wait</span><br></code></pre></div></td></tr></table></figure>
+<p><strong>7. 解析器</strong></p>
+<ul>
+<li>根据ContentType请求头，选择不同解析器对 请求体中的数据进行解析。</li>
+<li>POST /index/ http1.1.\r\nhost:11.11.11.11\r\nContent-Type:url-formendo…. \r\n\r\nuser=alex&amp;age=123</li>
+<li>POST /index/ http1.1.\r\nhost:11.11.11.11\r\nContent-Type:application/json\r\n\r\n{….}</li>
+</ul>
+<p><strong>8. 分页</strong></p>
+<ul>
+<li>对从数据库中获取到的数据进行分页处理: SQL -&gt; limit offset<ul>
+<li>根据页码：<a href="http://www.luffycity.com/api/v1/student/?page=1&amp;size=10" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?page=1&amp;size=10</a></li>
+<li>根据索引：<a href="http://www.luffycity.com/api/v1/student/?offset=60&amp;limit=10" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?offset=60&amp;limit=10</a></li>
+<li>根据加密：&lt;<a href="http://www.luffycity.com/api/v1/student/?page=erd8" target="_blank" rel="noopener">http://www.luffycity.com/api/v1/student/?page=erd8</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="django-models中null和blank得区别"><a href="#django-models中null和blank得区别" class="headerlink" title="django models中null和blank得区别"></a>django models中null和blank得区别</h2><p><code>null</code> 是针对数据库而言，如果 <code>null=True</code>, 表示数据库的该字段可以为空</p>
+<p><code>blank</code> 是针对表单的，如果 <code>blank=True</code>，表示你的表单填写该字段的时候可以不填，比如 <code>admin</code> 界面下增加 <code>model</code> 一条记录的时候。直观的看到就是该字段不是粗体</p>
+<h3 id="django-rest-framework框架中的视图都可以继承哪些类？"><a href="#django-rest-framework框架中的视图都可以继承哪些类？" class="headerlink" title="django rest framework框架中的视图都可以继承哪些类？"></a>django rest framework框架中的视图都可以继承哪些类？</h3><p>APIview、ViewSets、Generic views</p>
+<h3 id="简述-django-rest-framework框架的认证流程。"><a href="#简述-django-rest-framework框架的认证流程。" class="headerlink" title="简述 django rest framework框架的认证流程。"></a>简述 django rest framework框架的认证流程。</h3><p><a href="https://www.cnblogs.com/renpingsheng/p/9534984.html" target="_blank" rel="noopener">https://www.cnblogs.com/renpingsheng/p/9534984.html</a></p>
+<h3 id="django-rest-framework如何实现的用户访问频率控制？"><a href="#django-rest-framework如何实现的用户访问频率控制？" class="headerlink" title="django rest framework如何实现的用户访问频率控制？"></a>django rest framework如何实现的用户访问频率控制？</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Django/">Django</a>
+                    
+                      <a class="hover-with-bg" href="/tags/面试/">面试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/05/09/一、REST简述/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RESTful协议</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/04/25/REDIS引子1/">
+                        <span class="hidden-mobile">Redis降低内存占用(一)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzIxMi8xMzc0Ng==">
+    <script type="text/javascript">
+      Fluid.utils.waitElementVisible('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        粤ICP备2020133205号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
